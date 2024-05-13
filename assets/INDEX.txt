@@ -1,0 +1,3 @@
+dark grey: #343434
+main purple: #846fcd
+secondary purple: #6d56be
