@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.text.Text;
@@ -27,7 +29,7 @@ public class Dashboard extends Application {
     @FXML
     private Pane paneHome;
     @FXML
-    private ImageView imageTopBooks1;
+    private Rectangle imageTopBooks1;
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(CyBooks.class.getResource("dashboard.fxml"));
@@ -63,6 +65,8 @@ public class Dashboard extends Application {
         // Get the reference to the stage
         dashboardTitle.setText("Tableau de bord");
         paneHome.setVisible(true);
+        Image img=new Image("https://images.epagine.fr/551/9782892259551_1_75.jpg");
+        imageTopBooks1.setFill(new ImagePattern(img));
     }
     public void actionUsers(ActionEvent event) {
         // Get the reference to the stage
@@ -83,25 +87,5 @@ public class Dashboard extends Application {
         // Get the reference to the stage
         dashboardTitle.setText("Mon profil");
         paneHome.setVisible(false);
-    }
-    public static void loadBookCover(String isbn, ImageView imageView) {
-        String apiUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
-
-        try {
-            URL url = new URL(apiUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
-
-            int responseCode = connection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                InputStream inputStream = connection.getInputStream();
-                Image image = new Image(inputStream);
-                imageView.setImage(image);
-            } else {
-                System.out.println("Failed to retrieve book information. Response code: " + responseCode);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
