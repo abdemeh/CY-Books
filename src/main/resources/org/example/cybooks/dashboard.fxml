@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="599.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cybooks.Dashboard">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="599.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cybooks.DashboardController">
    <left>
       <AnchorPane prefHeight="599.0" prefWidth="42.0" style="-fx-background-color: #846fcd;" BorderPane.alignment="CENTER">
          <children>
@@ -61,7 +61,7 @@
                   </FontAwesomeIcon>
                </graphic>
             </Button>
-            <Button layoutX="-3.0" layoutY="535.0" mnemonicParsing="false" onAction="#actionProfile" prefHeight="50.0" prefWidth="51.0" rotate="180.0" style="-fx-background-color: #846fcd;">
+            <Button layoutX="-3.0" layoutY="535.0" mnemonicParsing="false" onAction="#actionLogout" prefHeight="50.0" prefWidth="51.0" rotate="180.0" style="-fx-background-color: #846fcd;">
                <graphic>
                   <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="2em">
                      <cursor>
@@ -70,6 +70,11 @@
                   </FontAwesomeIcon>
                </graphic>
             </Button>
+            <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="7.0" layoutY="23.0">
+               <image>
+                  <Image url="@../../../../../assets/icon-no-text-white.png" />
+               </image>
+            </ImageView>
          </children></AnchorPane>
    </left>
    <right>
@@ -80,12 +85,7 @@
                   <Font name="Poppins ExtraBold" size="34.0" />
                </font>
             </Text>
-            <ImageView fitHeight="26.0" fitWidth="108.0" layoutX="771.0" layoutY="560.0">
-               <image>
-                  <Image url="@../../../../../assets/logo-long-dark.png" />
-               </image>
-            </ImageView>
-            <Button layoutX="866.0" layoutY="14.0" minWidth="25.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="27.0" prefWidth="25.0" style="-fx-background-color: #846fcd;">
+            <Button layoutX="869.0" layoutY="7.0" minWidth="25.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="27.0" prefWidth="25.0" style="-fx-background-color: #846fcd;">
                <graphic>
                   <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" />
                </graphic>
@@ -187,47 +187,50 @@
                               <Font name="Poppins Regular" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#434343" layoutX="379.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
+                        <Text fill="#434343" layoutX="374.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
                            <font>
                               <Font name="Poppins Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Text fx:id="numberTopBooks1" fill="#846fcd" layoutX="428.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="433">
+                        <Text fx:id="numberTopBooks1" fill="#846fcd" layoutX="423.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="433">
                            <font>
                               <Font name="Poppins Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Text fill="#434343" layoutX="497.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
+                        <Text fill="#434343" layoutX="493.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
                            <font>
                               <Font name="Poppins Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Text fx:id="numberTopBooks2" fill="#846fcd" layoutX="546.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="212">
+                        <Text fx:id="numberTopBooks2" fill="#846fcd" layoutX="542.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="212">
                            <font>
                               <Font name="Poppins Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Text fill="#434343" layoutX="616.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
+                        <Text fill="#434343" layoutX="612.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
                            <font>
                               <Font name="Poppins Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Text fx:id="numberTopBooks3" fill="#846fcd" layoutX="665.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="109">
+                        <Text fx:id="numberTopBooks3" fill="#846fcd" layoutX="662.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="109">
                            <font>
                               <Font name="Poppins Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Text fill="#434343" layoutX="734.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
+                        <Text fill="#434343" layoutX="731.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
                            <font>
                               <Font name="Poppins Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Text fx:id="numberTopBooks4" fill="#846fcd" layoutX="783.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="60">
+                        <Text fx:id="numberTopBooks4" fill="#846fcd" layoutX="780.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="60">
                            <font>
                               <Font name="Poppins Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Rectangle fx:id="imageTopBooks1" arcHeight="20.0" arcWidth="20.0" fill="#eeeeee" height="162.0" layoutX="374.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
+                        <Rectangle fx:id="imageTopBooks1" arcHeight="20.0" arcWidth="20.0" fill="#e8e8e8" height="162.0" layoutX="374.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
+                        <Rectangle fx:id="imageTopBooks2" arcHeight="20.0" arcWidth="20.0" fill="#e8e8e8" height="162.0" layoutX="493.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
+                        <Rectangle fx:id="imageTopBooks3" arcHeight="20.0" arcWidth="20.0" fill="#e8e8e8" height="162.0" layoutX="612.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
+                        <Rectangle fx:id="imageTopBooks4" arcHeight="20.0" arcWidth="20.0" fill="#e8e8e8" height="162.0" layoutX="731.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
                      </children>
                   </Pane>
                </children>
