@@ -34,13 +34,13 @@
                </font>
             </TextField>
             <BorderPane disable="true" layoutX="28.0" layoutY="142.0" prefHeight="36.0" prefWidth="281.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
-            <PasswordField layoutX="43.0" layoutY="191.0" prefHeight="30.0" prefWidth="266.0" promptText="Password" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;">
+            <PasswordField layoutX="43.0" layoutY="191.0" prefHeight="30.0" prefWidth="266.0" promptText="Mot de passe" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;">
                <font>
                   <Font name="Poppins Regular" size="20.0" />
                </font>
             </PasswordField>
             <BorderPane disable="true" layoutX="28.0" layoutY="192.0" prefHeight="36.0" prefWidth="281.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
-            <Button layoutX="29.0" layoutY="251.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="280.0" style="-fx-background-color: #846fcd;" text="Login" textFill="WHITE">
+            <Button layoutX="29.0" layoutY="251.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="280.0" style="-fx-background-color: #846fcd;" text="Se connecter" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -48,12 +48,12 @@
                   <Font name="Poppins Bold" size="20.0" />
                </font>
             </Button>
-            <Text fill="#343434" layoutX="29.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in">
+            <Text fill="#343434" layoutX="29.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Se connecter">
                <font>
                   <Font name="Poppins ExtraBold" size="34.0" />
                </font>
             </Text>
-            <Text layoutX="26.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account?">
+            <Text layoutX="48.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous n'avez pas de compte ?">
                <font>
                   <Font name="Poppins Regular" size="18.0" />
                </font>
@@ -65,7 +65,7 @@
             </ImageView>
             <FontAwesomeIcon fill="#434343" glyphName="USER" layoutX="29.0" layoutY="169.0" size="2em" />
             <FontAwesomeIcon fill="#434343" glyphName="LOCK" layoutX="32.0" layoutY="220.0" size="2em" />
-            <Hyperlink layoutX="236.0" layoutY="295.0" text="Sign up" textFill="#846fcd">
+            <Hyperlink layoutX="120.0" layoutY="318.0" text="S'inscrire" textFill="#846fcd">
                <font>
                   <Font name="Poppins Bold" size="18.0" />
                </font>

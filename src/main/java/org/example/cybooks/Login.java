@@ -23,7 +23,7 @@ public class Login extends Application {
         Scene scene = new Scene(root);
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
-        stage.setTitle("CyBooks - Login");
+        stage.setTitle("CyBooks - Connexion");
         stage.getIcons().add(new Image("file:assets/icon-no-text-white.png"));
         stage.setScene(scene);
         stage.show();
