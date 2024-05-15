@@ -30,7 +30,7 @@ public class DashboardController implements Initializable {
     private Pane paneHome;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        imageTopBooks1.setFill(new ImagePattern(new Image("https://m.media-amazon.com/images/I/61wQHWtxCOL._SL1200_.jpg")));
+        imageTopBooks1.setFill(new ImagePattern(new Image("https://catalogue.bnf.fr/couverture?&appName=NE&idArk=ark:/12148/cb312730241&couverture=1")));
         imageTopBooks2.setFill(new ImagePattern(new Image("https://m.media-amazon.com/images/I/61zCGGM++LL._SL1500_.jpg")));
         imageTopBooks3.setFill(new ImagePattern(new Image("https://m.media-amazon.com/images/I/61fVpDvDTGL._SL1400_.jpg")));
         imageTopBooks4.setFill(new ImagePattern(new Image("https://m.media-amazon.com/images/I/91tYV+R03kL._SL1500_.jpg")));
@@ -43,7 +43,7 @@ public class DashboardController implements Initializable {
     }
     public void actionHome(ActionEvent event) {
         // Get the reference to the stage
-        dashboardTitle.setText("Tableau de bord");
+        dashboardTitle.setText("Accueil");
         paneHome.setVisible(true);
     }
     public void actionUsers(ActionEvent event) {

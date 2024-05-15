@@ -18,12 +18,15 @@
          <children>
             <Button layoutX="1.0" layoutY="137.0" mnemonicParsing="false" onAction="#actionHome" prefHeight="50.0" prefWidth="51.0" style="-fx-background-color: #846fcd;">
                <graphic>
-                  <FontAwesomeIcon fill="WHITE" glyphName="BARS" size="2em">
+                  <FontAwesomeIcon fill="WHITE" glyphName="HOME" size="2em">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </FontAwesomeIcon>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button layoutX="2.0" layoutY="193.0" mnemonicParsing="false" onAction="#actionUsers" prefHeight="50.0" prefWidth="51.0" style="-fx-background-color: #846fcd;">
                <graphic>
@@ -33,6 +36,9 @@
                      </cursor>
                   </FontAwesomeIcon>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button layoutX="1.0" layoutY="247.0" mnemonicParsing="false" onAction="#actionBooks" prefHeight="50.0" prefWidth="51.0" style="-fx-background-color: #846fcd;">
                <graphic>
@@ -42,6 +48,9 @@
                      </cursor>
                   </FontAwesomeIcon>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button layoutY="302.0" mnemonicParsing="false" onAction="#actionSettings" prefHeight="50.0" prefWidth="51.0" style="-fx-background-color: #846fcd;">
                <graphic>
@@ -51,6 +60,9 @@
                      </cursor>
                   </FontAwesomeIcon>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button layoutY="356.0" mnemonicParsing="false" onAction="#actionProfile" prefHeight="50.0" prefWidth="51.0" style="-fx-background-color: #846fcd;">
                <graphic>
@@ -60,6 +72,9 @@
                      </cursor>
                   </FontAwesomeIcon>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button layoutX="-3.0" layoutY="535.0" mnemonicParsing="false" onAction="#actionLogout" prefHeight="50.0" prefWidth="51.0" rotate="180.0" style="-fx-background-color: #846fcd;">
                <graphic>
@@ -69,6 +84,9 @@
                      </cursor>
                   </FontAwesomeIcon>
                </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <ImageView fitHeight="38.0" fitWidth="38.0" layoutX="7.0" layoutY="23.0">
                <image>
@@ -80,7 +98,7 @@
    <right>
       <AnchorPane prefHeight="599.0" prefWidth="835.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
-            <Text fx:id="dashboardTitle" fill="#343434" layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tableau de bord">
+            <Text fx:id="dashboardTitle" fill="#343434" layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accueil">
                <font>
                   <Font name="Poppins ExtraBold" size="34.0" />
                </font>
