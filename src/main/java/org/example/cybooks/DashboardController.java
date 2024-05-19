@@ -28,12 +28,17 @@ public class DashboardController implements Initializable {
     private Text dashboardTitle;
     @FXML
     private Pane paneHome;
+    @FXML
+    private Pane paneUsers;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         imageTopBooks1.setFill(new ImagePattern(new Image("https://catalogue.bnf.fr/couverture?&appName=NE&idArk=ark:/12148/cb312730241&couverture=1")));
         imageTopBooks2.setFill(new ImagePattern(new Image("https://m.media-amazon.com/images/I/61zCGGM++LL._SL1500_.jpg")));
         imageTopBooks3.setFill(new ImagePattern(new Image("https://m.media-amazon.com/images/I/61fVpDvDTGL._SL1400_.jpg")));
         imageTopBooks4.setFill(new ImagePattern(new Image("https://m.media-amazon.com/images/I/91tYV+R03kL._SL1500_.jpg")));
+        dashboardTitle.setText("Accueil");
+        paneHome.setVisible(true);
+        paneUsers.setVisible(false);
     }
     public void closeWindow(ActionEvent event) {
         // Get the reference to the stage
@@ -45,26 +50,31 @@ public class DashboardController implements Initializable {
         // Get the reference to the stage
         dashboardTitle.setText("Accueil");
         paneHome.setVisible(true);
+        paneUsers.setVisible(false);
     }
     public void actionUsers(ActionEvent event) {
         // Get the reference to the stage
         dashboardTitle.setText("Utilisateurs");
+        paneUsers.setVisible(true);
         paneHome.setVisible(false);
     }
     public void actionBooks(ActionEvent event) {
         // Get the reference to the stage
         dashboardTitle.setText("Livres");
         paneHome.setVisible(false);
+        paneUsers.setVisible(false);
     }
     public void actionSettings(ActionEvent event) {
         // Get the reference to the stage
         dashboardTitle.setText("Paramètres");
         paneHome.setVisible(false);
+        paneUsers.setVisible(false);
     }
     public void actionProfile(ActionEvent event) {
         // Get the reference to the stage
         dashboardTitle.setText("Mon profil");
         paneHome.setVisible(false);
+        paneUsers.setVisible(false);
     }
     public void actionLogout(ActionEvent event) {
         System.out.println("Logout!!!");

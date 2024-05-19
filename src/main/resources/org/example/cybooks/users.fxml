@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="51.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cybooks.DashboardController">
+   <children>
+      <Text fx:id="dashboardTitle11" layoutX="162.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alexis Johann">
+         <font>
+            <Font name="Poppins Regular" size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="dashboardTitle111" fill="#70ccbd" layoutX="14.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AJ">
+         <font>
+            <Font name="Poppins Bold" size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="dashboardTitle112" layoutX="305.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="alexisjohann@gmail.com">
+         <font>
+            <Font name="Poppins Regular" size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="dashboardTitle1121" layoutX="539.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="23 Jan 2023">
+         <font>
+            <Font name="Poppins Regular" size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="dashboardTitle11211" fill="#6fcd7f" layoutX="658.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Actif">
+         <font>
+            <Font name="Poppins Bold" size="17.0" />
+         </font>
+      </Text>
+      <Button layoutX="727.0" layoutY="4.0" minWidth="25.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="43.0" prefWidth="43.0" style="-fx-background-color: #846fcd;">
+         <graphic>
+            <FontAwesomeIcon fill="WHITE" glyphName="BOOK" size="1.4em" />
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Poppins Regular" size="17.0" />
+         </font>
+      </Button>
+      <Button layoutX="775.0" layoutY="4.0" minWidth="25.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="43.0" prefWidth="43.0" style="-fx-background-color: #846fcd;">
+         <graphic>
+            <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="1.4em" />
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Poppins Regular" size="17.0" />
+         </font>
+      </Button>
+      <Button layoutX="823.0" layoutY="4.0" minWidth="25.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="43.0" prefWidth="43.0" style="-fx-background-color: #cd6f6f;">
+         <graphic>
+            <FontAwesomeIcon fill="WHITE" glyphName="TRASH" size="1.4em" />
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Poppins Regular" size="17.0" />
+         </font>
+      </Button>
+      <Text fx:id="dashboardTitle113" layoutX="64.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1443465" textAlignment="CENTER">
+         <font>
+            <Font name="Poppins Regular" size="17.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
