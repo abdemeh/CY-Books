@@ -10,8 +10,9 @@ public class Member {
     private String state;
     private Date birthday;
     private String phone;
+    private String sex;
 
-    public Member(int id, String name, String email, Date inscriptionDate, String state, Date birthday, String phone) {
+    public Member(int id,String name, String email, Date inscriptionDate, String state, Date birthday, String phone, String sex) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -19,6 +20,7 @@ public class Member {
         this.state = state;
         this.birthday = birthday;
         this.phone = phone;
+        this.sex = sex;
     }
 
     // Getters and Setters
@@ -77,6 +79,13 @@ public class Member {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     // Override toString method for convenient printing
     @Override
@@ -89,6 +98,7 @@ public class Member {
                 ", state='" + state + '\'' +
                 ", birthday=" + birthday +
                 ", phone='" + phone + '\'' +
+                ", sex='" + sex + '\'' +
                 '}';
     }
 }
