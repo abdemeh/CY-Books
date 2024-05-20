@@ -4,7 +4,8 @@ import java.util.Date;
 
 public class Member {
     private int id;
-    private String name;
+    private String firstname;
+    private String lastname;
     private String email;
     private Date inscriptionDate;
     private String state;
@@ -12,9 +13,10 @@ public class Member {
     private String phone;
     private String sex;
 
-    public Member(int id,String name, String email, Date inscriptionDate, String state, Date birthday, String phone, String sex) {
+    public Member(int id,String lastname, String firstname, String email, Date inscriptionDate, String state, Date birthday, String phone, String sex) {
         this.id = id;
-        this.name = name;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.email = email;
         this.inscriptionDate = inscriptionDate;
         this.state = state;
@@ -32,12 +34,20 @@ public class Member {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastName() {
+        return lastname;
+    }
+
+    public void setLastName(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -92,7 +102,7 @@ public class Member {
     public String toString() {
         return "Member{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", full name='" + lastname + " " + firstname + '\'' +
                 ", email='" + email + '\'' +
                 ", inscriptionDate=" + inscriptionDate +
                 ", state='" + state + '\'' +

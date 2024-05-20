@@ -28,22 +28,20 @@ public class MemberController {
         String pattern = "dd/MM/yyyy";
         DateFormat df = new SimpleDateFormat(pattern);
 
-        member_name.setText(member.getName());
+        member_name.setText(member.getLastName()+" "+member.getFirstName());
         member_id.setText(Integer.toString(member.getId()));
         member_email.setText(member.getEmail());
         member_added.setText(df.format(member.getInscriptionDate()));
         member_state.setText(member.getState());
-        member_image.setText(getInitials(member.getName()));
+        member_image.setText(getInitials(member.getLastName(), member.getFirstName()));
         //member_image.setStyle("-fx-text-fill: "+ colors[(int)(Math.random()*colors.length)]);
         //member_image.setFill(Color.web(colors[(int)(Math.random()*colors.length)]));
         member_image_bg.setStyle("-fx-background-color: "+ colors[(int)(Math.random()*colors.length)]+";-fx-background-radius: 10px");
     }
-    public static String getInitials(String name) {
-        String[] nameParts = name.split(" ");
+    public static String getInitials(String lastname, String firstname) {
         String initials = "";
-        for (int i = 0; i < Math.min(nameParts.length, 2); i++) {
-            initials += nameParts[i].charAt(0);
-        }
+        initials += Character.toUpperCase(lastname.charAt(0));
+        initials += Character.toUpperCase(firstname.charAt(0));
         return initials.toUpperCase();
     }
 }
