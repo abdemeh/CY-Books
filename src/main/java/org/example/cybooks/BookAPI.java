@@ -80,6 +80,7 @@ public class BookAPI {
                             String content = subfield.getTextContent();
                             if (tag.equals("010") && code.equals("a")) {
                                 isbn = content;
+                                //imageUrl = "https://covers.openlibrary.org/b/isbn/"+isbn+"-L.jpg";
                             } else if (tag.equals("200") && code.equals("a")) {
                                 title = content;
                             } else if (tag.equals("200") && code.equals("f")) {
@@ -99,9 +100,10 @@ public class BookAPI {
                             }
                         }
                     }
-
-                    Book book = new Book(isbn, imageUrl, title, author, language, category, publicationDate);
-                    books.add(book);
+                    if(isbn!=""){
+                        Book book = new Book(isbn, imageUrl, title, author, language, category, publicationDate);
+                        books.add(book);
+                    }
                 }
             }
 

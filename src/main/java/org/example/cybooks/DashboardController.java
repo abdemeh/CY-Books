@@ -5,17 +5,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,11 +47,17 @@ public class DashboardController implements Initializable {
     private Pane paneUsers;
     @FXML
     private VBox membersVbox;
+
     private List<Member> list_members;
+
     @FXML
     private Text textSommeUtilisateurs;
     @FXML
     private ScrollPane usersScrollPane;
+
+
+    private double xOffset = 0;
+    private double yOffset = 0;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         imageTopBooks1.setFill(new ImagePattern(new Image("https://catalogue.bnf.fr/couverture?&appName=NE&idArk=ark:/12148/cb45378014r&couverture=1")));
@@ -74,6 +84,8 @@ public class DashboardController implements Initializable {
         }catch (IOException e){
             e.printStackTrace();
         }
+
+
     }
 
     private List <Member> getMembersFromDatabase(){
@@ -93,13 +105,39 @@ public class DashboardController implements Initializable {
         list_members.add(new Member(133, "Brown", "Ian", "ian.brown@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678909", "M"));
         list_members.add(new Member(134, "Adams", "Jessica", "jessica.adams@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678910", "F"));
         list_members.add(new Member(135, "Lewis", "Kevin", "kevin.lewis@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678911", "M"));
-        list_members.add(new Member(136, "Clark", "Laura", "laura.clark@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678912", "F"));
+        list_members.add(new Member(136, "Clark", "Laura", "laura.clark@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678912", "F"));list_members.add(new Member(136, "Clark", "Laura", "laura.clark@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678912", "F"));
         return list_members;
     }
+
+    @FXML
+    private void openMemberAdd() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("member_add.fxml"));
+        Parent root = loader.load();
+
+
+
+        //MemberEditController memberEditController = loader.getController();
+        //memberEditController.setMemberData(currentMember);
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        stage.getIcons().add(new Image("file:assets/icon-no-text-white.png"));
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.show();
+
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+        root.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+
+    }
     public void closeWindow(ActionEvent event) {
-        // Get the reference to the stage
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
-        // Close the stage
         stage.close();
     }
     public void actionHome(ActionEvent event) {

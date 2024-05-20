@@ -267,7 +267,7 @@
                               <Font name="Poppins ExtraBold" size="20.0" />
                            </font>
                         </Text>
-                        <Text fx:id="dashboardTitle11111" fill="#434343" layoutX="13.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre totale des utilisateurs">
+                        <Text fx:id="dashboardTitle11111" fill="#434343" layoutX="13.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre total des utilisateurs">
                            <font>
                               <Font name="Poppins Regular" size="14.0" />
                            </font>
@@ -289,7 +289,7 @@
                         <VBox fx:id="membersVbox" prefHeight="344.0" prefWidth="874.0" style="-fx-background-radius: 25px;" />
                      </content>
                   </ScrollPane>
-                  <Button layoutX="642.0" layoutY="14.0" minWidth="25.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="245.0" style="-fx-background-color: #846fcd;" text="AJOUTER UTILISATEUR" textFill="WHITE">
+                  <Button layoutX="642.0" layoutY="14.0" minWidth="25.0" mnemonicParsing="false" onAction="#openMemberAdd" prefHeight="43.0" prefWidth="245.0" style="-fx-background-color: #846fcd;" text="AJOUTER UTILISATEUR" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="1.4em" />
                      </graphic>
