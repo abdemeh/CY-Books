@@ -62,7 +62,8 @@ public class Book {
     }
 
     public String getCategory() {
-        return category;
+        Category category_obj = new Category();
+        return category_obj.getLibelle(category);
     }
 
     public void setCategory(String category) {

@@ -1,6 +1,8 @@
 package org.example.cybooks;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,10 +21,40 @@ import org.xml.sax.InputSource;
 
 import java.io.InputStream;
 public class BookAPI {
-    public static List<Book> searchBooks(String apiUrl) {
+    public static List<Book> searchBooks(String s_isbn, String s_title, String s_author, int s_max_records) {
         List<Book> books = new ArrayList<>();
-
+        String query_isbn="";
+        String query_title="";
+        String query_author="";
         try {
+            // Construct query for ISBN if provided
+            if (s_isbn != null && !s_isbn.trim().isEmpty()) {
+                query_isbn = "bib.isbn all \"" + s_isbn + "\" and ";
+            }
+
+            // Construct query for title if provided
+            if (s_title != null && !s_title.trim().isEmpty()) {
+                query_title = "bib.title all \"" + s_title + "\" and ";
+            }
+
+            // Construct query for author if provided
+            if (s_author != null && !s_author.trim().isEmpty()) {
+                query_author = "bib.author all \"" + s_author + "\" and ";
+            }
+
+            // Construct the final query by concatenating all query strings
+            String query = query_isbn + query_title + query_author;
+            if (query.endsWith(" and ")) {
+                query = query.substring(0, query.length() - 5);
+            }
+
+            // Encode the query using UTF-8
+            String encodedQuery = URLEncoder.encode(query+"not bib.doctype all \"g h\"", StandardCharsets.UTF_8);
+
+            // Construct the API URL
+            String apiUrl = "https://catalogue.bnf.fr/api/SRU?version=1.2&operation=searchRetrieve&query=" + encodedQuery + "&maximumRecords=" + s_max_records;
+
+            // Output the API URL for debugging
             System.out.println("API URL: " + apiUrl);
             URL url = new URL(apiUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -100,13 +132,15 @@ public class BookAPI {
                             }
                         }
                     }
-                    if(isbn!=""){
+                    //if(isbn!=""){
                         Book book = new Book(isbn, imageUrl, title, author, language, category, publicationDate);
                         books.add(book);
-                    }
+                    //}
                 }
             }
-
+            for (Book b : books) {
+                System.out.println(b);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

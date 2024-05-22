@@ -10,6 +10,7 @@ module org.example.cybooks {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires com.fasterxml.jackson.databind;
 
     opens org.example.cybooks to javafx.fxml;
     exports org.example.cybooks;

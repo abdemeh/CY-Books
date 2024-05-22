@@ -44,9 +44,9 @@ public class MemberBorrowController implements Initializable {
         try{
             for (int i=0;i<list_borrowed_books.size();i++){
                 FXMLLoader fxmlLoader=new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("book.fxml"));
+                fxmlLoader.setLocation(getClass().getResource("book_borrow.fxml"));
                 AnchorPane bookPane=fxmlLoader.load();
-                BookController cardController2 = fxmlLoader.getController();
+                BookBorrowController cardController2 = fxmlLoader.getController();
                 cardController2.setData(list_borrowed_books.get(i));
                 booksGrid.getChildren().add(bookPane);
             }

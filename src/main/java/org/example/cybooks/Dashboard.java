@@ -30,7 +30,7 @@ public class Dashboard extends Application {
         Scene scene = new Scene(root);
         stage.setResizable(false);
         stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("CyBooks - Tableau de bord");
+        stage.setTitle("CyBooks");
         stage.getIcons().add(new Image("file:assets/icon-no-text-white.png"));
         stage.setScene(scene);
         stage.show();
