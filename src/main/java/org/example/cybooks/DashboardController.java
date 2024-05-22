@@ -125,9 +125,9 @@ public class DashboardController implements Initializable {
                     bookController.setData(list_books.get(i));
                     booksVbox.getChildren().add(dashboardPane);
                 }
-                textSearchBookResultats.setText("Résultats: "+Integer.toString(list_books.size()));
+                textSearchBookResultats.setText(Integer.toString(list_books.size()));
                 if(list_books.isEmpty()){
-                    textSearchBookMessage.setText("Aucune résultat est trouvé.");
+                    textSearchBookMessage.setText("Aucune résultat.");
                 }else{
                     textSearchBookMessage.setText("");
                 }

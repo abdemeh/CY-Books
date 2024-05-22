@@ -11,7 +11,7 @@
     <children>
         <TextFlow layoutX="104.0" layoutY="14.0" prefHeight="28.0" prefWidth="746.0">
             <children>
-                <Text fx:id="book_title" strokeType="OUTSIDE" strokeWidth="0.0" text="Titre" textAlignment="CENTER" wrappingWidth="401.47499084472656">
+                <Text fx:id="book_title" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER" wrappingWidth="401.47499084472656">
                     <font>
                         <Font name="Poppins Bold" size="20.0" />
                     </font>

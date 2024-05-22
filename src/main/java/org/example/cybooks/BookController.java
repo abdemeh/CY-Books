@@ -27,7 +27,11 @@ public class BookController {
     public void setData(Book book){
         String pattern = "dd/MM/yyyy";
         DateFormat df = new SimpleDateFormat(pattern);
-        book_title.setText(book.getTitle());
+        if(book.getTitle().length()>70){
+            book_title.setText(book.getTitle().substring(0, 67) + "...");
+        }else{
+            book_title.setText(book.getTitle());
+        }
         book_isbn.setText(book.getIsbn());
         book_author.setText(book.getAuthor());
         book_category.setText(book.getCategory());
