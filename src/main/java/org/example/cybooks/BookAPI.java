@@ -27,34 +27,21 @@ public class BookAPI {
         String query_title="";
         String query_author="";
         try {
-            // Construct query for ISBN if provided
             if (s_isbn != null && !s_isbn.trim().isEmpty()) {
                 query_isbn = "bib.isbn all \"" + s_isbn + "\" and ";
             }
-
-            // Construct query for title if provided
             if (s_title != null && !s_title.trim().isEmpty()) {
                 query_title = "bib.title all \"" + s_title + "\" and ";
             }
-
-            // Construct query for author if provided
             if (s_author != null && !s_author.trim().isEmpty()) {
                 query_author = "bib.author all \"" + s_author + "\" and ";
             }
-
-            // Construct the final query by concatenating all query strings
             String query = query_isbn + query_title + query_author;
             if (query.endsWith(" and ")) {
                 query = query.substring(0, query.length() - 5);
             }
-
-            // Encode the query using UTF-8
             String encodedQuery = URLEncoder.encode(query+"not bib.doctype all \"g h\"", StandardCharsets.UTF_8);
-
-            // Construct the API URL
             String apiUrl = "https://catalogue.bnf.fr/api/SRU?version=1.2&operation=searchRetrieve&query=" + encodedQuery + "&maximumRecords=" + s_max_records;
-
-            // Output the API URL for debugging
             System.out.println("API URL: " + apiUrl);
             URL url = new URL(apiUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
