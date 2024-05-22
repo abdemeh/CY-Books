@@ -8,7 +8,7 @@ import java.util.Map;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 public class Category {
-    private static final String JSON_FILE_PATH = "C:\\Users\\elmah\\Desktop\\CY-Books\\json\\categories.json";
+    private static final String JSON_FILE_PATH = "json/categories.json";
 
     private Map<String, String> categories;
 
