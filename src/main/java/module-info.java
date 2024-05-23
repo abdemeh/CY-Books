@@ -11,6 +11,7 @@ module org.example.cybooks {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires com.fasterxml.jackson.databind;
+    requires java.sql;
 
     opens org.example.cybooks to javafx.fxml;
     exports org.example.cybooks;

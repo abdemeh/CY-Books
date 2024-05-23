@@ -72,57 +72,57 @@ public class BookAPI {
 
                 for (int j = 0; j < recordDataList.getLength(); j++) {
                     Element recordDataElement = (Element) recordDataList.item(j);
-                    Element recordElementData = (Element) recordDataElement.getElementsByTagName("mxc:record").item(0);
-
-                    String isbn = "";
-                    String title = "";
-                    String imageUrl = "";
-                    String author = "";
-                    String language = "";
-                    String category = "";
-                    Date publicationDate = null;
-
+                    Element recordElementData = null;
                     NodeList recordNodes = recordDataElement.getElementsByTagName("mxc:record");
-                    for (int k = 0; k < recordNodes.getLength(); k++) {
-                        Element recordElementData1 = (Element) recordNodes.item(k);
-                        imageUrl = "https://catalogue.bnf.fr/couverture?&appName=NE&idArk="+recordElementData1.getAttribute("id")+"&couverture=1";
+                    if (recordNodes.getLength() > 0) {
+                        recordElementData = (Element) recordNodes.item(0);
                     }
-                    NodeList datafields = recordElementData.getElementsByTagName("mxc:datafield");
-                    for (int k = 0; k < datafields.getLength(); k++) {
-                        Element datafield = (Element) datafields.item(k);
-                        String tag = datafield.getAttribute("tag");
-                        NodeList subfields = datafield.getElementsByTagName("mxc:subfield");
 
-                        for (int l = 0; l < subfields.getLength(); l++) {
-                            Element subfield = (Element) subfields.item(l);
-                            String code = subfield.getAttribute("code");
-                            String content = subfield.getTextContent();
-                            if (tag.equals("010") && code.equals("a")) {
-                                isbn = content;
-                                //imageUrl = "https://covers.openlibrary.org/b/isbn/"+isbn+"-L.jpg";
-                            } else if (tag.equals("200") && code.equals("a")) {
-                                title = content;
-                            } else if (tag.equals("200") && code.equals("f")) {
-                                author = content;
-                            } else if (tag.equals("020") && code.equals("a")) {
-                                language = content;
-                            } else if (tag.equals("686") && code.equals("a")) {
-                                category = content;
-                            } else if (tag.equals("100") && code.equals("a")) {
-                                SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-                                try {
-                                    // Parse the date string into a Date object
-                                    publicationDate = formatter.parse(content.substring(0, 8));
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
+                    if (recordElementData != null) {
+                        String isbn = "";
+                        String title = "";
+                        String imageUrl = "";
+                        String author = "";
+                        String language = "";
+                        String category = "";
+                        Date publicationDate = null;
+
+                        imageUrl = "https://catalogue.bnf.fr/couverture?&appName=NE&idArk="+recordElementData.getAttribute("id")+"&couverture=1";
+
+                        NodeList datafields = recordElementData.getElementsByTagName("mxc:datafield");
+                        for (int k = 0; k < datafields.getLength(); k++) {
+                            Element datafield = (Element) datafields.item(k);
+                            String tag = datafield.getAttribute("tag");
+                            NodeList subfields = datafield.getElementsByTagName("mxc:subfield");
+
+                            for (int l = 0; l < subfields.getLength(); l++) {
+                                Element subfield = (Element) subfields.item(l);
+                                String code = subfield.getAttribute("code");
+                                String content = subfield.getTextContent();
+                                if (tag.equals("010") && code.equals("a")) {
+                                    isbn = content;
+                                    //imageUrl = "https://covers.openlibrary.org/b/isbn/"+isbn+"-L.jpg";
+                                } else if (tag.equals("200") && code.equals("a")) {
+                                    title = content;
+                                } else if (tag.equals("200") && code.equals("f")) {
+                                    author = content;
+                                } else if (tag.equals("020") && code.equals("a")) {
+                                    language = content;
+                                } else if (tag.equals("686") && code.equals("a")) {
+                                    category = content;
+                                } else if (tag.equals("100") && code.equals("a")) {
+                                    SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+                                    try {
+                                        publicationDate = formatter.parse(content.substring(0, 8));
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }
                         }
-                    }
-                    //if(isbn!=""){
                         Book book = new Book(isbn, imageUrl, title, author, language, category, publicationDate);
                         books.add(book);
-                    //}
+                    }
                 }
             }
             for (Book b : books) {
@@ -134,6 +134,7 @@ public class BookAPI {
 
         return books;
     }
+
 
 
 

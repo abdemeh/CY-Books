@@ -96,24 +96,29 @@ public class DashboardController implements Initializable {
         usersScrollPane.setFitToWidth(true);
         booksScrollPane.setFitToWidth(true);
 
-        list_members=new ArrayList<>(getMembersFromDatabase());
-        try{
-            for (int i=0;i<list_members.size();i++){
-                FXMLLoader fxmlLoader=new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("member.fxml"));
-                AnchorPane dashboardPane=fxmlLoader.load();
-                MemberController cardController = fxmlLoader.getController();
-                cardController.setData(list_members.get(i));
-                membersVbox.getChildren().add(dashboardPane);
-            }
-            textSommeUtilisateurs.setText(Integer.toString(list_members.size()));
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        list_books=new ArrayList<>(BookAPI.searchBooks("","","",25));
-        updateBooks(list_books);
+        updateMembers(new ArrayList<>(getMembersFromDatabase()));
+
+        //list_books=new ArrayList<>(BookAPI.searchBooks("","","",25));
+        //updateBooks(list_books);
     }
-    private void updateBooks(List<Book>list_books){
+    public void updateMembers(List<Member>list_members){
+        Platform.runLater(() -> {
+            try{
+                for (int i=0;i<list_members.size();i++){
+                    FXMLLoader fxmlLoader=new FXMLLoader();
+                    fxmlLoader.setLocation(getClass().getResource("member.fxml"));
+                    AnchorPane dashboardPane=fxmlLoader.load();
+                    MemberController cardController = fxmlLoader.getController();
+                    cardController.setData(list_members.get(i));
+                    membersVbox.getChildren().add(dashboardPane);
+                }
+                textSommeUtilisateurs.setText(Integer.toString(list_members.size()));
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        });
+    }
+    public void updateBooks(List<Book>list_books){
         Platform.runLater(() -> {
             try{
                 booksVbox.getChildren().clear();
@@ -161,24 +166,9 @@ public class DashboardController implements Initializable {
         searchThread.setDaemon(true);
         searchThread.start();
     }
-    private List <Member> getMembersFromDatabase(){
-        List <Member> list_members = new ArrayList<>();
-        list_members.add(new Member(122, "Kone", "Mohamed Lamine", "mohamed@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+33766587466", "M"));
-        list_members.add(new Member(123, "El Mahdaoui", "Abdellatif", "elmahdaoui@gmail.com", new Date(1716163200L * 1000), "Active", new Date(1014940800L * 1000), "+33678447732", "M"));
-        list_members.add(new Member(124, "Zhang", "Clement", "zhang@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+33743334433", "M"));
-        list_members.add(new Member(124, "Azmi", "Morkos", "azmi@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+33712221255", "M"));
-        list_members.add(new Member(125, "Johnson", "Alice", "alice.johnson@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678901", "F"));
-        list_members.add(new Member(126, "Smith", "Bob", "bob.smith@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678902", "M"));
-        list_members.add(new Member(127, "Brown", "Charlie", "charlie.brown@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678903", "M"));
-        list_members.add(new Member(128, "Wilson", "David", "david.wilson@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678904", "M"));
-        list_members.add(new Member(129, "Green", "Eva", "eva.green@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678905", "F"));
-        list_members.add(new Member(130, "White", "Fiona", "fiona.white@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678906", "F"));
-        list_members.add(new Member(131, "Black", "George", "george.black@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678907", "M"));
-        list_members.add(new Member(132, "Scott", "Hannah", "hannah.scott@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678908", "F"));
-        list_members.add(new Member(133, "Brown", "Ian", "ian.brown@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678909", "M"));
-        list_members.add(new Member(134, "Adams", "Jessica", "jessica.adams@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678910", "F"));
-        list_members.add(new Member(135, "Lewis", "Kevin", "kevin.lewis@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678911", "M"));
-        list_members.add(new Member(136, "Clark", "Laura", "laura.clark@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678912", "F"));list_members.add(new Member(136, "Clark", "Laura", "laura.clark@gmail.com", new Date(1716163200L * 1000), "Active", new Date(978307200L * 1000), "+12345678912", "F"));
+    public List <Member> getMembersFromDatabase(){
+        MemberDAO memberDAO = new MemberDAO();
+        List <Member> list_members =  memberDAO.getAllMembers();
         return list_members;
     }
     @FXML

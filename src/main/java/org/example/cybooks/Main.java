@@ -2,6 +2,10 @@ package org.example.cybooks;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 public class Main {
@@ -16,9 +20,18 @@ public class Main {
             //String apiUrl = "https://catalogue.bnf.fr/api/SRU?version=1.2&operation=searchRetrieve&query=" + encodedQuery + "&maximumRecords=25";
 
             // Call the searchBooks method with the encoded query string
-            List<Book> books = BookAPI.searchBooks("","comment se faire des amis","Dale Carnegie",5);
+            List<Book> books = BookAPI.searchBooks("9782070418281","","",50);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        /*try (Connection connection = Database.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT 1");
+            if (resultSet.next()) {
+                System.out.println("Database connection successful.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }*/
     }
 }

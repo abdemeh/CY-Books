@@ -1,6 +1,7 @@
 package org.example.cybooks;
 
-import java.util.Date;
+
+import java.sql.Date;
 
 public class Member {
     private int id;

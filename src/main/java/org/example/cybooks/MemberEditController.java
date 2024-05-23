@@ -27,6 +27,7 @@ public class MemberEditController {
     private RadioButton memberEdit_sex_male;
     @FXML
     private RadioButton memberEdit_sex_female;
+
     public void setMemberData(Member currentMember) {
         memberEdit_id.setText(Integer.toString(currentMember.getId()));
         memberEdit_lastname.setText(currentMember.getLastName());
@@ -34,9 +35,9 @@ public class MemberEditController {
         memberEdit_email.setText(currentMember.getEmail());
         memberEdit_phone.setText(currentMember.getPhone());
 
-        Date birthday = currentMember.getBirthday(); // Assuming this returns a Date
-        LocalDate localDate = birthday.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        memberEdit_birthday.setValue(localDate);
+        java.sql.Date sqlDateBirthday = currentMember.getBirthday();
+        java.time.LocalDate localDateBirthday = sqlDateBirthday.toLocalDate();
+        memberEdit_birthday.setValue(localDateBirthday);
 
         if(currentMember.getSex()=="M"){
             memberEdit_sex_male.setSelected(true);

@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -59,8 +60,6 @@ public class MemberController {
     private void openMemberEdit() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("member_edit.fxml"));
         Parent root = loader.load();
-
-
 
         MemberEditController memberEditController = loader.getController();
         memberEditController.setMemberData(currentMember);
@@ -119,6 +118,13 @@ public class MemberController {
         member_email.setText(member.getEmail());
         member_added.setText(df.format(member.getInscriptionDate()));
         member_state.setText(member.getState());
+        if ("Actif".equals(member.getState())) {
+            member_state.setStyle("-fx-fill: #6fcd7f;");
+        } else if ("Bloqué".equals(member.getState()) || "Suspendu".equals(member.getState())) {
+            member_state.setStyle("-fx-fill: #cc7070;");
+        } else if ("Expiré".equals(member.getState()) || "Inactif".equals(member.getState())) {
+            member_state.setStyle("-fx-fill: #ccc670;");
+        }
         member_image.setText(getInitials(member.getLastName(), member.getFirstName()));
         //member_image.setStyle("-fx-text-fill: "+ colors[(int)(Math.random()*colors.length)]);
         //member_image.setFill(Color.web(colors[(int)(Math.random()*colors.length)]));

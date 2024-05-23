@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.shape.Rectangle?>
@@ -11,10 +12,13 @@
     <children>
         <TextFlow layoutX="104.0" layoutY="14.0" prefHeight="28.0" prefWidth="746.0">
             <children>
-                <Text fx:id="book_title" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER" wrappingWidth="401.47499084472656">
+                <Text fx:id="book_title" onMouseClicked="#copyToClipboard" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER" wrappingWidth="401.47499084472656">
                     <font>
                         <Font name="Poppins Bold" size="20.0" />
                     </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
                 </Text>
             </children>
         </TextFlow>
@@ -26,10 +30,13 @@
                         <Font name="Poppins Regular" size="16.0" />
                     </font>
                 </Text>
-            <Text fx:id="book_author" fill="#846fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="AUTEUR" textAlignment="CENTER">
+            <Text fx:id="book_author" fill="#846fcd" onMouseClicked="#copyToClipboard" strokeType="OUTSIDE" strokeWidth="0.0" text="AUTEUR" textAlignment="CENTER">
                <font>
                   <Font name="Poppins Regular" size="16.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Text>
             </children>
         </TextFlow>
@@ -82,10 +89,13 @@
                         <Font name="Poppins Regular" size="16.0" />
                     </font>
                 </Text>
-            <Text fx:id="book_isbn" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN" textAlignment="CENTER">
+            <Text fx:id="book_isbn" onMouseClicked="#copyToClipboard" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN" textAlignment="CENTER">
                <font>
                   <Font name="Poppins Regular" size="16.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Text>
             </children>
         </TextFlow>

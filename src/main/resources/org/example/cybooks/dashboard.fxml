@@ -259,7 +259,7 @@
                   </Pane>
                </children>
             </Pane>
-            <Pane fx:id="paneUsers" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0" visible="false">
+            <Pane fx:id="paneUsers" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0">
                <children>
                   <Pane layoutX="14.0" layoutY="14.0" prefHeight="111.0" prefWidth="236.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
                      <children>
@@ -290,17 +290,6 @@
                         <VBox fx:id="membersVbox" prefHeight="344.0" prefWidth="874.0" style="-fx-background-radius: 25px;" />
                      </content>
                   </ScrollPane>
-                  <Button layoutX="642.0" layoutY="14.0" minWidth="25.0" mnemonicParsing="false" onAction="#openMemberAdd" prefHeight="43.0" prefWidth="245.0" style="-fx-background-color: #846fcd;" text="AJOUTER UTILISATEUR" textFill="WHITE">
-                     <graphic>
-                        <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="1.4em" />
-                     </graphic>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font name="Poppins Bold" size="17.0" />
-                     </font>
-                  </Button>
                   <Group layoutX="267.0" layoutY="82.0" />
                   <Text fx:id="dashboardTitle112" fill="#846fcd" layoutX="85.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID">
                      <font>
@@ -327,16 +316,47 @@
                         <Font name="Poppins ExtraBold" size="16.0" />
                      </font>
                   </Text>
-                  <BorderPane disable="true" layoutX="595.0" layoutY="85.0" prefHeight="43.0" prefWidth="298.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
-                  <FontAwesomeIcon fill="#434343" glyphName="SEARCH" layoutX="598.0" layoutY="117.0" size="2em" />
-                  <TextField layoutX="612.0" layoutY="87.0" prefHeight="42.0" prefWidth="280.0" promptText="Chercher" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;">
-                     <font>
-                        <Font name="Poppins Regular" size="20.0" />
-                     </font>
-                  </TextField>
+                  <Pane layoutX="259.0" layoutY="14.0" prefHeight="112.0" prefWidth="635.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
+                     <children>
+                        <Button fx:id="btnSearchBook1" layoutX="478.0" layoutY="9.0" minWidth="25.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="143.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;" text="CHERCHER" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" size="1.3em" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="Poppins Bold" size="17.0" />
+                           </font>
+                        </Button>
+                        <BorderPane layoutX="8.0" layoutY="9.0" prefHeight="43.0" prefWidth="448.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;">
+                           <top>
+                              <TextField fx:id="textSearchBookAuteur1" prefHeight="42.0" prefWidth="265.0" promptText="Nom, Email, Télephone" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font name="Poppins Regular" size="17.0" />
+                                 </font>
+                                 <BorderPane.margin>
+                                    <Insets />
+                                 </BorderPane.margin>
+                              </TextField>
+                           </top>
+                        </BorderPane>
+                        <Button fx:id="btnSearchBook11" layoutX="478.0" layoutY="59.0" minWidth="25.0" mnemonicParsing="false" onAction="#openMemberAdd" prefHeight="45.0" prefWidth="143.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;" text="AJOUTER" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="1.3em" />
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <font>
+                              <Font name="Poppins Bold" size="17.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
                </children>
             </Pane>
-            <Pane fx:id="paneBooks" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0">
+            <Pane fx:id="paneBooks" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0" visible="false">
                <children>
                   <Pane layoutX="14.0" layoutY="6.0" prefHeight="117.0" prefWidth="236.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
                      <children>

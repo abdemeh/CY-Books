@@ -2,6 +2,9 @@ package org.example.cybooks;
 
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -38,5 +41,13 @@ public class BookController {
         book_language.setText(book.getLanguage());
         book_date.setText(df.format(book.getPublicationDate()));
         book_image.setFill(new ImagePattern(new Image(book.getimageUrl())));
+    }
+
+    public void copyToClipboard(MouseEvent mouseEvent) {
+        Text source = (Text) mouseEvent.getSource();
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+        ClipboardContent content = new ClipboardContent();
+        content.putString(source.getText());
+        clipboard.setContent(content);
     }
 }
