@@ -10,7 +10,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class MemberAddController {
     @FXML
@@ -35,14 +34,31 @@ public class MemberAddController {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();
     }
-    public void memberAdd(){
+
+    public void memberAdd() {
         MemberDAO memberDAO = new MemberDAO();
-        String sex_value="M";
-        if(memberAdd_sex_female.isSelected()){
-            sex_value="F";
+        String sex_value = "M";
+        if (memberAdd_sex_female.isSelected()) {
+            sex_value = "F";
         }
-        Member member = new Member(1,memberAdd_firstname.getText(),memberAdd_lastname.getText(),memberAdd_email.getText(), java.sql.Date.valueOf(LocalDate.now()),"Actif",java.sql.Date.valueOf(memberAdd_birthday.getValue()),memberAdd_phone.getText(),sex_value);
+        Member member = new Member(1, memberAdd_firstname.getText(), memberAdd_lastname.getText(), memberAdd_email.getText(), java.sql.Date.valueOf(LocalDate.now()), "Actif", java.sql.Date.valueOf(memberAdd_birthday.getValue()), memberAdd_phone.getText(), sex_value);
         memberDAO.addMember(member);
-        memberAddMessage.setText("Membre ajouté avec succés.");
+
+        memberAdd_lastname.setText("");
+        memberAdd_firstname.setText("");
+        memberAdd_email.setText("");
+        memberAdd_phone.setText("");
+        memberAdd_birthday.setValue(null);
+        memberAddMessage.setText("");
+        memberAdd_sex_male.setSelected(true);
+        memberAdd_sex_female.setSelected(false);
+
+        memberAddMessage.setText("Membre ajouté avec succès.");
+
+        // Notify DashboardController to update members
+        DashboardController dashboardController = ControllerManager.getDashboardController();
+        if (dashboardController != null) {
+            dashboardController.updateMembersFromDatabase();
+        }
     }
 }

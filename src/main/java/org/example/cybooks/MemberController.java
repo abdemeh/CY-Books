@@ -6,10 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -30,6 +27,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.scene.control.Alert.AlertType;
+
+import java.util.Optional;
 public class MemberController {
     @FXML
     private Text member_name;
@@ -47,7 +47,6 @@ public class MemberController {
     private TextFlow member_image_bg;
 
     private Member currentMember;
-    private String[] colors={"#6fcdb1","#a06fcd","#cd6f88","#6f8bcd","#919191","#cdc86f"};
     private double xOffset = 0;
     private double yOffset = 0;
     private Book currentBook;
@@ -56,6 +55,32 @@ public class MemberController {
     @FXML
     private ScrollPane booksScrollPane;
     private List<Book> list_borrowed_books;
+    @FXML
+    private  void deleteMember() throws IOException {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.initStyle(StageStyle.UNDECORATED);
+        alert.setHeaderText(null);
+        alert.setContentText("Etes-vous sûr que vous voulez supprimer "+currentMember.getLastName()+" "+currentMember.getFirstName()+"?");
+
+        /* Get the button types
+        ButtonType okButton = new ButtonType("Oui", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButton = new ButtonType("Non", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        // Set the button types with custom text
+        alert.getButtonTypes().setAll(okButton, cancelButton);*/
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            MemberDAO memberDAO = new MemberDAO();
+            memberDAO.deleteMember(currentMember.getId());
+            // Notify DashboardController to update members
+            DashboardController dashboardController = ControllerManager.getDashboardController();
+            if (dashboardController != null) {
+                dashboardController.updateMembersFromDatabase();
+            }
+        }
+    }
     @FXML
     private void openMemberEdit() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("member_edit.fxml"));
@@ -126,9 +151,6 @@ public class MemberController {
             member_state.setStyle("-fx-fill: #ccc670;");
         }
         member_image.setText(getInitials(member.getLastName(), member.getFirstName()));
-        //member_image.setStyle("-fx-text-fill: "+ colors[(int)(Math.random()*colors.length)]);
-        //member_image.setFill(Color.web(colors[(int)(Math.random()*colors.length)]));
-        member_image_bg.setStyle("-fx-background-color: "+ colors[(int)(Math.random()*colors.length)]+";-fx-background-radius: 10px");
     }
     public static String getInitials(String lastname, String firstname) {
         String initials = "";

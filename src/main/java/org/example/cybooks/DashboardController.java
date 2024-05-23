@@ -1,21 +1,16 @@
 package org.example.cybooks;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
@@ -26,9 +21,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -77,11 +70,17 @@ public class DashboardController implements Initializable {
     TextField textSearchBookAuteur;
     @FXML
     Text textSearchBookMessage;
-
+    @FXML
+    TextField textSearchMember;
+    @FXML
+    Text dashboardNombreTotalMembers;
     private double xOffset = 0;
     private double yOffset = 0;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ControllerManager.setDashboardController(this);
+
         imageTopBooks1.setFill(new ImagePattern(new Image("https://catalogue.bnf.fr/couverture?&appName=NE&idArk=ark:/12148/cb45378014r&couverture=1")));
         imageTopBooks2.setFill(new ImagePattern(new Image("https://catalogue.bnf.fr/couverture?&appName=NE&idArk=ark:/12148/cb46997632p&couverture=1")));
         imageTopBooks3.setFill(new ImagePattern(new Image("https://catalogue.bnf.fr/couverture?&appName=NE&idArk=ark:/12148/cb47414381z&couverture=1")));
@@ -96,52 +95,67 @@ public class DashboardController implements Initializable {
         usersScrollPane.setFitToWidth(true);
         booksScrollPane.setFitToWidth(true);
 
+        dashboardNombreTotalMembers.setText(String.valueOf(new MemberDAO().getAllMembers().size()));
+
         updateMembers(new ArrayList<>(getMembersFromDatabase()));
 
         //list_books=new ArrayList<>(BookAPI.searchBooks("","","",25));
         //updateBooks(list_books);
     }
-    public void updateMembers(List<Member>list_members){
+
+    public void updateMembersFromDatabase() {
+        List<Member> updatedMembers = getMembersFromDatabase();
+        updateMembers(updatedMembers);
+    }
+
+    public void updateMembers(List<Member> list_members) {
         Platform.runLater(() -> {
-            try{
-                for (int i=0;i<list_members.size();i++){
-                    FXMLLoader fxmlLoader=new FXMLLoader();
+            try {
+                membersVbox.getChildren().clear();
+                for (int i = 0; i < list_members.size(); i++) {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("member.fxml"));
-                    AnchorPane dashboardPane=fxmlLoader.load();
+                    AnchorPane dashboardPane = fxmlLoader.load();
                     MemberController cardController = fxmlLoader.getController();
                     cardController.setData(list_members.get(i));
                     membersVbox.getChildren().add(dashboardPane);
                 }
                 textSommeUtilisateurs.setText(Integer.toString(list_members.size()));
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
     }
-    public void updateBooks(List<Book>list_books){
+
+    public void updateBooks(List<Book> list_books) {
         Platform.runLater(() -> {
-            try{
+            try {
                 booksVbox.getChildren().clear();
-                for (int i=0;i<list_books.size();i++){
-                    FXMLLoader fxmlLoader=new FXMLLoader();
+                for (int i = 0; i < list_books.size(); i++) {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("book.fxml"));
-                    AnchorPane dashboardPane=fxmlLoader.load();
+                    AnchorPane dashboardPane = fxmlLoader.load();
                     BookController bookController = fxmlLoader.getController();
                     bookController.setData(list_books.get(i));
                     booksVbox.getChildren().add(dashboardPane);
                 }
                 textSearchBookResultats.setText(Integer.toString(list_books.size()));
-                if(list_books.isEmpty()){
+                if (list_books.isEmpty()) {
                     textSearchBookMessage.setText("Aucune résultat.");
-                }else{
+                } else {
                     textSearchBookMessage.setText("");
                 }
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
     }
-    public void searchBook(){
+    public void searchMember(){
+        MemberDAO memberDAO = new MemberDAO();
+        List<Member> list_members = memberDAO.searchMembers(textSearchMember.getText());
+        updateMembers(list_members);
+    }
+    public void searchBook() {
         String NombreResultats = textSearchBookMaxRes.getText();
         int number_max_records = 25;
         try {
@@ -166,20 +180,17 @@ public class DashboardController implements Initializable {
         searchThread.setDaemon(true);
         searchThread.start();
     }
-    public List <Member> getMembersFromDatabase(){
+
+    public List<Member> getMembersFromDatabase() {
         MemberDAO memberDAO = new MemberDAO();
-        List <Member> list_members =  memberDAO.getAllMembers();
+        List<Member> list_members = memberDAO.getAllMembers();
         return list_members;
     }
+
     @FXML
     private void openMemberAdd() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("member_add.fxml"));
         Parent root = loader.load();
-
-
-
-        //MemberEditController memberEditController = loader.getController();
-        //memberEditController.setMemberData(currentMember);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
@@ -198,45 +209,47 @@ public class DashboardController implements Initializable {
         });
 
     }
+
     public void closeWindow(ActionEvent event) {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();
     }
+
     public void actionHome(ActionEvent event) {
-        // Get the reference to the stage
         dashboardTitle.setText("Accueil");
         paneHome.setVisible(true);
         paneUsers.setVisible(false);
         paneBooks.setVisible(false);
     }
+
     public void actionUsers(ActionEvent event) {
-        // Get the reference to the stage
         dashboardTitle.setText("Utilisateurs");
         paneUsers.setVisible(true);
         paneHome.setVisible(false);
         paneBooks.setVisible(false);
     }
+
     public void actionBooks(ActionEvent event) {
-        // Get the reference to the stage
         dashboardTitle.setText("Livres");
         paneBooks.setVisible(true);
         paneHome.setVisible(false);
         paneUsers.setVisible(false);
     }
+
     public void actionSettings(ActionEvent event) {
-        // Get the reference to the stage
         dashboardTitle.setText("Paramètres");
         paneHome.setVisible(false);
         paneUsers.setVisible(false);
         paneBooks.setVisible(false);
     }
+
     public void actionProfile(ActionEvent event) {
-        // Get the reference to the stage
         dashboardTitle.setText("Mon profil");
         paneHome.setVisible(false);
         paneUsers.setVisible(false);
         paneBooks.setVisible(false);
     }
+
     public void actionLogout(ActionEvent event) {
         System.out.println("Logout!!!");
     }

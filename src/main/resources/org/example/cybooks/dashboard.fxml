@@ -140,18 +140,18 @@
                   </Pane>
                   <Pane layoutX="14.0" layoutY="165.0" prefHeight="140.0" prefWidth="281.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
                      <children>
-                        <Text fx:id="dashboardTitle1" fill="#cc9a70" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Utilisateurs">
+                        <Text fx:id="dashboardTitle1" fill="#cc9a70" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Membres">
                            <font>
                               <Font name="Poppins ExtraBold" size="23.0" />
                            </font>
                         </Text>
                         <FontAwesomeIcon fill="#cc9a70" glyphName="USERS" layoutX="235.0" layoutY="40.0" size="2em" />
-                        <Text fx:id="dashboardTitle1111" fill="#434343" layoutX="14.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nouveau utilisateurs ce mois">
+                        <Text fx:id="dashboardTitle1111" fill="#434343" layoutX="14.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre total des membres">
                            <font>
                               <Font name="Poppins Regular" size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="dashboardTitle12" fill="#cc9a70" layoutX="14.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="155">
+                        <Text fx:id="dashboardNombreTotalMembers" fill="#cc9a70" layoutX="14.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
                            <font>
                               <Font name="Poppins ExtraBold" size="50.0" />
                            </font>
@@ -171,7 +171,7 @@
                               <Font name="Poppins Regular" size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="dashboardTitle121" fill="#70ccc4" layoutX="14.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 232" textAlignment="RIGHT">
+                        <Text fx:id="dashboardTitle121" fill="#70ccc4" layoutX="14.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT">
                            <font>
                               <Font name="Poppins ExtraBold" size="50.0" />
                            </font>
@@ -191,7 +191,7 @@
                               <Font name="Poppins Regular" size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="dashboardTitle1211" fill="#cc7070" layoutX="14.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3" textAlignment="RIGHT">
+                        <Text fx:id="dashboardTitle1211" fill="#cc7070" layoutX="14.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT">
                            <font>
                               <Font name="Poppins ExtraBold" size="50.0" />
                            </font>
@@ -261,21 +261,21 @@
             </Pane>
             <Pane fx:id="paneUsers" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0">
                <children>
-                  <Pane layoutX="14.0" layoutY="14.0" prefHeight="111.0" prefWidth="236.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
+                  <Pane layoutX="14.0" layoutY="14.0" prefHeight="111.0" prefWidth="278.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
                      <children>
                         <Text fx:id="dashboardTitle11" fill="#cc9a70" layoutX="13.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Utilisateurs">
                            <font>
                               <Font name="Poppins ExtraBold" size="20.0" />
                            </font>
                         </Text>
-                        <Text fx:id="dashboardTitle11111" fill="#434343" layoutX="13.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre total des utilisateurs">
+                        <Text fx:id="dashboardTitle11111" fill="#434343" layoutX="13.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre total des utilisateurs trouvé">
                            <font>
                               <Font name="Poppins Regular" size="14.0" />
                            </font>
                         </Text>
                         <TextFlow layoutX="13.0" layoutY="56.0" prefHeight="50.0" prefWidth="124.0">
                            <children>
-                              <Text fx:id="textSommeUtilisateurs" fill="#cc9a70" strokeType="OUTSIDE" strokeWidth="0.0" text="99999" wrappingWidth="106.23334503173828">
+                              <Text fx:id="textSommeUtilisateurs" fill="#cc9a70" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="106.23334503173828">
                                  <font>
                                     <Font name="Poppins ExtraBold" size="36.0" />
                                  </font>
@@ -316,9 +316,9 @@
                         <Font name="Poppins ExtraBold" size="16.0" />
                      </font>
                   </Text>
-                  <Pane layoutX="259.0" layoutY="14.0" prefHeight="112.0" prefWidth="635.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
+                  <Pane layoutX="301.0" layoutY="14.0" prefHeight="111.0" prefWidth="591.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
                      <children>
-                        <Button fx:id="btnSearchBook1" layoutX="478.0" layoutY="9.0" minWidth="25.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="143.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;" text="CHERCHER" textFill="WHITE">
+                        <Button fx:id="btnSearchMember" layoutX="440.0" layoutY="8.0" minWidth="25.0" mnemonicParsing="false" onAction="#searchMember" prefHeight="45.0" prefWidth="143.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;" text="CHERCHER" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" size="1.3em" />
                            </graphic>
@@ -329,9 +329,9 @@
                               <Font name="Poppins Bold" size="17.0" />
                            </font>
                         </Button>
-                        <BorderPane layoutX="8.0" layoutY="9.0" prefHeight="43.0" prefWidth="448.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;">
+                        <BorderPane layoutX="8.0" layoutY="9.0" prefHeight="43.0" prefWidth="420.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;">
                            <top>
-                              <TextField fx:id="textSearchBookAuteur1" prefHeight="42.0" prefWidth="265.0" promptText="Nom, Email, Télephone" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;" BorderPane.alignment="CENTER">
+                              <TextField fx:id="textSearchMember" prefHeight="42.0" prefWidth="265.0" promptText="Nom, Email, Télephone" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;" BorderPane.alignment="CENTER">
                                  <font>
                                     <Font name="Poppins Regular" size="17.0" />
                                  </font>
@@ -341,7 +341,7 @@
                               </TextField>
                            </top>
                         </BorderPane>
-                        <Button fx:id="btnSearchBook11" layoutX="478.0" layoutY="59.0" minWidth="25.0" mnemonicParsing="false" onAction="#openMemberAdd" prefHeight="45.0" prefWidth="143.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;" text="AJOUTER" textFill="WHITE">
+                        <Button fx:id="btnAddMember" layoutX="440.0" layoutY="58.0" minWidth="25.0" mnemonicParsing="false" onAction="#openMemberAdd" prefHeight="45.0" prefWidth="143.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;" text="AJOUTER" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIcon fill="WHITE" glyphName="PLUS" size="1.3em" />
                            </graphic>

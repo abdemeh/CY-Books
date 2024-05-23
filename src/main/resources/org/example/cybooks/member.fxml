@@ -33,7 +33,7 @@
                 <Font name="Poppins Regular" size="17.0" />
             </font>
         </Button>
-        <Button fx:id="btnDeleteUser" layoutX="807.0" layoutY="6.0" minWidth="25.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="43.0" style="-fx-background-color: #cd6f6f;">
+        <Button fx:id="btnDeleteUser" layoutX="807.0" layoutY="6.0" minWidth="25.0" mnemonicParsing="false" onAction="#deleteMember" prefHeight="43.0" prefWidth="43.0" style="-fx-background-color: #cd6f6f;">
             <graphic>
                 <FontAwesomeIcon fill="WHITE" glyphName="TRASH" size="1.4em" />
             </graphic>
@@ -44,7 +44,7 @@
                 <Font name="Poppins Regular" size="17.0" />
             </font>
         </Button>
-      <TextFlow fx:id="member_image_bg" layoutX="5.0" layoutY="16.0" prefHeight="26.0" prefWidth="37.0" style="-fx-background-color: #846fcd; -fx-background-radius: 10px;" textAlignment="CENTER">
+      <TextFlow fx:id="member_image_bg" layoutX="5.0" layoutY="16.0" prefHeight="26.0" prefWidth="37.0" style="-fx-background-color: #cc9a70; -fx-background-radius: 10px;" textAlignment="CENTER">
          <children>
               <Text fx:id="member_image" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="WW" wrappingWidth="35.76800537109375">
                   <font>

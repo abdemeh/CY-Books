@@ -22,7 +22,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Button fx:id="memberEdit_save" layoutX="10.0" layoutY="245.0" minWidth="25.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="503.0" style="-fx-background-color: #846fcd;" text=" ENREGISTRER" textFill="WHITE">
+        <Button fx:id="memberEdit_save" layoutX="10.0" layoutY="245.0" minWidth="25.0" mnemonicParsing="false" onAction="#memberEdit" prefHeight="43.0" prefWidth="503.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;" text=" ENREGISTRER" textFill="WHITE">
             <graphic>
                 <FontAwesomeIcon fill="WHITE" glyphName="SAVE" size="1.4em" />
             </graphic>
@@ -62,7 +62,7 @@
             </font>
         </TextField>
         <DatePicker fx:id="memberEdit_birthday" layoutX="270.0" layoutY="153.0" prefHeight="36.0" prefWidth="242.0" promptText="Date de naissance" />
-        <Text fx:id="memberEdit_id" fill="#846fcd" layoutX="12.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12443">
+        <Text fx:id="memberEdit_id" fill="#846fcd" layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="12443" visible="false">
             <font>
                 <Font name="Poppins Bold" size="20.0" />
             </font>
@@ -80,5 +80,10 @@
             <Font name="Poppins Regular" size="18.0" />
          </font>
       </RadioButton>
+      <Text fx:id="memberEditMessage" fill="#846fcd" layoutX="14.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Poppins Bold" size="20.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>
