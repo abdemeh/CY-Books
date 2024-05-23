@@ -9,9 +9,9 @@ public class MemberDAO {
         List<Member> members = new ArrayList<>();
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "SELECT * FROM Member WHERE firstname LIKE ? OR lastname LIKE ? OR email LIKE ? OR phone LIKE ?")) {
+                     "SELECT * FROM Member WHERE CONCAT(firstname, ' ', lastname) LIKE ? OR CONCAT(lastname, ' ', firstname) LIKE ? OR email LIKE ? OR phone LIKE ?")) {
             // Set parameters for prepared statement with wildcard for search term
-            String searchTerm = "%" + search + "%";
+            String searchTerm = "%" + search.trim() + "%";
             statement.setString(1, searchTerm);
             statement.setString(2, searchTerm);
             statement.setString(3, searchTerm);

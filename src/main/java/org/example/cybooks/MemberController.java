@@ -42,6 +42,8 @@ public class MemberController {
     @FXML
     private Text member_id;
     @FXML
+    private Text member_phone;
+    @FXML
     private Text member_image;
     @FXML
     private TextFlow member_image_bg;
@@ -142,6 +144,7 @@ public class MemberController {
         member_id.setText(Integer.toString(member.getId()));
         member_email.setText(member.getEmail());
         member_added.setText(df.format(member.getInscriptionDate()));
+        member_phone.setText(member.getPhone());
         member_state.setText(member.getState());
         if ("Actif".equals(member.getState())) {
             member_state.setStyle("-fx-fill: #6fcd7f;");

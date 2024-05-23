@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="62.0" prefWidth="857.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cybooks.MemberController">
+<AnchorPane prefHeight="59.0" prefWidth="857.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.cybooks.MemberController">
     <children>
-        <Button fx:id="btnAssignBook" layoutX="715.0" layoutY="6.0" minWidth="25.0" mnemonicParsing="false" onAction="#openMemberBorrow" prefHeight="43.0" prefWidth="43.0" style="-fx-background-color: #846fcd;">
+        <Button fx:id="btnAssignBook" layoutX="723.0" layoutY="6.0" minWidth="25.0" mnemonicParsing="false" onAction="#openMemberBorrow" prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;">
             <graphic>
                 <FontAwesomeIcon fill="WHITE" glyphName="BOOK" size="1.4em" />
             </graphic>
@@ -22,7 +22,7 @@
                 <Font name="Poppins Regular" size="17.0" />
             </font>
         </Button>
-        <Button fx:id="btnEditUser" layoutX="761.0" layoutY="6.0" minWidth="25.0" mnemonicParsing="false" onAction="#openMemberEdit" prefHeight="43.0" prefWidth="43.0" style="-fx-background-color: #846fcd;">
+        <Button fx:id="btnEditUser" layoutX="767.0" layoutY="6.0" minWidth="25.0" mnemonicParsing="false" onAction="#openMemberEdit" prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;">
             <graphic>
                 <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="1.4em" />
             </graphic>
@@ -33,7 +33,7 @@
                 <Font name="Poppins Regular" size="17.0" />
             </font>
         </Button>
-        <Button fx:id="btnDeleteUser" layoutX="807.0" layoutY="6.0" minWidth="25.0" mnemonicParsing="false" onAction="#deleteMember" prefHeight="43.0" prefWidth="43.0" style="-fx-background-color: #cd6f6f;">
+        <Button fx:id="btnDeleteUser" layoutX="811.0" layoutY="6.0" minWidth="25.0" mnemonicParsing="false" onAction="#deleteMember" prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: #cd6f6f; -fx-background-radius: 25px;">
             <graphic>
                 <FontAwesomeIcon fill="WHITE" glyphName="TRASH" size="1.4em" />
             </graphic>
@@ -44,60 +44,69 @@
                 <Font name="Poppins Regular" size="17.0" />
             </font>
         </Button>
-      <TextFlow fx:id="member_image_bg" layoutX="5.0" layoutY="16.0" prefHeight="26.0" prefWidth="37.0" style="-fx-background-color: #cc9a70; -fx-background-radius: 10px;" textAlignment="CENTER">
+      <TextFlow fx:id="member_image_bg" layoutX="5.0" layoutY="16.0" prefHeight="12.0" prefWidth="37.0" style="-fx-background-color: #cc9a70; -fx-background-radius: 10px;" textAlignment="CENTER">
          <children>
-              <Text fx:id="member_image" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="WW" wrappingWidth="35.76800537109375">
+              <Text fx:id="member_image" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="WW" wrappingWidth="29.45600128173828">
                   <font>
-                      <Font name="Poppins Bold" size="17.0" />
+                      <Font name="Poppins Bold" size="14.0" />
                   </font>
               </Text>
          </children>
       </TextFlow>
-      <TextFlow layoutX="43.0" layoutY="16.0" prefHeight="26.0" prefWidth="78.0" textAlignment="CENTER">
+      <TextFlow layoutX="45.0" layoutY="16.0" prefHeight="20.0" prefWidth="65.0" textAlignment="CENTER">
          <children>
               <Text fx:id="member_id" strokeType="OUTSIDE" strokeWidth="0.0" text="1443465" textAlignment="CENTER">
                   <font>
-                      <Font name="Poppins Regular" size="17.0" />
+                      <Font name="Poppins Regular" size="14.0" />
                   </font>
               </Text>
          </children>
       </TextFlow>
-      <TextFlow layoutX="118.0" layoutY="16.0" prefHeight="26.0" prefWidth="180.0" textAlignment="CENTER">
+      <TextFlow layoutX="112.0" layoutY="16.0" prefHeight="20.0" prefWidth="136.0" textAlignment="CENTER">
          <children>
-              <Text fx:id="member_name" strokeType="OUTSIDE" strokeWidth="0.0" text="Alexis Johann" textAlignment="CENTER">
+              <Text fx:id="member_name" strokeType="OUTSIDE" strokeWidth="0.0" text="Alexsdisss Johann" textAlignment="CENTER" wrappingWidth="142.92266845703125">
                   <font>
-                      <Font name="Poppins Regular" size="17.0" />
+                      <Font name="Poppins Regular" size="14.0" />
                   </font>
               </Text>
          </children>
       </TextFlow>
-      <TextFlow layoutX="285.0" layoutY="16.0" prefHeight="26.0" prefWidth="257.0" textAlignment="CENTER">
+      <TextFlow layoutX="250.0" layoutY="16.0" prefHeight="20.0" prefWidth="213.0" textAlignment="CENTER">
          <children>
-              <Text fx:id="member_email" strokeType="OUTSIDE" strokeWidth="0.0" text="alexisjohann@gmail.com" textAlignment="CENTER">
+              <Text fx:id="member_email" strokeType="OUTSIDE" strokeWidth="0.0" text="aaaaaalexisjhan@gmail.com" textAlignment="CENTER">
                   <font>
-                      <Font name="Poppins Regular" size="17.0" />
+                      <Font name="Poppins Regular" size="14.0" />
                   </font>
               </Text>
          </children>
       </TextFlow>
-      <TextFlow layoutX="542.0" layoutY="16.0" prefHeight="26.0" prefWidth="101.0" textAlignment="CENTER">
+      <TextFlow layoutX="575.0" layoutY="16.0" prefHeight="20.0" prefWidth="86.0" textAlignment="CENTER">
          <children>
               <Text fx:id="member_added" strokeType="OUTSIDE" strokeWidth="0.0" text="29/02/2002" textAlignment="CENTER" wrappingWidth="100.48699951171875">
                   <font>
-                      <Font name="Poppins Regular" size="17.0" />
+                      <Font name="Poppins Regular" size="14.0" />
                   </font>
               </Text>
          </children>
       </TextFlow>
-      <TextFlow layoutX="643.0" layoutY="16.0" prefHeight="26.0" prefWidth="69.0" textAlignment="CENTER">
+      <TextFlow layoutX="663.0" layoutY="16.0" prefHeight="19.0" prefWidth="57.0" textAlignment="CENTER">
          <children>
-              <Text fx:id="member_state" fill="#6fcd7f" strokeType="OUTSIDE" strokeWidth="0.0" text="Actif" textAlignment="CENTER">
+              <Text fx:id="member_state" fill="#6fcd7f" strokeType="OUTSIDE" strokeWidth="0.0" text="Bloqué" textAlignment="CENTER">
                   <font>
-                      <Font name="Poppins Bold" size="17.0" />
+                      <Font name="Poppins Bold" size="14.0" />
                   </font>
               </Text>
          </children>
       </TextFlow>
-      <BorderPane disable="true" layoutX="-2.0" layoutY="23.0" opacity="0.2" prefHeight="36.0" prefWidth="852.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
+      <BorderPane disable="true" layoutX="-2.0" layoutY="48.0" opacity="0.2" prefHeight="8.0" prefWidth="852.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
+      <TextFlow layoutX="465.0" layoutY="16.0" prefHeight="20.0" prefWidth="107.0" textAlignment="CENTER">
+         <children>
+            <Text fx:id="member_phone" strokeType="OUTSIDE" strokeWidth="0.0" text="+3399999999" textAlignment="CENTER" wrappingWidth="96.61399841308594">
+               <font>
+                  <Font name="Poppins Regular" size="14.0" />
+               </font>
+            </Text>
+         </children>
+      </TextFlow>
     </children>
 </AnchorPane>
