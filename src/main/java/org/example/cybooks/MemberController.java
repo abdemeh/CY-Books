@@ -58,7 +58,7 @@ public class MemberController {
     private ScrollPane booksScrollPane;
     private List<Book> list_borrowed_books;
     @FXML
-    private  void deleteMember() throws IOException {
+    private void deleteMember() throws IOException {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.initStyle(StageStyle.UNDECORATED);
@@ -74,8 +74,7 @@ public class MemberController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            MemberDAO memberDAO = new MemberDAO();
-            memberDAO.deleteMember(currentMember.getId());
+            MemberDAO.deleteMember(currentMember.getId());
             // Notify DashboardController to update members
             DashboardController dashboardController = ControllerManager.getDashboardController();
             if (dashboardController != null) {
@@ -111,10 +110,11 @@ public class MemberController {
     @FXML
     private void openMemberBorrow() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("member_borrow.fxml"));
+
         Parent root = loader.load();
 
-        // MemberEditController memberEditController = loader.getController();
-        // memberEditController.setMemberData(currentMember);
+        MemberBorrowController memberBorrowController = loader.getController();
+        memberBorrowController.setMemberData(currentMember);
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root));

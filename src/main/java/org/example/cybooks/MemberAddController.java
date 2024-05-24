@@ -36,13 +36,12 @@ public class MemberAddController {
     }
 
     public void memberAdd() {
-        MemberDAO memberDAO = new MemberDAO();
         String sex_value = "M";
         if (memberAdd_sex_female.isSelected()) {
             sex_value = "F";
         }
         Member member = new Member(1, memberAdd_firstname.getText(), memberAdd_lastname.getText(), memberAdd_email.getText(), java.sql.Date.valueOf(LocalDate.now()), "Actif", java.sql.Date.valueOf(memberAdd_birthday.getValue()), memberAdd_phone.getText(), sex_value);
-        memberDAO.addMember(member);
+        MemberDAO.addMember(member);
 
         memberAdd_lastname.setText("");
         memberAdd_firstname.setText("");

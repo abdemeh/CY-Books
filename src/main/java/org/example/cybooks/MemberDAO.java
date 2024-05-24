@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MemberDAO {
-    public List<Member> searchMembers(String search) {
+    public static List<Member> searchMembers(String search) {
         List<Member> members = new ArrayList<>();
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement(
@@ -27,7 +27,7 @@ public class MemberDAO {
         }
         return members;
     }
-    public Member getMemberById(int memberId) {
+    public static Member getMemberById(int memberId) {
         Member member = null;
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement("SELECT * FROM Member WHERE id_member = ?")) {
@@ -42,7 +42,7 @@ public class MemberDAO {
         return member;
     }
 
-    public List<Member> getAllMembers() {
+    public static List<Member> getAllMembers() {
         List<Member> members = new ArrayList<>();
         try (Connection connection = Database.getConnection();
              Statement statement = connection.createStatement()) {
@@ -57,7 +57,7 @@ public class MemberDAO {
         return members;
     }
 
-    public void addMember(Member member) {
+    public static void addMember(Member member) {
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "INSERT INTO Member (lastname, firstname, email, inscriptionDate, state, birthday, phone, sex) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
@@ -76,7 +76,7 @@ public class MemberDAO {
     }
 
 
-    public void deleteMember(int memberId) {
+    public static void deleteMember(int memberId) {
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement("DELETE FROM Member WHERE id_member = ?")) {
             statement.setInt(1, memberId);
@@ -86,7 +86,7 @@ public class MemberDAO {
         }
     }
 
-    public void updateMember(Member member) {
+    public static void updateMember(Member member) {
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement(
                      "UPDATE Member SET lastname = ?, firstname = ?, email = ?, birthday = ?, phone = ?, sex = ? WHERE id_member = ?")) {
@@ -103,7 +103,7 @@ public class MemberDAO {
         }
     }
 
-    private Member extractMemberFromResultSet(ResultSet resultSet) throws SQLException {
+    private static Member extractMemberFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id_member");
         String lastname = resultSet.getString("lastname");
         String firstname = resultSet.getString("firstname");

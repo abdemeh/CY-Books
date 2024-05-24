@@ -40,19 +40,48 @@ public class BookBorrowController{
     @FXML
     private Text book_isbn;
     private Book currentBook;
-    public void setData(Book book){
-        String pattern = "dd/MM/yyyy";
-        DateFormat df = new SimpleDateFormat(pattern);
+    @FXML
+    Text loan_expired;
+    @FXML
+    Text book_restant;
+    @FXML
+    Text book_expire;
+    public void setData(Loan loan) {
+        String isbn = loan.getBookIsbn();
+        List<Book> books = BookAPI.searchBooks(isbn, "", "", 1);
+        if (!books.isEmpty()) {
+            Book book = books.get(0);
+            String pattern = "dd/MM/yyyy";
+            DateFormat df = new SimpleDateFormat(pattern);
 
-        currentBook = book;
+            currentBook = book;
 
-        book_title.setText(book.getTitle());
-        book_isbn.setText(book.getIsbn());
-        book_author.setText(book.getAuthor());
-        book_category.setText(book.getCategory());
-        book_language.setText(book.getLanguage());
-        book_date.setText(df.format(book.getPublicationDate()));
-        book_image.setFill(new ImagePattern(new Image(book.getimageUrl())));
+            book_title.setText(book.getTitle());
+            book_isbn.setText(book.getIsbn());
+            book_author.setText(book.getAuthor());
+            book_category.setText(book.getCategory());
+            book_language.setText(book.getLanguage());
+            book_date.setText(df.format(book.getPublicationDate()));
+            book_image.setFill(new ImagePattern(new Image(book.getimageUrl())));
+            book_expire.setText("Emprunt expiration: "+df.format(loan.getExpiredDate()));
+            if(loan.getRestant()>1 || loan.getRestant()==0){
+                book_restant.setText(String.valueOf(loan.getRestant())+" jours réstants");
+                book_restant.setStyle("-fx-text-fill: #846fcd;");
+            } else if (loan.getRestant()<0) {
+                book_restant.setText(String.valueOf(loan.getRestant()*(-1))+" jours dépassés");
+                book_restant.setStyle("-fx-text-fill: #cc7070;");
+            }else{
+                book_restant.setText(String.valueOf(loan.getRestant())+" jour réstants");
+                book_restant.setStyle("-fx-text-fill: #846fcd;");
+            }
+            if(loan.getExpired()){
+                loan_expired.setVisible(true);
+            }else{
+                loan_expired.setVisible(false);
+            }
+        } else {
+            // Handle the case when no book is found
+        }
     }
     public void closeWindow(ActionEvent event) {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();

@@ -95,7 +95,7 @@ public class DashboardController implements Initializable {
         usersScrollPane.setFitToWidth(true);
         booksScrollPane.setFitToWidth(true);
 
-        dashboardNombreTotalMembers.setText(String.valueOf(new MemberDAO().getAllMembers().size()));
+        dashboardNombreTotalMembers.setText(String.valueOf(MemberDAO.getAllMembers().size()));
 
         updateMembers(new ArrayList<>(getMembersFromDatabase()));
 
@@ -151,8 +151,7 @@ public class DashboardController implements Initializable {
         });
     }
     public void searchMember(){
-        MemberDAO memberDAO = new MemberDAO();
-        List<Member> list_members = memberDAO.searchMembers(textSearchMember.getText());
+        List<Member> list_members = MemberDAO.searchMembers(textSearchMember.getText());
         updateMembers(list_members);
     }
     public void searchBook() {
@@ -182,8 +181,7 @@ public class DashboardController implements Initializable {
     }
 
     public List<Member> getMembersFromDatabase() {
-        MemberDAO memberDAO = new MemberDAO();
-        List<Member> list_members = memberDAO.getAllMembers();
+        List<Member> list_members = MemberDAO.getAllMembers();
         return list_members;
     }
 

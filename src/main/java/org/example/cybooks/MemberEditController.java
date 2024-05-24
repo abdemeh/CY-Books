@@ -52,14 +52,13 @@ public class MemberEditController {
         stage.close();
     }
     public void memberEdit(){
-        MemberDAO memberDAO = new MemberDAO();
         String sex_value = "M";
         if (memberEdit_sex_female.isSelected()) {
             sex_value = "F";
         }
         Member member = new Member(Integer.parseInt(memberEdit_id.getText()),memberEdit_firstname.getText(),memberEdit_lastname.getText(),memberEdit_email.getText(),
         java.sql.Date.valueOf(LocalDate.now()),"Actif",java.sql.Date.valueOf(memberEdit_birthday.getValue()),memberEdit_phone.getText(),sex_value);
-        memberDAO.updateMember(member);
+        MemberDAO.updateMember(member);
         memberEditMessage.setText("Modifications enregistrées.");
         // Notify DashboardController to update members
         DashboardController dashboardController = ControllerManager.getDashboardController();
