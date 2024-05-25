@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 /**
  * Main class for the CyBooks application.
@@ -24,7 +25,8 @@ public class CyBooks extends Application {
      * @throws IOException if an I/O error occurs during loading
      */
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, SQLException {
+        Database.checkDatabaseTables();
         FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("login.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
