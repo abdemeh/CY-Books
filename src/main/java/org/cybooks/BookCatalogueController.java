@@ -73,7 +73,7 @@ public class BookCatalogueController implements Initializable {
                 stage.setResizable(false);
                 stage.initStyle(StageStyle.UNDECORATED);
                 stage.setTitle("CyBooks - Catalogue");
-                stage.getIcons().add(new Image("file:assets/icon-no-text-white.png"));
+                stage.getIcons().add(new Image("file:src/main/assets/icon-no-text-white.png"));
                 stage.setScene(scene);
 
                 // Enable dragging functionality for the stage

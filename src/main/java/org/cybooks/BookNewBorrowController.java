@@ -60,29 +60,23 @@ public class BookNewBorrowController {
     /**
      * Handles the action of adding a new borrow for the current book.
      */
-    public void NewBorrow(){
-        if(LoanDAO.addNewLoan(book_isbn.getText(),UserContext.getCurrentUser().getId())){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Succès");
-            alert.setHeaderText(null);
-            alert.setContentText("Emprunt ajouté avec succès");
-            Image icon = new Image("file:assets/icon-no-text-white.png");
-            Stage stage_alert = (Stage) alert.getDialogPane().getScene().getWindow();
-            stage_alert.getIcons().add(icon);
-            alert.showAndWait();
+    public void NewBorrow() {
+        Result result = LoanDAO.addNewLoan(book_isbn.getText(), UserContext.getCurrentUser().getId());
+
+        Alert alert = new Alert(result.isSuccess() ? Alert.AlertType.INFORMATION : Alert.AlertType.WARNING);
+        alert.setTitle(result.isSuccess() ? "Succès" : "Alerte");
+        alert.setHeaderText(null);
+        alert.setContentText(result.getMessage());
+        Image icon = new Image("file:src/main/assets/icon-no-text-white.png");
+        Stage stage_alert = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage_alert.getIcons().add(icon);
+        alert.showAndWait();
+
+        if (result.isSuccess()) {
             MemberBorrowController memberBorrowController = ControllerManager.getMemberBorrowController();
             if (memberBorrowController != null) {
                 memberBorrowController.updateBorrowedBooks(LoanDAO.getLoans(UserContext.getCurrentUser().getId()));
             }
-        }else{
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Alerte");
-            alert.setHeaderText(null);
-            alert.setContentText("Emprunt déjà existant !");
-            Image icon = new Image("file:assets/icon-no-text-white.png");
-            Stage stage_alert = (Stage) alert.getDialogPane().getScene().getWindow();
-            stage_alert.getIcons().add(icon);
-            alert.showAndWait();
         }
     }
 }

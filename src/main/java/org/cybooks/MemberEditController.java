@@ -73,9 +73,12 @@ public class MemberEditController {
         if (memberEdit_sex_female.isSelected()) {
             sexValue = "F";
         }
+        Member temp_member = MemberDAO.getMemberById(Integer.parseInt(memberEdit_id.getText()));
+        System.out.println(temp_member);
+        System.out.println(memberEdit_id.getText());
         Member member = new Member(Integer.parseInt(memberEdit_id.getText()), memberEdit_firstname.getText(),
                 memberEdit_lastname.getText(), memberEdit_email.getText(), java.sql.Date.valueOf(LocalDate.now()),
-                "Actif", java.sql.Date.valueOf(memberEdit_birthday.getValue()), memberEdit_phone.getText(), sexValue);
+                temp_member.getState(), java.sql.Date.valueOf(memberEdit_birthday.getValue()), memberEdit_phone.getText(), sexValue, temp_member.getBlock_till());
         MemberDAO.updateMember(member);
         memberEditMessage.setText("Modifications enregistrées.");
         // Notify DashboardController to update members

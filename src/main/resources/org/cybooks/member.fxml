@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import java.net.URL?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,7 +12,7 @@
 
 <AnchorPane prefHeight="59.0" prefWidth="857.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cybooks.MemberController">
     <children>
-        <Button fx:id="btnAssignBook" layoutX="723.0" layoutY="6.0" minWidth="25.0" mnemonicParsing="false" onAction="#openMemberBorrow" prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;">
+        <Button fx:id="btnAssignBook" layoutX="723.0" layoutY="6.0" minWidth="25.0" mnemonicParsing="false" onAction="#openMemberBorrow" prefHeight="42.0" prefWidth="42.0" style="-fx-background-radius: 25px;" styleClass="primary-button">
             <graphic>
                 <FontAwesomeIcon fill="WHITE" glyphName="BOOK" size="1.4em" />
             </graphic>
@@ -22,7 +23,7 @@
                 <Font name="Poppins Regular" size="17.0" />
             </font>
         </Button>
-        <Button fx:id="btnEditUser" layoutX="767.0" layoutY="6.0" minWidth="25.0" mnemonicParsing="false" onAction="#openMemberEdit" prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;">
+        <Button fx:id="btnEditUser" layoutX="767.0" layoutY="6.0" minWidth="25.0" mnemonicParsing="false" onAction="#openMemberEdit" prefHeight="42.0" prefWidth="42.0" style="-fx-background-radius: 25px;" styleClass="primary-button">
             <graphic>
                 <FontAwesomeIcon fill="WHITE" glyphName="EDIT" size="1.4em" />
             </graphic>
@@ -33,7 +34,7 @@
                 <Font name="Poppins Regular" size="17.0" />
             </font>
         </Button>
-        <Button fx:id="btnDeleteUser" layoutX="811.0" layoutY="6.0" minWidth="25.0" mnemonicParsing="false" onAction="#deleteMember" prefHeight="42.0" prefWidth="42.0" style="-fx-background-color: #cd6f6f; -fx-background-radius: 25px;">
+        <Button fx:id="btnDeleteUser" layoutX="811.0" layoutY="6.0" minWidth="25.0" mnemonicParsing="false" onAction="#deleteMember" prefHeight="42.0" prefWidth="42.0" style="-fx-background-radius: 25px;" styleClass="error-button">
             <graphic>
                 <FontAwesomeIcon fill="WHITE" glyphName="TRASH" size="1.4em" />
             </graphic>
@@ -109,4 +110,7 @@
          </children>
       </TextFlow>
     </children>
+    <stylesheets>
+        <URL value="@../../../../src/main/css/styles.css" />
+    </stylesheets>
 </AnchorPane>

@@ -8,7 +8,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+import java.sql.Date;
 import java.time.LocalDate;
 
 /**
@@ -51,7 +51,7 @@ public class MemberAddController {
         if (memberAdd_sex_female.isSelected()) {
             sex_value = "F";
         }
-        Member member = new Member(1, memberAdd_firstname.getText(), memberAdd_lastname.getText(), memberAdd_email.getText(), java.sql.Date.valueOf(LocalDate.now()), "Actif", java.sql.Date.valueOf(memberAdd_birthday.getValue()), memberAdd_phone.getText(), sex_value);
+        Member member = new Member(1, memberAdd_firstname.getText(), memberAdd_lastname.getText(), memberAdd_email.getText(), java.sql.Date.valueOf(LocalDate.now()), "Actif", java.sql.Date.valueOf(memberAdd_birthday.getValue()), memberAdd_phone.getText(), sex_value, Date.valueOf("2024-05-25"));
         MemberDAO.addMember(member);
 
         memberAdd_lastname.setText("");

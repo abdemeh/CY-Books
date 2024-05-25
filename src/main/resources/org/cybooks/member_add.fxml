@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import java.net.URL?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
@@ -15,7 +16,7 @@
 
 <AnchorPane prefHeight="295.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cybooks.MemberAddController">
    <children>
-      <Button layoutX="486.0" layoutY="5.0" minWidth="25.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="27.0" prefWidth="25.0" style="-fx-background-color: #846fcd;">
+      <Button layoutX="486.0" layoutY="5.0" minWidth="25.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="27.0" prefWidth="25.0" styleClass="primary-button">
          <graphic>
             <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" />
          </graphic>
@@ -23,7 +24,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="memberAdd" layoutX="10.0" layoutY="245.0" minWidth="25.0" mnemonicParsing="false" onAction="#memberAdd" prefHeight="43.0" prefWidth="503.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;" text="AJOUTER" textFill="WHITE">
+      <Button fx:id="memberAdd" layoutX="10.0" layoutY="245.0" minWidth="25.0" mnemonicParsing="false" onAction="#memberAdd" prefHeight="43.0" prefWidth="503.0" style="-fx-background-radius: 25px;" styleClass="primary-button" text="AJOUTER" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -59,19 +60,16 @@
             <Font name="Poppins Regular" size="20.0" />
          </font>
       </TextField>
-      <DatePicker fx:id="memberAdd_birthday" layoutX="270.0" layoutY="153.0" prefHeight="36.0" prefWidth="242.0" promptText="Date de naissance" />
+      <DatePicker fx:id="memberAdd_birthday" layoutX="270.0" layoutY="153.0" prefHeight="36.0" prefWidth="242.0" promptText="Date de naissance" styleClass="date-picker" />
       <RadioButton fx:id="memberAdd_sex_male" layoutX="8.0" layoutY="205.0" mnemonicParsing="false" selected="true" text="Masculin">
          <font>
             <Font name="Poppins Regular" size="18.0" />
          </font>
          <toggleGroup>
-            <ToggleGroup fx:id="sexToggleGroup" />
+            <ToggleGroup fx:id="sex" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="memberAdd_sex_female" layoutX="140.0" layoutY="205.0" mnemonicParsing="false" text="Féminin">
-         <toggleGroup>
-            <ToggleGroup fx:id="sexToggleGroup" />
-         </toggleGroup>
+      <RadioButton fx:id="memberAdd_sex_female" layoutX="140.0" layoutY="205.0" mnemonicParsing="false" text="Féminin" toggleGroup="$sex">
          <font>
             <Font name="Poppins Regular" size="18.0" />
          </font>
@@ -86,4 +84,7 @@
          </children>
       </TextFlow>
    </children>
+   <stylesheets>
+      <URL value="@../../../../src/main/css/styles.css" />
+   </stylesheets>
 </AnchorPane>

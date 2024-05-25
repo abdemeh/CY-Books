@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
@@ -15,10 +16,9 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-
 <AnchorPane prefHeight="610.0" prefWidth="901.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cybooks.BookCatalogueController">
     <children>
-        <Button layoutX="878.0" layoutY="7.0" minWidth="25.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="27.0" prefWidth="25.0" style="-fx-background-color: #846fcd;">
+        <Button layoutX="878.0" layoutY="7.0" minWidth="25.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="27.0" prefWidth="25.0" styleClass="primary-button">
             <graphic>
                 <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" />
             </graphic>
@@ -69,7 +69,7 @@
                                 </TextField>
                             </top>
                         </BorderPane>
-                        <Button fx:id="btnSearchBook" layoutX="470.0" layoutY="91.0" minWidth="25.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="45.0" prefWidth="162.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;" text="CHERCHER" textFill="WHITE">
+                        <Button fx:id="btnSearchBook" layoutX="470.0" layoutY="91.0" minWidth="25.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="45.0" prefWidth="162.0" style="-fx-background-radius: 25px;" styleClass="primary-button" text="CHERCHER" textFill="WHITE">
                             <graphic>
                                 <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" size="1.3em" />
                             </graphic>
@@ -149,4 +149,7 @@
             </font>
         </Text>
     </children>
+    <stylesheets>
+        <URL value="@../../../../src/main/css/styles.css" />
+    </stylesheets>
 </AnchorPane>

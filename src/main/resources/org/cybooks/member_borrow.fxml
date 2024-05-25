@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -16,7 +17,7 @@
 
 <AnchorPane prefHeight="567.0" prefWidth="879.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cybooks.MemberBorrowController">
    <children>
-      <Button layoutX="847.0" layoutY="4.0" minWidth="25.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="27.0" prefWidth="25.0" style="-fx-background-color: #846fcd;">
+      <Button layoutX="847.0" layoutY="4.0" minWidth="25.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="27.0" prefWidth="25.0" styleClass="primary-button">
          <graphic>
             <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" />
          </graphic>
@@ -68,7 +69,7 @@
                   <Font name="Poppins ExtraBold" size="20.0" />
                </font>
             </Text>
-            <TextFlow layoutX="247.0" layoutY="71.0" prefHeight="27.0" prefWidth="108.0" textAlignment="RIGHT">
+            <TextFlow layoutX="70.0" layoutY="71.0" prefHeight="28.0" prefWidth="285.0" textAlignment="RIGHT">
                <children>
                   <Text fx:id="textCurrentUserState" fill="#846fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="Bloqué" textAlignment="RIGHT">
                      <font>
@@ -86,7 +87,7 @@
       </ScrollPane>
       <Pane fx:id="paneEmprunts" layoutX="384.0" layoutY="66.0" prefHeight="142.0" prefWidth="481.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
          <children>
-            <Button fx:id="btnAddEmprunt" layoutX="229.0" layoutY="87.0" minWidth="25.0" mnemonicParsing="false" onAction="#openNewBorrow" prefHeight="45.0" prefWidth="244.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;" text="NOUVEAU EMPRUNT" textFill="WHITE">
+            <Button fx:id="btnAddEmprunt" layoutX="229.0" layoutY="87.0" minWidth="25.0" mnemonicParsing="false" onAction="#openNewBorrow" prefHeight="45.0" prefWidth="244.0" style="-fx-background-radius: 25px;" styleClass="primary-button" text="NOUVEAU EMPRUNT" textFill="WHITE">
                <graphic>
                   <FontAwesomeIcon fill="WHITE" glyphName="BOOK" size="1.3em" />
                </graphic>
@@ -174,4 +175,7 @@
          </children>
       </Pane>
    </children>
+   <stylesheets>
+      <URL value="@../../../../src/main/css/styles.css" />
+   </stylesheets>
 </AnchorPane>

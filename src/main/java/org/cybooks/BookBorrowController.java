@@ -115,7 +115,7 @@ public class BookBorrowController {
         alert.setTitle("Confirmation");
         alert.setHeaderText(null);
         alert.setContentText("Êtes-vous sûr(e) de vouloir retourner cet emprunt ?");
-        Image icon = new Image("file:assets/icon-no-text-white.png");
+        Image icon = new Image("file:src/main/assets/icon-no-text-white.png");
         Stage stage_alert = (Stage) alert.getDialogPane().getScene().getWindow();
         stage_alert.getIcons().add(icon);
 
@@ -137,7 +137,7 @@ public class BookBorrowController {
         alert.setTitle("Confirmation");
         alert.setHeaderText(null);
         alert.setContentText("Êtes-vous sûr(e) de vouloir renouveler cet emprunt ?");
-        Image icon = new Image("file:assets/icon-no-text-white.png");
+        Image icon = new Image("file:src/main/assets/icon-no-text-white.png");
         Stage stage_alert = (Stage) alert.getDialogPane().getScene().getWindow();
         stage_alert.getIcons().add(icon);
 

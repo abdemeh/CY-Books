@@ -199,6 +199,7 @@ public class MemberBorrowController implements Initializable {
         if (currentMember.getState().equals("Actif")) {
             textCurrentUserState.setFill(Color.web("#6fcd7f"));
         } else if (currentMember.getState().equals("Bloqué") || currentMember.getState().equals("Suspendu")) {
+            textCurrentUserState.setText(currentMember.getState()+" (Pour "+String.valueOf(currentMember.getRemainingDays())+" jours)");
             textCurrentUserState.setFill(Color.web("#cc7070"));
             btnAddEmprunt.setDisable(true);
         } else if (currentMember.getState().equals("Inactif")) {

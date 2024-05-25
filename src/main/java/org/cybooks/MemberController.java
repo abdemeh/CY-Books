@@ -63,7 +63,7 @@ public class MemberController {
     private void deleteMember() throws IOException {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
-        Image icon = new Image("file:assets/icon-no-text-white.png");
+        Image icon = new Image("file:src/main/assets/icon-no-text-white.png");
         Stage stage_alert = (Stage) alert.getDialogPane().getScene().getWindow();
         stage_alert.getIcons().add(icon);
         alert.setHeaderText(null);
@@ -99,7 +99,7 @@ public class MemberController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setResizable(false);
-        stage.getIcons().add(new Image("file:assets/icon-no-text-white.png"));
+        stage.getIcons().add(new Image("file:src/main/assets/icon-no-text-white.png"));
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
 
@@ -129,7 +129,7 @@ public class MemberController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setResizable(false);
-        stage.getIcons().add(new Image("file:assets/icon-no-text-white.png"));
+        stage.getIcons().add(new Image("file:src/main/assets/icon-no-text-white.png"));
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
 

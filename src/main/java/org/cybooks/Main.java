@@ -3,7 +3,6 @@ package org.cybooks;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -287,14 +286,14 @@ public class Main {
         System.out.print("Entrez l'email : ");
         String email = scanner.nextLine();
 
-        Date inscriptionDate = new Date();
+        Date inscriptionDate = Date.valueOf(java.time.LocalDate.now());
         String state = "actif";
 
         System.out.print("Entrez la date de naissance (yyyy-MM-dd) : ");
         String birthday = scanner.nextLine();
         Date birthdayStr = null;
         try {
-            birthdayStr = new SimpleDateFormat("yyyy-MM-dd").parse(birthday);
+            birthdayStr = java.sql.Date.valueOf(birthday);
         } catch (Exception e) {
             System.err.println("Format de date invalide.");
             return;
@@ -306,7 +305,7 @@ public class Main {
         System.out.print("Entrez le sexe (M/F) : ");
         String sex = scanner.nextLine();
 
-        Member newMember = new Member(0, lastname, firstname, email, (java.sql.Date) inscriptionDate, state, (java.sql.Date) birthdayStr, phone, sex);
+        Member newMember = new Member(0, lastname, firstname, email, (java.sql.Date) inscriptionDate, state, (java.sql.Date) birthdayStr, phone, sex, java.sql.Date.valueOf("2024-01-01"));
         MemberDAO.addMember(newMember);
 
 
@@ -334,8 +333,9 @@ public class Main {
                 Date birthday = resultSet.getDate("birthday");
                 String phone = resultSet.getString("phone");
                 String sex = resultSet.getString("sex");
+                Date block_till = resultSet.getDate("block_till");
 
-                member = new Member(id, lastName, firstName, memberEmail, (java.sql.Date) inscriptionDate, state, (java.sql.Date) birthday, phone, sex);
+                member = new Member(id, lastName, firstName, memberEmail, (java.sql.Date) inscriptionDate, state, (java.sql.Date) birthday, phone, sex, block_till);
             } else {
                 System.out.println("Aucun membre trouvé avec cet email.");
                 return;

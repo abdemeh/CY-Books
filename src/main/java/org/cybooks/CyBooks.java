@@ -31,7 +31,7 @@ public class CyBooks extends Application {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setResizable(false);
         stage.setTitle("CyBooks - Connexion");
-        stage.getIcons().add(new Image("file:assets/icon-no-text-white.png"));
+        stage.getIcons().add(new Image("file:src/main/assets/icon-no-text-white.png"));
         stage.setScene(scene);
         stage.show();
 
@@ -44,6 +44,7 @@ public class CyBooks extends Application {
             stage.setY(event.getScreenY() - yOffset);
         });
     }
+
 
     /**
      * Main method to launch the application.

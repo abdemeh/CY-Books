@@ -11,29 +11,31 @@ import java.util.List;
  * Handles database operations related to Loan entities.
  */
 public class LoanDAO {
+
     static final int loanDuration = 15;
+    static final int maximumBookExamples = 5;
 
     /**
      * Adds a new loan record to the database.
      *
      * @param isbnBook the ISBN of the book to be borrowed
      * @param idMember the ID of the member borrowing the book
-     * @return true if the loan was successfully added, false otherwise
+     * @return a Result object containing the success status and a message
      */
-    public static boolean addNewLoan(String isbnBook, int idMember) {
-        boolean success = false;
+    public static Result addNewLoan(String isbnBook, int idMember) {
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Result res = new Result(false, "Une erreur est survenue.");
 
         if (verifyIfUserHaveBorrowedBook(isbnBook, idMember)) {
-            success = false;
+            res = new Result(false, "L'utilisateur a déjà emprunté ce livre.");
+        } else if (verifyMaximumBookExamples(isbnBook)) {
+            res = new Result(false, "Nombre maximum d'exemplaires de livre déjà empruntés.");
         } else {
             String insertLoanSQL = "INSERT INTO loan (isbn_book, id_member, loan_date, loan_duration) VALUES (?, ?, ?, ?)";
 
             try (Connection connection = Database.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(insertLoanSQL)) {
-
-
 
                 preparedStatement.setString(1, isbnBook);
                 preparedStatement.setInt(2, idMember);
@@ -42,13 +44,14 @@ public class LoanDAO {
 
                 int rowsAffected = preparedStatement.executeUpdate();
                 if (rowsAffected > 0) {
-                    success = true;
+                    res = new Result(true, "Le prêt a été ajouté avec succès.");
                 }
             } catch (SQLException e) {
+                res = new Result(false, "Une erreur est survenue : " + e.getMessage());
                 e.printStackTrace();
             }
         }
-        return success;
+        return res;
     }
 
     /**
@@ -81,6 +84,33 @@ public class LoanDAO {
     }
 
     /**
+     * Checks if the maximum number of book examples has already been borrowed.
+     *
+     * @param isbnBook the ISBN of the book
+     * @return true if the maximum number has been borrowed, false otherwise
+     */
+    public static boolean verifyMaximumBookExamples(String isbnBook) {
+        boolean verifyMaximumBookExamples = false;
+
+        String query = "SELECT COUNT(*) AS count FROM loan WHERE isbn_book = ?";
+        try (Connection connection = Database.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, isbnBook);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt("count");
+                    verifyMaximumBookExamples = count >= maximumBookExamples;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return verifyMaximumBookExamples;
+    }
+
+    /**
      * Retrieves the list of all loans.
      *
      * @return the list of all loans
@@ -101,7 +131,7 @@ public class LoanDAO {
                 int loanDuration = resultSet.getInt("loan_duration");
                 boolean expired = resultSet.getBoolean("expired");
 
-                Loan loan = new Loan(id_loan,isbnBook, idMember, loanDate, loanDuration, expired);
+                Loan loan = new Loan(id_loan, isbnBook, idMember, loanDate, loanDuration, expired);
                 loans.add(loan);
             }
         } catch (SQLException e) {
@@ -255,6 +285,12 @@ public class LoanDAO {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Renews the loan by extending its duration.
+     *
+     * @param loanId the ID of the loan to be renewed
+     */
     public static void renewLoan(int loanId) {
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement("UPDATE loan SET loan_duration = loan_duration + ? WHERE id_loan = ?")) {
@@ -266,3 +302,4 @@ public class LoanDAO {
         }
     }
 }
+

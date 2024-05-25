@@ -126,8 +126,7 @@ public class DashboardController implements Initializable {
         } catch (Exception e) {
 
         }
-
-
+        refreshDashboard();
         dashboardTitle.setText("Accueil");
         paneHome.setVisible(true);
         paneUsers.setVisible(false);
@@ -138,15 +137,17 @@ public class DashboardController implements Initializable {
         usersScrollPane.setFitToWidth(true);
         booksScrollPane.setFitToWidth(true);
 
-        dashboardNombreTotalMembers.setText(String.valueOf(MemberDAO.getAllMembers().size()));
-        dashboardNombreTotalEmprunts.setText(String.valueOf(LoanDAO.getTotalLoans()));
-        dashboardNombreTotalEmpruntsExpired.setText(String.valueOf(LoanDAO.getLoanExpiredCount()));
-
         LoanDAO.updateUsersState();
         updateMembers(new ArrayList<>(getMembersFromDatabase()));
 
         //list_books=new ArrayList<>(BookAPI.searchBooks("","","",25));
         //updateBooks(list_books);
+    }
+
+    public void refreshDashboard(){
+        dashboardNombreTotalMembers.setText(String.valueOf(MemberDAO.getAllMembers().size()));
+        dashboardNombreTotalEmprunts.setText(String.valueOf(LoanDAO.getTotalLoans()));
+        dashboardNombreTotalEmpruntsExpired.setText(String.valueOf(LoanDAO.getLoanExpiredCount()));
     }
 
     /**
@@ -270,7 +271,7 @@ public class DashboardController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setResizable(false);
-        stage.getIcons().add(new Image("file:assets/icon-no-text-white.png"));
+        stage.getIcons().add(new Image("file:src/main/assets/icon-no-text-white.png"));
         stage.initStyle(StageStyle.UNDECORATED);
         stage.show();
 
@@ -301,6 +302,7 @@ public class DashboardController implements Initializable {
      * @param event the action event
      */
     public void actionHome(ActionEvent event) {
+        refreshDashboard();
         dashboardTitle.setText("Accueil");
         paneHome.setVisible(true);
         paneUsers.setVisible(false);
@@ -365,7 +367,7 @@ public class DashboardController implements Initializable {
         alert.setTitle("Confirmation");
         alert.setHeaderText(null);
         alert.setContentText("Êtes-vous sûr(e) de déconnecter ?");
-        Image icon = new Image("file:assets/icon-no-text-white.png");
+        Image icon = new Image("file:src/main/assets/icon-no-text-white.png");
         Stage stage_alert = (Stage) alert.getDialogPane().getScene().getWindow();
         stage_alert.getIcons().add(icon);
 
@@ -392,7 +394,7 @@ public class DashboardController implements Initializable {
                     stage.initStyle(StageStyle.UNDECORATED);
                     stage.setResizable(false);
                     stage.setTitle("CyBooks - Connexion");
-                    stage.getIcons().add(new Image("file:assets/icon-no-text-white.png"));
+                    stage.getIcons().add(new Image("file:src/main/assets/icon-no-text-white.png"));
                     stage.setScene(scene);
                     stage.show();
                     // Enable dragging functionality for the stage
