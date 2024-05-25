@@ -22,24 +22,39 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for managing the book catalogue interface.
+ */
 public class BookCatalogueController implements Initializable {
     private double xOffset = 0;
     private double yOffset = 0;
+
     @FXML
     private Text textSearchBookResultats;
+
     @FXML
     private TextField textSearchBookMaxRes;
+
     @FXML
     private TextField textSearchBookISBN;
+
     @FXML
     private TextField textSearchBookTitre;
+
     @FXML
     private TextField textSearchBookAuteur;
+
     @FXML
     private Text textSearchBookMessage;
+
     @FXML
     private VBox booksVbox;
 
+    /**
+     * Closes the current window and opens the login window.
+     *
+     * @param event the ActionEvent triggering the action
+     */
     public void closeWindow(ActionEvent event) {
         Task<Parent> loadLogin = new Task<>() {
             @Override
@@ -84,11 +99,20 @@ public class BookCatalogueController implements Initializable {
         new Thread(loadLogin).start();
     }
 
-
+    /**
+     * Initializes the controller.
+     *
+     * @param url            the location used to resolve relative paths for the root object
+     * @param resourceBundle the resources used to localize the root object
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+
+    /**
+     * Performs a search for books based on the input criteria.
+     */
     public void searchBook() {
         String NombreResultats = textSearchBookMaxRes.getText();
         int number_max_records = 25;
@@ -114,6 +138,12 @@ public class BookCatalogueController implements Initializable {
         searchThread.setDaemon(true);
         searchThread.start();
     }
+
+    /**
+     * Updates the display with the search results.
+     *
+     * @param list_books the list of books to display
+     */
     public void updateBooks(List<Book> list_books) {
         Platform.runLater(() -> {
             try {

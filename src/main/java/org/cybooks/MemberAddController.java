@@ -11,6 +11,9 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 
+/**
+ * Controller class for adding a new member.
+ */
 public class MemberAddController {
     @FXML
     private TextField memberAdd_lastname;
@@ -29,12 +32,20 @@ public class MemberAddController {
     @FXML
     private Text memberAddMessage;
 
+    /**
+     * Closes the window.
+     *
+     * @param event The ActionEvent triggered by the close button.
+     */
     @FXML
     public void closeWindow(ActionEvent event) {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Handles adding a new member.
+     */
     public void memberAdd() {
         String sex_value = "M";
         if (memberAdd_sex_female.isSelected()) {

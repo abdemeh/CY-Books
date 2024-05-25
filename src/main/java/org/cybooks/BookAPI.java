@@ -1,4 +1,5 @@
 package org.cybooks;
+
 import java.io.StringReader;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -17,12 +18,24 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
+/**
+ * A utility class to interact with the "Bibliothèque Nationale de France - BNF" API for book search.
+ */
 public class BookAPI {
+    /**
+     * Searches for books based on the provided criteria.
+     *
+     * @param s_isbn        the ISBN of the book
+     * @param s_title       the title of the book
+     * @param s_author      the author of the book
+     * @param s_max_records the maximum number of records to retrieve
+     * @return a list of books matching the search criteria
+     */
     public static List<Book> searchBooks(String s_isbn, String s_title, String s_author, int s_max_records) {
         List<Book> books = new ArrayList<>();
-        String query_isbn="";
-        String query_title="";
-        String query_author="";
+        String query_isbn = "";
+        String query_title = "";
+        String query_author = "";
         try {
             if (s_isbn != null && !s_isbn.trim().isEmpty()) {
                 query_isbn = "bib.isbn all \"" + s_isbn + "\" and ";
@@ -37,7 +50,7 @@ public class BookAPI {
             if (query.endsWith(" and ")) {
                 query = query.substring(0, query.length() - 5);
             }
-            String encodedQuery = URLEncoder.encode(query+"not bib.doctype all \"g h\"", StandardCharsets.UTF_8);
+            String encodedQuery = URLEncoder.encode(query + "not bib.doctype all \"g h\"", StandardCharsets.UTF_8);
             String apiUrl = "https://catalogue.bnf.fr/api/SRU?version=1.2&operation=searchRetrieve&query=" + encodedQuery + "&maximumRecords=" + s_max_records;
             System.out.println("API URL: " + apiUrl);
             URL url = new URL(apiUrl);
@@ -84,7 +97,7 @@ public class BookAPI {
                         String category = "";
                         Date publicationDate = null;
 
-                        imageUrl = "https://catalogue.bnf.fr/couverture?&appName=NE&idArk="+recordElementData.getAttribute("id")+"&couverture=1";
+                        imageUrl = "https://catalogue.bnf.fr/couverture?&appName=NE&idArk=" + recordElementData.getAttribute("id") + "&couverture=1";
 
                         NodeList datafields = recordElementData.getElementsByTagName("mxc:datafield");
                         for (int k = 0; k < datafields.getLength(); k++) {
@@ -98,7 +111,6 @@ public class BookAPI {
                                 String content = subfield.getTextContent();
                                 if (tag.equals("010") && code.equals("a")) {
                                     isbn = content;
-                                    //imageUrl = "https://covers.openlibrary.org/b/isbn/"+isbn+"-L.jpg";
                                 } else if (tag.equals("200") && code.equals("a")) {
                                     title = content;
                                 } else if (tag.equals("200") && code.equals("f")) {
@@ -117,8 +129,10 @@ public class BookAPI {
                                 }
                             }
                         }
-                        Book book = new Book(isbn, imageUrl, title, author, language, category, publicationDate);
-                        books.add(book);
+                        if (!isbn.isEmpty()) {
+                            Book book = new Book(isbn, imageUrl, title, author, language, category, publicationDate);
+                            books.add(book);
+                        }
                     }
                 }
             }
@@ -131,8 +145,15 @@ public class BookAPI {
 
         return books;
     }
+
+    /**
+     * Searches for a single book based on the provided ISBN.
+     *
+     * @param s_isbn the ISBN of the book to search for
+     * @return the book matching the provided ISBN, or null if not found
+     */
     public static Book searchBook(String s_isbn) {
         List<Book> books = searchBooks(s_isbn, "", "", 1);
-        return books.getFirst();
+        return books.isEmpty() ? null : books.get(0);
     }
 }

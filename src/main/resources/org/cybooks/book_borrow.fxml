@@ -104,7 +104,7 @@
                </children>
             </TextFlow>
             <BorderPane layoutX="4.0" layoutY="136.0" opacity="0.2" prefHeight="10.0" prefWidth="818.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
-            <Button fx:id="btnRenew" layoutX="544.0" layoutY="87.0" minWidth="25.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="142.0" style="-fx-background-color: #6fcd93; -fx-background-radius: 25px;" text="RENOUVELER" textFill="WHITE">
+            <Button fx:id="btnRenew" onAction="#renewLoan" layoutX="544.0" layoutY="87.0" minWidth="25.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="142.0" style="-fx-background-color: #6fcd93; -fx-background-radius: 25px;" text="RENOUVELER" textFill="WHITE">
                <graphic>
                   <FontAwesomeIcon fill="WHITE" glyphName="RECYCLE" size="1.4em" />
                </graphic>

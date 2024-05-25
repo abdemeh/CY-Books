@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -21,6 +20,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for the login view.
+ */
 public class LoginController implements Initializable {
     private double xOffset = 0;
     private double yOffset = 0;
@@ -31,10 +33,23 @@ public class LoginController implements Initializable {
     private TextField textLoginEmail;
     @FXML
     private TextField textLoginPassword;
+
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     *
+     * @param url            The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         textLoginMessage.setText("");
     }
+
+    /**
+     * Handles the login button action event.
+     *
+     * @param event The action event triggered by clicking the login button.
+     */
     public void login(ActionEvent event) {
         if(textLoginEmail.getText().trim().equals("")){
             textLoginMessage.setFill(Color.web("#cc7070"));
@@ -94,6 +109,12 @@ public class LoginController implements Initializable {
             }
         }
     }
+
+    /**
+     * Handles the action event for opening the catalogue.
+     *
+     * @param event The action event triggered by clicking the catalogue link.
+     */
     public void openCatalogue(ActionEvent event) {
         System.out.println("Open Catalogue method called");
         System.out.println("Loading book_catalogue.fxml from: " + CyBooks.class.getResource("book_catalogue.fxml")); // Add this line
@@ -142,7 +163,11 @@ public class LoginController implements Initializable {
         new Thread(loadCatalogueTask).start();
     }
 
-
+    /**
+     * Closes the current window.
+     *
+     * @param event The action event triggered by clicking the close button.
+     */
     public void closeWindow(ActionEvent event) {
         // Get the reference to the stage
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();

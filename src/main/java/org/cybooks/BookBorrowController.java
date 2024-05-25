@@ -16,7 +16,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class BookBorrowController{
+/**
+ * Controller class for displaying book borrowing information and handling related actions.
+ */
+public class BookBorrowController {
     @FXML
     private Rectangle book_image;
     @FXML
@@ -31,18 +34,25 @@ public class BookBorrowController{
     private Text book_date;
     @FXML
     private Text book_isbn;
+    @FXML
+    private Text loan_expired;
+    @FXML
+    private Text book_restant;
+    @FXML
+    private Text book_expire;
+    @FXML
+    private Button btnRenew;
+    @FXML
+    private Button btnReturn;
+
     private Book currentBook;
-    @FXML
-    Text loan_expired;
-    @FXML
-    Text book_restant;
-    @FXML
-    Text book_expire;
-    @FXML
-    Button btnRenew;
-    @FXML
-    Button btnReturn;
     private Loan currentLoan;
+
+    /**
+     * Sets the data for displaying book borrowing details.
+     *
+     * @param loan the loan details to display
+     */
     public void setData(Loan loan) {
         String isbn = loan.getBookIsbn();
         List<Book> books = BookAPI.searchBooks(isbn, "", "", 1);
@@ -57,55 +67,90 @@ public class BookBorrowController{
             book_title.setText(book.getTitle());
             book_isbn.setText(book.getIsbn());
             book_author.setText(book.getAuthor());
-            book_category.setText(book.getCategory());
-            book_language.setText(book.getLanguage());
+            book_category.setText(new Category().getLibelle(book.getCategory()));            book_language.setText(book.getLanguage());
             book_date.setText(df.format(book.getPublicationDate()));
-            book_image.setFill(new ImagePattern(new Image(book.getimageUrl())));
-            book_expire.setText("Emprunt expiration: "+df.format(loan.getExpiredDate()));
-            if (loan.getRestant() > 1) {
-                book_restant.setText(String.valueOf(loan.getRestant()) + " jours restants");
+            book_image.setFill(new ImagePattern(new Image(book.getImageUrl())));
+            book_expire.setText("Emprunt expiration: " + df.format(loan.getExpirationDate()));
+
+            int restant = loan.getRemainingDays();
+
+            if (restant > 1) {
+                book_restant.setText(restant + " jours restants");
                 book_restant.setFill(Color.web("#6fcd93"));
-            } else if (loan.getRestant() == 0) {
-                book_restant.setText(String.valueOf(loan.getRestant()) + " jours restants");
+            } else if (restant == 0) {
+                book_restant.setText(restant + " jours restants");
                 book_restant.setFill(Color.web("#ccc670"));
-            } else if (loan.getRestant() < 0) {
-                book_restant.setText(String.valueOf(loan.getRestant() * (-1)) + " jours dépassés");
+            } else if (restant < 0) {
+                book_restant.setText((restant * (-1)) + " jours dépassés");
                 book_restant.setFill(Color.web("#cc7070"));
             } else {
-                book_restant.setText(String.valueOf(loan.getRestant()) + " jour restant");
+                book_restant.setText(restant + " jour restant");
                 book_restant.setFill(Color.web("#6fcd93"));
             }
-            if(loan.getExpired()){
+
+            if (loan.isExpired()) {
                 loan_expired.setVisible(true);
                 btnRenew.setDisable(true);
-
-            }else{
+            } else {
                 loan_expired.setVisible(false);
             }
         }
     }
+
+    /**
+     * Closes the window.
+     *
+     * @param event the ActionEvent triggering the action
+     */
     public void closeWindow(ActionEvent event) {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();
     }
-    public void deleteLoan(){
+
+    /**
+     * Deletes the current loan.
+     */
+    public void deleteLoan() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText(null);
-        alert.setContentText("Etes-vous sûr(e) de vouloir renouveler cet emprunt ?");
+        alert.setContentText("Êtes-vous sûr(e) de vouloir retourner cet emprunt ?");
         Image icon = new Image("file:assets/icon-no-text-white.png");
         Stage stage_alert = (Stage) alert.getDialogPane().getScene().getWindow();
         stage_alert.getIcons().add(icon);
 
+        ButtonType buttonTypeOui = new ButtonType("Oui");
+        ButtonType buttonTypeNon = new ButtonType("Non");
+        alert.getButtonTypes().setAll(buttonTypeOui, buttonTypeNon);
+
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
+        if (result.isPresent() && result.get() == buttonTypeOui) {
             LoanDAO.deleteLoan(currentLoan.getIdLoan());
-            // Notify DashboardController to update members
             MemberBorrowController memberBorrowController = ControllerManager.getMemberBorrowController();
-            //DashboardController dashboardController = ControllerManager.getDashboardController();
             if (memberBorrowController != null) {
                 memberBorrowController.updateBorrowedBooks(LoanDAO.getLoans(currentLoan.getIdMember()));
-                //dashboardController.updateMembersFromDatabase();
+            }
+        }
+    }
+    public void renewLoan() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Êtes-vous sûr(e) de vouloir renouveler cet emprunt ?");
+        Image icon = new Image("file:assets/icon-no-text-white.png");
+        Stage stage_alert = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage_alert.getIcons().add(icon);
+
+        ButtonType buttonTypeOui = new ButtonType("Oui");
+        ButtonType buttonTypeNon = new ButtonType("Non");
+        alert.getButtonTypes().setAll(buttonTypeOui, buttonTypeNon);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == buttonTypeOui) {
+            LoanDAO.renewLoan(currentLoan.getIdLoan());
+            MemberBorrowController memberBorrowController = ControllerManager.getMemberBorrowController();
+            if (memberBorrowController != null) {
+                memberBorrowController.updateBorrowedBooks(LoanDAO.getLoans(currentLoan.getIdMember()));
             }
         }
     }

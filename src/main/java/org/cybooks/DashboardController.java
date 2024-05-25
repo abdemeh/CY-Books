@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Controller class for the dashboard UI.
+ */
 public class DashboardController implements Initializable {
 
     @FXML
@@ -89,28 +92,34 @@ public class DashboardController implements Initializable {
     private double xOffset = 0;
     private double yOffset = 0;
 
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     *
+     * @param url the location used to resolve relative paths for the root object, or null if the location is not known
+     * @param resourceBundle the resources used to localize the root object, or null if the root object was not localized
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ControllerManager.setDashboardController(this);
         List<String[]> topBooks = LoanDAO.getTopFourBooks();
         try {
-            imageTopBooks1.setFill(new ImagePattern(new Image(BookAPI.searchBook(topBooks.get(0)[0]).getimageUrl())));
+            imageTopBooks1.setFill(new ImagePattern(new Image(BookAPI.searchBook(topBooks.get(0)[0]).getImageUrl())));
             numberTopBooks1.setText(String.valueOf("Total: "+topBooks.get(0)[1]));
             paneTopFourBooks.setVisible(true);
             imageTopBooks1.setVisible(true);
             numberTopBooks1.setVisible(true);
 
-            imageTopBooks2.setFill(new ImagePattern(new Image(BookAPI.searchBook(topBooks.get(1)[0]).getimageUrl())));
+            imageTopBooks2.setFill(new ImagePattern(new Image(BookAPI.searchBook(topBooks.get(1)[0]).getImageUrl())));
             numberTopBooks2.setText(String.valueOf("Total: "+topBooks.get(1)[1]));
             imageTopBooks2.setVisible(true);
             numberTopBooks2.setVisible(true);
 
-            imageTopBooks3.setFill(new ImagePattern(new Image(BookAPI.searchBook(topBooks.get(2)[0]).getimageUrl())));
+            imageTopBooks3.setFill(new ImagePattern(new Image(BookAPI.searchBook(topBooks.get(2)[0]).getImageUrl())));
             numberTopBooks3.setText(String.valueOf("Total: "+topBooks.get(2)[1]));
             imageTopBooks3.setVisible(true);
             numberTopBooks3.setVisible(true);
 
-            imageTopBooks4.setFill(new ImagePattern(new Image(BookAPI.searchBook(topBooks.get(3)[0]).getimageUrl())));
+            imageTopBooks4.setFill(new ImagePattern(new Image(BookAPI.searchBook(topBooks.get(3)[0]).getImageUrl())));
             numberTopBooks4.setText(String.valueOf("Total: "+topBooks.get(3)[1]));
             imageTopBooks4.setVisible(true);
             numberTopBooks4.setVisible(true);
@@ -140,11 +149,19 @@ public class DashboardController implements Initializable {
         //updateBooks(list_books);
     }
 
+    /**
+     * Updates the member list from the database and displays it.
+     */
     public void updateMembersFromDatabase() {
         List<Member> updatedMembers = getMembersFromDatabase();
         updateMembers(updatedMembers);
     }
 
+    /**
+     * Updates the displayed member list.
+     *
+     * @param list_members the list of members to display
+     */
     public void updateMembers(List<Member> list_members) {
         Platform.runLater(() -> {
             try {
@@ -164,6 +181,11 @@ public class DashboardController implements Initializable {
         });
     }
 
+    /**
+     * Updates the displayed book list.
+     *
+     * @param list_books the list of books to display
+     */
     public void updateBooks(List<Book> list_books) {
         Platform.runLater(() -> {
             try {
@@ -187,10 +209,18 @@ public class DashboardController implements Initializable {
             }
         });
     }
+
+    /**
+     * Searches for members based on the input criteria and updates the displayed member list.
+     */
     public void searchMember(){
         List<Member> list_members = MemberDAO.searchMembers(textSearchMember.getText());
         updateMembers(list_members);
     }
+
+    /**
+     * Searches for books based on the input criteria and updates the displayed book list.
+     */
     public void searchBook() {
         String NombreResultats = textSearchBookMaxRes.getText();
         int number_max_records = 25;
@@ -217,11 +247,21 @@ public class DashboardController implements Initializable {
         searchThread.start();
     }
 
+    /**
+     * Retrieves all members from the database.
+     *
+     * @return the list of all members
+     */
     public List<Member> getMembersFromDatabase() {
         List<Member> list_members = MemberDAO.getAllMembers();
         return list_members;
     }
 
+    /**
+     * Opens the window to add a new member.
+     *
+     * @throws IOException if an error occurs while loading the FXML file
+     */
     @FXML
     private void openMemberAdd() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("member_add.fxml"));
@@ -245,11 +285,21 @@ public class DashboardController implements Initializable {
 
     }
 
+    /**
+     * Closes the current window.
+     *
+     * @param event the action event
+     */
     public void closeWindow(ActionEvent event) {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Switches to the home view.
+     *
+     * @param event the action event
+     */
     public void actionHome(ActionEvent event) {
         dashboardTitle.setText("Accueil");
         paneHome.setVisible(true);
@@ -257,6 +307,11 @@ public class DashboardController implements Initializable {
         paneBooks.setVisible(false);
     }
 
+    /**
+     * Switches to the users view.
+     *
+     * @param event the action event
+     */
     public void actionUsers(ActionEvent event) {
         dashboardTitle.setText("Utilisateurs");
         paneUsers.setVisible(true);
@@ -264,6 +319,11 @@ public class DashboardController implements Initializable {
         paneBooks.setVisible(false);
     }
 
+    /**
+     * Switches to the books view.
+     *
+     * @param event the action event
+     */
     public void actionBooks(ActionEvent event) {
         dashboardTitle.setText("Livres");
         paneBooks.setVisible(true);
@@ -271,6 +331,11 @@ public class DashboardController implements Initializable {
         paneUsers.setVisible(false);
     }
 
+    /**
+     * Switches to the settings view.
+     *
+     * @param event the action event
+     */
     public void actionSettings(ActionEvent event) {
         dashboardTitle.setText("Paramètres");
         paneHome.setVisible(false);
@@ -278,6 +343,11 @@ public class DashboardController implements Initializable {
         paneBooks.setVisible(false);
     }
 
+    /**
+     * Switches to the profile view.
+     *
+     * @param event the action event
+     */
     public void actionProfile(ActionEvent event) {
         dashboardTitle.setText("Mon profil");
         paneHome.setVisible(false);
@@ -285,16 +355,26 @@ public class DashboardController implements Initializable {
         paneBooks.setVisible(false);
     }
 
+    /**
+     * Logs out the user and returns to the login screen.
+     *
+     * @param event the action event
+     */
     public void actionLogout(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText(null);
-        alert.setContentText("Etes-vous sûr(e) de déconnecter ?");
+        alert.setContentText("Êtes-vous sûr(e) de déconnecter ?");
         Image icon = new Image("file:assets/icon-no-text-white.png");
         Stage stage_alert = (Stage) alert.getDialogPane().getScene().getWindow();
         stage_alert.getIcons().add(icon);
+
+        ButtonType buttonTypeOui = new ButtonType("Oui");
+        ButtonType buttonTypeNon = new ButtonType("Non");
+        alert.getButtonTypes().setAll(buttonTypeOui, buttonTypeNon);
+
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
+        if (result.isPresent() && result.get() == buttonTypeOui) {
             // Create a new task for loading the dashboard FXML
             Task<Parent> loadLoginTask = new Task<>() {
                 @Override

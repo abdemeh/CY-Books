@@ -22,6 +22,10 @@ import java.util.List;
 import javafx.scene.control.Alert.AlertType;
 
 import java.util.Optional;
+
+/**
+ * Controller class for managing member details.
+ */
 public class MemberController {
     @FXML
     private Text member_name;
@@ -49,31 +53,41 @@ public class MemberController {
     @FXML
     private ScrollPane booksScrollPane;
     private List<Book> list_borrowed_books;
+
+    /**
+     * Deletes the current member from the system.
+     *
+     * @throws IOException If an error occurs during member deletion.
+     */
     @FXML
     private void deleteMember() throws IOException {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
-        alert.initStyle(StageStyle.UNDECORATED);
+        Image icon = new Image("file:assets/icon-no-text-white.png");
+        Stage stage_alert = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage_alert.getIcons().add(icon);
         alert.setHeaderText(null);
-        alert.setContentText("Etes-vous sûr que vous voulez supprimer "+currentMember.getLastName()+" "+currentMember.getFirstName()+"?");
+        alert.setContentText("Êtes-vous sûr que vous voulez supprimer " + currentMember.getLastName() + " " + currentMember.getFirstName() + "?");
 
-        /* Get the button types
-        ButtonType okButton = new ButtonType("Oui", ButtonBar.ButtonData.OK_DONE);
-        ButtonType cancelButton = new ButtonType("Non", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        // Set the button types with custom text
-        alert.getButtonTypes().setAll(okButton, cancelButton);*/
+        ButtonType buttonTypeOui = new ButtonType("Oui");
+        ButtonType buttonTypeNon = new ButtonType("Non");
+        alert.getButtonTypes().setAll(buttonTypeOui, buttonTypeNon);
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
+        if (result.isPresent() && result.get() == buttonTypeOui) {
             MemberDAO.deleteMember(currentMember.getId());
-            // Notify DashboardController to update members
             DashboardController dashboardController = ControllerManager.getDashboardController();
             if (dashboardController != null) {
                 dashboardController.updateMembersFromDatabase();
             }
         }
     }
+
+    /**
+     * Opens the member editing window.
+     *
+     * @throws IOException If an error occurs while opening the member edit window.
+     */
     @FXML
     private void openMemberEdit() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("member_edit.fxml"));
@@ -97,12 +111,16 @@ public class MemberController {
             stage.setX(event.getScreenX() - xOffset);
             stage.setY(event.getScreenY() - yOffset);
         });
-
     }
+
+    /**
+     * Opens the member borrowing window.
+     *
+     * @throws IOException If an error occurs while opening the member borrow window.
+     */
     @FXML
     private void openMemberBorrow() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("member_borrow.fxml"));
-
         Parent root = loader.load();
 
         MemberBorrowController memberBorrowController = loader.getController();
@@ -123,16 +141,20 @@ public class MemberController {
             stage.setX(event.getScreenX() - xOffset);
             stage.setY(event.getScreenY() - yOffset);
         });
-
-
     }
-    public void setData(Member member){
+
+    /**
+     * Sets the data for the current member.
+     *
+     * @param member The member whose data is to be set.
+     */
+    public void setData(Member member) {
         String pattern = "dd/MM/yyyy";
         DateFormat df = new SimpleDateFormat(pattern);
 
         currentMember = member;
 
-        member_name.setText(member.getLastName()+" "+member.getFirstName());
+        member_name.setText(member.getLastName() + " " + member.getFirstName());
         member_id.setText(Integer.toString(member.getId()));
         member_email.setText(member.getEmail());
         member_added.setText(df.format(member.getInscriptionDate()));
@@ -147,15 +169,28 @@ public class MemberController {
         }
         member_image.setText(getInitials(member.getLastName(), member.getFirstName()));
     }
+
+    /**
+     * Generates initials based on the first and last name.
+     *
+     * @param lastname  The last name of the member.
+     * @param firstname The first name of the member.
+     * @return The initials of the member.
+     */
     public static String getInitials(String lastname, String firstname) {
         String initials = "";
         initials += Character.toUpperCase(lastname.charAt(0));
         initials += Character.toUpperCase(firstname.charAt(0));
         return initials.toUpperCase();
     }
+
+    /**
+     * Closes the current window.
+     *
+     * @param event The ActionEvent triggered by the close button.
+     */
     public void closeWindow(ActionEvent event) {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();
     }
-
 }

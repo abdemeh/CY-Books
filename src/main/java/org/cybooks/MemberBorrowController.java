@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for handling member borrowing operations.
+ */
 public class MemberBorrowController implements Initializable {
     private Book currentBook;
     @FXML
@@ -55,14 +58,34 @@ public class MemberBorrowController implements Initializable {
     private Text textSearchBookMessage;
     private double xOffset = 0;
     private double yOffset = 0;
+
+    /**
+     * Closes the window.
+     *
+     * @param event The ActionEvent triggered by the close button.
+     */
+    @FXML
     public void closeWindow(ActionEvent event) {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
         stage.close();
     }
+
+    /**
+     * Opens the new borrow pane.
+     *
+     * @throws IOException If an I/O error occurs.
+     */
     public void openNewBorrow() throws IOException {
         paneNewEmprunt.setVisible(true);
         paneEmprunts.setVisible(false);
     }
+
+    /**
+     * Initializes the controller.
+     *
+     * @param url            The location used to resolve relative paths for the root object, or null if the location is not known.
+     * @param resourceBundle The resources used to localize the root object, or null if the root object was not localized.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ControllerManager.setMemberBorrowController(this);
@@ -70,6 +93,10 @@ public class MemberBorrowController implements Initializable {
         paneEmprunts.setVisible(true);
         paneNewEmprunt.setVisible(false);
     }
+
+    /**
+     * Searches for books based on the provided criteria.
+     */
     public void searchBook() {
         String NombreResultats = textSearchBookMaxRes.getText();
         int number_max_records = 25;
@@ -95,6 +122,12 @@ public class MemberBorrowController implements Initializable {
         searchThread.setDaemon(true);
         searchThread.start();
     }
+
+    /**
+     * Updates the displayed books based on the search results.
+     *
+     * @param list_books The list of books to display.
+     */
     public void updateBooks(List<Book> list_books) {
         Platform.runLater(() -> {
             try {
@@ -117,41 +150,51 @@ public class MemberBorrowController implements Initializable {
             }
         });
     }
+
+    /**
+     * Updates the borrowed books list.
+     *
+     * @param list_loans The list of loans to display.
+     */
     public void updateBorrowedBooks(List<Loan> list_loans) {
         paneEmprunts.setVisible(true);
         paneNewEmprunt.setVisible(false);
-        if(list_loans.size()>=5){
+        if (list_loans.size() >= 5) {
             btnAddEmprunt.setDisable(true);
-        }else{
-            if(UserContext.getCurrentUser().getState().equals("Bloqué") || UserContext.getCurrentUser().getState().equals("Suspendu") || UserContext.getCurrentUser().getState().equals("Inactif")){
+        } else {
+            if (UserContext.getCurrentUser().getState().equals("Bloqué") || UserContext.getCurrentUser().getState().equals("Suspendu") || UserContext.getCurrentUser().getState().equals("Inactif")) {
                 btnAddEmprunt.setDisable(true);
-            }else{
+            } else {
                 btnAddEmprunt.setDisable(false);
             }
         }
         textTotalEmprunts.setText(String.valueOf(list_loans.size()));
         Platform.runLater(() -> {
-            try{
+            try {
                 booksGrid.getChildren().clear();
-                for (int i=0;i<list_loans.size();i++){
-                    FXMLLoader fxmlLoader=new FXMLLoader();
+                for (int i = 0; i < list_loans.size(); i++) {
+                    FXMLLoader fxmlLoader = new FXMLLoader();
                     fxmlLoader.setLocation(getClass().getResource("book_borrow.fxml"));
-                    AnchorPane bookPane=fxmlLoader.load();
+                    AnchorPane bookPane = fxmlLoader.load();
                     BookBorrowController cardController = fxmlLoader.getController();
                     cardController.setData(list_loans.get(i));
                     booksGrid.getChildren().add(bookPane);
                 }
-            }catch (
-                    IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
     }
+
+    /**
+     * Sets the member data for display.
+     *
+     * @param currentMember The current member.
+     */
     public void setMemberData(Member currentMember) {
         UserContext.setCurrentUser(currentMember);
-        System.out.println(currentMember);
         textCurrentIdUser.setText(String.valueOf(currentMember.getId()));
-        textCurrentNameUser.setText(currentMember.getLastName()+" "+currentMember.getFirstName());
+        textCurrentNameUser.setText(currentMember.getLastName() + " " + currentMember.getFirstName());
         textCurrentUserState.setText(currentMember.getState());
         if (currentMember.getState().equals("Actif")) {
             textCurrentUserState.setFill(Color.web("#6fcd7f"));
@@ -161,7 +204,8 @@ public class MemberBorrowController implements Initializable {
         } else if (currentMember.getState().equals("Inactif")) {
             textCurrentUserState.setFill(Color.web("#ccc670"));
         }
-        list_borrowed_loans=new ArrayList<>(LoanDAO.getLoans(Integer.parseInt(textCurrentIdUser.getText())));
+        list_borrowed_loans = new ArrayList<>(LoanDAO.getLoans(Integer.parseInt(textCurrentIdUser.getText())));
         updateBorrowedBooks(list_borrowed_loans);
     }
+
 }

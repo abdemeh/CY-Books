@@ -10,10 +10,19 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
+/**
+ * Main class for the CyBooks application.
+ */
 public class CyBooks extends Application {
     private double xOffset = 0;
     private double yOffset = 0;
 
+    /**
+     * The entry point of the application.
+     *
+     * @param stage the primary stage for the application
+     * @throws IOException if an I/O error occurs during loading
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("login.fxml"));
@@ -36,7 +45,12 @@ public class CyBooks extends Application {
         });
     }
 
+    /**
+     * Main method to launch the application.
+     *
+     * @param args the command line arguments
+     */
     public static void main(String[] args) {
-        launch(args); // Passing arguments to the launch method
+        launch(args);
     }
 }

@@ -6,21 +6,34 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Data Access Object (DAO) for Loan entities.
+ * Handles database operations related to Loan entities.
+ */
 public class LoanDAO {
+    static final int loanDuration = 15;
+
+    /**
+     * Adds a new loan record to the database.
+     *
+     * @param isbnBook the ISBN of the book to be borrowed
+     * @param idMember the ID of the member borrowing the book
+     * @return true if the loan was successfully added, false otherwise
+     */
     public static boolean addNewLoan(String isbnBook, int idMember) {
-        boolean s = false;
+        boolean success = false;
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        //System.out.println("INSERT INTO loan (id_member, isbn_book, loan_date) VALUES ("+idMember+", "+isbnBook+", "+today.format(formatter)+")");
-        if (verifyIfUserHaveBorrowedBook(isbnBook,idMember)) {
-            s = false;
-        }else{
+
+        if (verifyIfUserHaveBorrowedBook(isbnBook, idMember)) {
+            success = false;
+        } else {
             String insertLoanSQL = "INSERT INTO loan (isbn_book, id_member, loan_date, loan_duration) VALUES (?, ?, ?, ?)";
 
             try (Connection connection = Database.getConnection();
                  PreparedStatement preparedStatement = connection.prepareStatement(insertLoanSQL)) {
 
-                int loanDuration = 15;
+
 
                 preparedStatement.setString(1, isbnBook);
                 preparedStatement.setInt(2, idMember);
@@ -29,14 +42,22 @@ public class LoanDAO {
 
                 int rowsAffected = preparedStatement.executeUpdate();
                 if (rowsAffected > 0) {
-                    s = true;
+                    success = true;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        return s;
+        return success;
     }
+
+    /**
+     * Checks if a user has already borrowed a specific book.
+     *
+     * @param isbnBook the ISBN of the book
+     * @param idMember the ID of the member
+     * @return true if the user has borrowed the book, false otherwise
+     */
     public static boolean verifyIfUserHaveBorrowedBook(String isbnBook, int idMember) {
         boolean userHasBorrowedBook = false;
 
@@ -58,30 +79,72 @@ public class LoanDAO {
 
         return userHasBorrowedBook;
     }
-    public static List<Loan> getLoans(int id_user) {
-        List<Loan> borrowed_loans = new ArrayList<>();
-        String query = "SELECT id_loan, isbn_book, id_member, loan_date, loan_duration FROM loan WHERE id_member=? ORDER BY DATE_ADD(loan_date, INTERVAL loan_duration DAY) ASC";
 
+    /**
+     * Retrieves the list of all loans.
+     *
+     * @return the list of all loans
+     */
+    public static List<Loan> getAllLoans() {
+        List<Loan> loans = new ArrayList<>();
+
+        String query = "SELECT * FROM loan";
         try (Connection connection = Database.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, id_user);
-            ResultSet resultSet = preparedStatement.executeQuery();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+
             while (resultSet.next()) {
                 int id_loan = resultSet.getInt("id_loan");
-                String isbn_book = resultSet.getString("isbn_book");
-                int id_member = resultSet.getInt("id_member");
-                Date loan_date = resultSet.getDate("loan_date");
-                int loan_duration = resultSet.getInt("loan_duration");
-                boolean expired = new Loan(id_loan, isbn_book, id_member, loan_date, loan_duration, false).getExpired();
-                Loan loan = new Loan(id_loan, isbn_book, id_member, loan_date, loan_duration, expired);
-                borrowed_loans.add(loan);
+                String isbnBook = resultSet.getString("isbn_book");
+                int idMember = resultSet.getInt("id_member");
+                Date loanDate = resultSet.getDate("loan_date");
+                int loanDuration = resultSet.getInt("loan_duration");
+                boolean expired = resultSet.getBoolean("expired");
+
+                Loan loan = new Loan(id_loan,isbnBook, idMember, loanDate, loanDuration, expired);
+                loans.add(loan);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return borrowed_loans;
+        return loans;
     }
+
+    /**
+     * Retrieves a list of loans for a given user.
+     *
+     * @param idUser the ID of the user
+     * @return a list of loans associated with the user
+     */
+    public static List<Loan> getLoans(int idUser) {
+        List<Loan> borrowedLoans = new ArrayList<>();
+        String query = "SELECT id_loan, isbn_book, id_member, loan_date, loan_duration FROM loan WHERE id_member=? ORDER BY DATE_ADD(loan_date, INTERVAL loan_duration DAY) ASC";
+
+        try (Connection connection = Database.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, idUser);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int idLoan = resultSet.getInt("id_loan");
+                String isbnBook = resultSet.getString("isbn_book");
+                int idMember = resultSet.getInt("id_member");
+                Date loanDate = resultSet.getDate("loan_date");
+                int loanDuration = resultSet.getInt("loan_duration");
+                boolean expired = new Loan(idLoan, isbnBook, idMember, loanDate, loanDuration, false).isExpired();
+                Loan loan = new Loan(idLoan, isbnBook, idMember, loanDate, loanDuration, expired);
+                borrowedLoans.add(loan);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return borrowedLoans;
+    }
+
+    /**
+     * Updates the state of users based on their loan status.
+     */
     public static void updateUsersState() {
         String sqlQuery = "UPDATE users " +
                 "SET state = CASE " +
@@ -111,6 +174,12 @@ public class LoanDAO {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Retrieves information about the top four most borrowed books.
+     *
+     * @return a list of string arrays containing ISBN and loan count of the top four books
+     */
     public static List<String[]> getTopFourBooks() {
         List<String[]> topBooks = new ArrayList<>();
         String sqlQuery = "SELECT isbn_book, COUNT(*) AS loan_count " +
@@ -131,6 +200,12 @@ public class LoanDAO {
         }
         return topBooks;
     }
+
+    /**
+     * Retrieves the count of loans that have expired.
+     *
+     * @return the count of expired loans
+     */
     public static int getLoanExpiredCount() {
         int expiredCount = 0;
         String sqlQuery = "SELECT COUNT(*) FROM loan WHERE loan_date + INTERVAL loan_duration DAY < CURDATE()";
@@ -145,6 +220,12 @@ public class LoanDAO {
         }
         return expiredCount;
     }
+
+    /**
+     * Retrieves the total count of loans in the database.
+     *
+     * @return the total count of loans
+     */
     public static int getTotalLoans() {
         int totalLoans = 0;
         String sqlQuery = "SELECT COUNT(*) FROM loan";
@@ -159,10 +240,26 @@ public class LoanDAO {
         }
         return totalLoans;
     }
+
+    /**
+     * Deletes a loan record from the database.
+     *
+     * @param loanId the ID of the loan to be deleted
+     */
     public static void deleteLoan(int loanId) {
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement("DELETE FROM loan WHERE id_loan = ?")) {
             statement.setInt(1, loanId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void renewLoan(int loanId) {
+        try (Connection connection = Database.getConnection();
+             PreparedStatement statement = connection.prepareStatement("UPDATE loan SET loan_duration = loan_duration + ? WHERE id_loan = ?")) {
+            statement.setInt(1, loanDuration);
+            statement.setInt(2, loanId);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
