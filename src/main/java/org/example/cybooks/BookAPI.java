@@ -134,8 +134,8 @@ public class BookAPI {
 
         return books;
     }
-
-
-
-
+    public static Book searchBook(String s_isbn) {
+        List<Book> books = searchBooks(s_isbn, "", "", 1);
+        return books.getFirst();
+    }
 }

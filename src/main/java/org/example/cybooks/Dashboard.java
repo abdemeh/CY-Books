@@ -24,8 +24,6 @@ public class Dashboard extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(CyBooks.class.getResource("dashboard.fxml"));
-        //DashboardController dashboardController = new DashboardController();
-        //fxmlLoader.setController(dashboardController);
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         stage.setResizable(false);
@@ -34,6 +32,7 @@ public class Dashboard extends Application {
         stage.getIcons().add(new Image("file:assets/icon-no-text-white.png"));
         stage.setScene(scene);
         stage.show();
+
         // Allowing the window to be dragged
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();

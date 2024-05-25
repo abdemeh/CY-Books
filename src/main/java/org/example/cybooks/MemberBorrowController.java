@@ -10,6 +10,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -34,6 +35,8 @@ public class MemberBorrowController implements Initializable {
     private Text textCurrentNameUser;
     @FXML
     private Button btnAddEmprunt;
+    @FXML
+    private Text textCurrentUserState;
     private List<Loan> list_borrowed_loans;
     public void closeWindow(ActionEvent event) {
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -41,8 +44,10 @@ public class MemberBorrowController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        ControllerManager.setMemberBorrowController(this);
         booksScrollPane.setFitToWidth(true);
     }
+
     public void updateBorrowedBooks(List<Loan> list_loans) {
         if(list_loans.size()>=5){
             btnAddEmprunt.setDisable(true);
@@ -71,7 +76,14 @@ public class MemberBorrowController implements Initializable {
         System.out.println(currentMember);
         textCurrentIdUser.setText(String.valueOf(currentMember.getId()));
         textCurrentNameUser.setText(currentMember.getLastName()+" "+currentMember.getFirstName());
-
+        textCurrentUserState.setText(currentMember.getState());
+        if (currentMember.getState().equals("Actif")) {
+            textCurrentUserState.setFill(Color.web("#6fcd7f"));
+        } else if (currentMember.getState().equals("Bloqué") || currentMember.getState().equals("Suspendu")) {
+            textCurrentUserState.setFill(Color.web("#cc7070"));
+        } else if (currentMember.getState().equals("Inactif")) {
+            textCurrentUserState.setFill(Color.web("#ccc670"));
+        }
         list_borrowed_loans=new ArrayList<>(LoanDAO.getLoans(Integer.parseInt(textCurrentIdUser.getText())));
         updateBorrowedBooks(list_borrowed_loans);
     }

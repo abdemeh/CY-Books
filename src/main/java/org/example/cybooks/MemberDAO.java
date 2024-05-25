@@ -9,7 +9,7 @@ public class MemberDAO {
         List<Member> members = new ArrayList<>();
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "SELECT * FROM Member WHERE CONCAT(firstname, ' ', lastname) LIKE ? OR CONCAT(lastname, ' ', firstname) LIKE ? OR email LIKE ? OR phone LIKE ?")) {
+                     "SELECT * FROM users WHERE (CONCAT(firstname, ' ', lastname) LIKE ? OR CONCAT(lastname, ' ', firstname) LIKE ? OR email LIKE ? OR phone LIKE ?) AND user_type='member'")) {
             // Set parameters for prepared statement with wildcard for search term
             String searchTerm = "%" + search.trim() + "%";
             statement.setString(1, searchTerm);
@@ -30,7 +30,7 @@ public class MemberDAO {
     public static Member getMemberById(int memberId) {
         Member member = null;
         try (Connection connection = Database.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Member WHERE id_member = ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM Member WHERE id_user = ?")) {
             statement.setInt(1, memberId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -46,7 +46,7 @@ public class MemberDAO {
         List<Member> members = new ArrayList<>();
         try (Connection connection = Database.getConnection();
              Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM Member");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE user_type='member'");
             while (resultSet.next()) {
                 Member member = extractMemberFromResultSet(resultSet);
                 members.add(member);
@@ -60,7 +60,7 @@ public class MemberDAO {
     public static void addMember(Member member) {
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "INSERT INTO Member (lastname, firstname, email, inscriptionDate, state, birthday, phone, sex) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
+                     "INSERT INTO users (lastname, firstname, email, inscriptionDate, state, birthday, phone, sex) VALUES (?, ?, ?, ?, ?, ?, ?, ?)")) {
             statement.setString(1, member.getLastName());
             statement.setString(2, member.getFirstName());
             statement.setString(3, member.getEmail());
@@ -78,7 +78,7 @@ public class MemberDAO {
 
     public static void deleteMember(int memberId) {
         try (Connection connection = Database.getConnection();
-             PreparedStatement statement = connection.prepareStatement("DELETE FROM Member WHERE id_member = ?")) {
+             PreparedStatement statement = connection.prepareStatement("DELETE FROM users WHERE id_user = ?")) {
             statement.setInt(1, memberId);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -89,7 +89,7 @@ public class MemberDAO {
     public static void updateMember(Member member) {
         try (Connection connection = Database.getConnection();
              PreparedStatement statement = connection.prepareStatement(
-                     "UPDATE Member SET lastname = ?, firstname = ?, email = ?, birthday = ?, phone = ?, sex = ? WHERE id_member = ?")) {
+                     "UPDATE users SET lastname = ?, firstname = ?, email = ?, birthday = ?, phone = ?, sex = ? WHERE id_user = ?")) {
             statement.setString(1, member.getLastName());
             statement.setString(2, member.getFirstName());
             statement.setString(3, member.getEmail());
@@ -104,7 +104,7 @@ public class MemberDAO {
     }
 
     private static Member extractMemberFromResultSet(ResultSet resultSet) throws SQLException {
-        int id = resultSet.getInt("id_member");
+        int id = resultSet.getInt("id_user");
         String lastname = resultSet.getString("lastname");
         String firstname = resultSet.getString("firstname");
         String email = resultSet.getString("email");

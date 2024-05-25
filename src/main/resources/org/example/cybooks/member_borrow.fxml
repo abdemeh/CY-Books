@@ -53,6 +53,15 @@
                   <Font name="Poppins ExtraBold" size="20.0" />
                </font>
             </Text>
+            <TextFlow layoutX="247.0" layoutY="71.0" prefHeight="27.0" prefWidth="108.0" textAlignment="RIGHT">
+               <children>
+                  <Text fx:id="textCurrentUserState" fill="#846fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="Bloqué" textAlignment="RIGHT">
+                     <font>
+                        <Font name="Poppins ExtraBold" size="20.0" />
+                     </font>
+                  </Text>
+               </children>
+            </TextFlow>
          </children>
       </Pane>
       <ScrollPane fx:id="booksScrollPane" layoutX="14.0" layoutY="190.0" prefHeight="362.0" prefWidth="853.0" style="-fx-background-radius: 25px; -fx-background-color: #F6F6F6;">

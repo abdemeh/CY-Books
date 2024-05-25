@@ -171,7 +171,7 @@
                               <Font name="Poppins Regular" size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="dashboardTitle121" fill="#70ccc4" layoutX="14.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT">
+                        <Text fx:id="dashboardNombreTotalEmprunts" fill="#70ccc4" layoutX="14.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT">
                            <font>
                               <Font name="Poppins ExtraBold" size="50.0" />
                            </font>
@@ -191,14 +191,14 @@
                               <Font name="Poppins Regular" size="14.0" />
                            </font>
                         </Text>
-                        <Text fx:id="dashboardTitle1211" fill="#cc7070" layoutX="14.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT">
+                        <Text fx:id="dashboardNombreTotalEmpruntsExpired" fill="#cc7070" layoutX="14.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="RIGHT">
                            <font>
                               <Font name="Poppins ExtraBold" size="50.0" />
                            </font>
                         </Text>
                      </children>
                   </Pane>
-                  <Pane layoutX="14.0" layoutY="319.0" prefHeight="196.0" prefWidth="873.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
+                  <Pane fx:id="paneTopFourBooks" layoutX="14.0" layoutY="319.0" prefHeight="196.0" prefWidth="873.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;" visible="false">
                      <children>
                         <Text fx:id="dashboardTitle12" fill="#846fcd" layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Livres les plus empruntés">
                            <font>
@@ -211,55 +211,35 @@
                               <Font name="Poppins Regular" size="14.0" />
                            </font>
                         </Text>
-                        <Text fill="#434343" layoutX="374.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
+                        <Text fx:id="numberTopBooks1" fill="#434343" layoutX="374.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total: 0" visible="false">
                            <font>
                               <Font name="Poppins Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Text fx:id="numberTopBooks1" fill="#846fcd" layoutX="423.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="433">
+                        <Text fx:id="numberTopBooks2" fill="#434343" layoutX="493.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total: 0" visible="false">
                            <font>
                               <Font name="Poppins Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Text fill="#434343" layoutX="493.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
+                        <Text fx:id="numberTopBooks3" fill="#434343" layoutX="612.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total: 0" visible="false">
                            <font>
                               <Font name="Poppins Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Text fx:id="numberTopBooks2" fill="#846fcd" layoutX="542.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="212">
+                        <Text fx:id="numberTopBooks4" fill="#434343" layoutX="731.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total: 0" visible="false">
                            <font>
                               <Font name="Poppins Bold" size="16.0" />
                            </font>
                         </Text>
-                        <Text fill="#434343" layoutX="612.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
-                           <font>
-                              <Font name="Poppins Bold" size="16.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="numberTopBooks3" fill="#846fcd" layoutX="662.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="109">
-                           <font>
-                              <Font name="Poppins Bold" size="16.0" />
-                           </font>
-                        </Text>
-                        <Text fill="#434343" layoutX="731.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
-                           <font>
-                              <Font name="Poppins Bold" size="16.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="numberTopBooks4" fill="#846fcd" layoutX="780.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="60">
-                           <font>
-                              <Font name="Poppins Bold" size="16.0" />
-                           </font>
-                        </Text>
-                        <Rectangle fx:id="imageTopBooks1" arcHeight="20.0" arcWidth="20.0" fill="#e8e8e8" height="162.0" layoutX="374.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
-                        <Rectangle fx:id="imageTopBooks2" arcHeight="20.0" arcWidth="20.0" fill="#e8e8e8" height="162.0" layoutX="493.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
-                        <Rectangle fx:id="imageTopBooks3" arcHeight="20.0" arcWidth="20.0" fill="#e8e8e8" height="162.0" layoutX="612.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
-                        <Rectangle fx:id="imageTopBooks4" arcHeight="20.0" arcWidth="20.0" fill="#e8e8e8" height="162.0" layoutX="731.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="111.0" />
+                        <Rectangle fx:id="imageTopBooks1" arcHeight="20.0" arcWidth="20.0" fill="#e8e8e8" height="162.0" layoutX="374.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="111.0" />
+                        <Rectangle fx:id="imageTopBooks2" arcHeight="20.0" arcWidth="20.0" fill="#e8e8e8" height="162.0" layoutX="493.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="111.0" />
+                        <Rectangle fx:id="imageTopBooks3" arcHeight="20.0" arcWidth="20.0" fill="#e8e8e8" height="162.0" layoutX="612.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="111.0" />
+                        <Rectangle fx:id="imageTopBooks4" arcHeight="20.0" arcWidth="20.0" fill="#e8e8e8" height="162.0" layoutX="731.0" layoutY="7.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" width="111.0" />
                      </children>
                   </Pane>
                </children>
             </Pane>
-            <Pane fx:id="paneUsers" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0" visible="false">
+            <Pane fx:id="paneUsers" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0">
                <children>
                   <Pane layoutX="14.0" layoutY="14.0" prefHeight="111.0" prefWidth="278.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
                      <children>
@@ -361,7 +341,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane fx:id="paneBooks" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0">
+            <Pane fx:id="paneBooks" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0" visible="false">
                <children>
                   <Pane layoutX="14.0" layoutY="6.0" prefHeight="117.0" prefWidth="236.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
                      <children>

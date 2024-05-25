@@ -146,12 +146,12 @@ public class MemberController {
         member_added.setText(df.format(member.getInscriptionDate()));
         member_phone.setText(member.getPhone());
         member_state.setText(member.getState());
-        if ("Actif".equals(member.getState())) {
-            member_state.setStyle("-fx-fill: #6fcd7f;");
-        } else if ("Bloqué".equals(member.getState()) || "Suspendu".equals(member.getState())) {
-            member_state.setStyle("-fx-fill: #cc7070;");
-        } else if ("Expiré".equals(member.getState()) || "Inactif".equals(member.getState())) {
-            member_state.setStyle("-fx-fill: #ccc670;");
+        if (member.getState().equals("Actif")) {
+            member_state.setFill(Color.web("#6fcd7f"));
+        } else if (member.getState().equals("Bloqué") || member.getState().equals("Suspendu")) {
+            member_state.setFill(Color.web("#cc7070"));
+        } else if (member.getState().equals("Inactif")) {
+            member_state.setFill(Color.web("#ccc670"));
         }
         member_image.setText(getInitials(member.getLastName(), member.getFirstName()));
     }

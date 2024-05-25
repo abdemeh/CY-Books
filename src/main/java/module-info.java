@@ -12,6 +12,7 @@ module org.example.cybooks {
     requires com.almasb.fxgl.all;
     requires com.fasterxml.jackson.databind;
     requires java.sql;
+    requires java.prefs;
 
     opens org.example.cybooks to javafx.fxml;
     exports org.example.cybooks;

@@ -20,7 +20,9 @@ public class Main {
             //String apiUrl = "https://catalogue.bnf.fr/api/SRU?version=1.2&operation=searchRetrieve&query=" + encodedQuery + "&maximumRecords=25";
 
             // Call the searchBooks method with the encoded query string
-            List<Book> books = BookAPI.searchBooks("","one piece","",50);
+            //List<Book> books = BookAPI.searchBooks("978-2-253-25777-6","","",50);
+            Book b = BookAPI.searchBook("978-2-253-25777-6");
+            System.out.println(b.getimageUrl());
         } catch (Exception e) {
             e.printStackTrace();
         }

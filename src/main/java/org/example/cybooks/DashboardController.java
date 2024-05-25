@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -21,9 +22,7 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DashboardController implements Initializable {
 
@@ -35,6 +34,14 @@ public class DashboardController implements Initializable {
     private Rectangle imageTopBooks3;
     @FXML
     private Rectangle imageTopBooks4;
+    @FXML
+    private Text numberTopBooks1;
+    @FXML
+    private Text numberTopBooks2;
+    @FXML
+    private Text numberTopBooks3;
+    @FXML
+    private Text numberTopBooks4;
     @FXML
     private Text dashboardTitle;
     @FXML
@@ -57,34 +64,62 @@ public class DashboardController implements Initializable {
     @FXML
     private ScrollPane booksScrollPane;
     @FXML
-    Button btnSearchBook;
+    private Button btnSearchBook;
     @FXML
-    Text textSearchBookResultats;
+    private Text textSearchBookResultats;
     @FXML
-    TextField textSearchBookMaxRes;
+    private TextField textSearchBookMaxRes;
     @FXML
-    TextField textSearchBookISBN;
+    private TextField textSearchBookISBN;
     @FXML
-    TextField textSearchBookTitre;
+    private TextField textSearchBookTitre;
     @FXML
-    TextField textSearchBookAuteur;
+    private TextField textSearchBookAuteur;
     @FXML
-    Text textSearchBookMessage;
+    private Text textSearchBookMessage;
     @FXML
-    TextField textSearchMember;
+    private TextField textSearchMember;
     @FXML
-    Text dashboardNombreTotalMembers;
+    private Text dashboardNombreTotalMembers;
+    @FXML
+    private Text dashboardNombreTotalEmprunts;
+    @FXML
+    private Text dashboardNombreTotalEmpruntsExpired;
+    @FXML
+    private Pane paneTopFourBooks;
     private double xOffset = 0;
     private double yOffset = 0;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ControllerManager.setDashboardController(this);
+        List<String[]> topBooks = LoanDAO.getTopFourBooks();
+        try {
+            imageTopBooks1.setFill(new ImagePattern(new Image(BookAPI.searchBook(topBooks.get(0)[0]).getimageUrl())));
+            numberTopBooks1.setText(String.valueOf("Total: "+topBooks.get(0)[1]));
+            paneTopFourBooks.setVisible(true);
+            imageTopBooks1.setVisible(true);
+            numberTopBooks1.setVisible(true);
 
-        imageTopBooks1.setFill(new ImagePattern(new Image("https://catalogue.bnf.fr/couverture?&appName=NE&idArk=ark:/12148/cb45378014r&couverture=1")));
-        imageTopBooks2.setFill(new ImagePattern(new Image("https://catalogue.bnf.fr/couverture?&appName=NE&idArk=ark:/12148/cb46997632p&couverture=1")));
-        imageTopBooks3.setFill(new ImagePattern(new Image("https://catalogue.bnf.fr/couverture?&appName=NE&idArk=ark:/12148/cb47414381z&couverture=1")));
-        imageTopBooks4.setFill(new ImagePattern(new Image("https://catalogue.bnf.fr/couverture?&appName=NE&idArk=ark:/12148/cb473992503&couverture=1")));
+            imageTopBooks2.setFill(new ImagePattern(new Image(BookAPI.searchBook(topBooks.get(1)[0]).getimageUrl())));
+            numberTopBooks2.setText(String.valueOf("Total: "+topBooks.get(1)[1]));
+            imageTopBooks2.setVisible(true);
+            numberTopBooks2.setVisible(true);
+
+            imageTopBooks3.setFill(new ImagePattern(new Image(BookAPI.searchBook(topBooks.get(2)[0]).getimageUrl())));
+            numberTopBooks3.setText(String.valueOf("Total: "+topBooks.get(2)[1]));
+            imageTopBooks3.setVisible(true);
+            numberTopBooks3.setVisible(true);
+
+            imageTopBooks4.setFill(new ImagePattern(new Image(BookAPI.searchBook(topBooks.get(3)[0]).getimageUrl())));
+            numberTopBooks4.setText(String.valueOf("Total: "+topBooks.get(3)[1]));
+            imageTopBooks4.setVisible(true);
+            numberTopBooks4.setVisible(true);
+        } catch (Exception e) {
+
+        }
+
+
         dashboardTitle.setText("Accueil");
         paneHome.setVisible(true);
         paneUsers.setVisible(false);
@@ -96,7 +131,10 @@ public class DashboardController implements Initializable {
         booksScrollPane.setFitToWidth(true);
 
         dashboardNombreTotalMembers.setText(String.valueOf(MemberDAO.getAllMembers().size()));
+        dashboardNombreTotalEmprunts.setText(String.valueOf(LoanDAO.getTotalLoans()));
+        dashboardNombreTotalEmpruntsExpired.setText(String.valueOf(LoanDAO.getLoanExpiredCount()));
 
+        LoanDAO.updateUsersState();
         updateMembers(new ArrayList<>(getMembersFromDatabase()));
 
         //list_books=new ArrayList<>(BookAPI.searchBooks("","","",25));
@@ -249,6 +287,55 @@ public class DashboardController implements Initializable {
     }
 
     public void actionLogout(ActionEvent event) {
-        System.out.println("Logout!!!");
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.initStyle(StageStyle.UNDECORATED);
+        alert.setHeaderText(null);
+        alert.setContentText("Etes-vous sûr(e) de déconnecter ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Create a new task for loading the dashboard FXML
+            Task<Parent> loadLoginTask = new Task<>() {
+                @Override
+                protected Parent call() throws IOException {
+                    FXMLLoader fxmlLoader = new FXMLLoader(CyBooks.class.getResource("login.fxml"));
+                    return fxmlLoader.load();
+                }
+            };
+            // When the task succeeds, update the UI on the JavaFX Application Thread
+            loadLoginTask.setOnSucceeded(workerStateEvent -> {
+                try {
+                    Parent root = loadLoginTask.getValue();
+                    Stage stage = new Stage(); // Create a new stage for the dashboard
+                    Scene scene = new Scene(root);
+                    stage.initStyle(StageStyle.UNDECORATED);
+                    stage.setResizable(false);
+                    stage.setTitle("CyBooks - Connexion");
+                    stage.getIcons().add(new Image("file:assets/icon-no-text-white.png"));
+                    stage.setScene(scene);
+                    stage.show();
+                    // Enable dragging functionality for the stage
+                    root.setOnMousePressed(mouseEvent -> {
+                        xOffset = mouseEvent.getSceneX();
+                        yOffset = mouseEvent.getSceneY();
+                    });
+                    root.setOnMouseDragged(mouseEvent -> {
+                        stage.setX(mouseEvent.getScreenX() - xOffset);
+                        stage.setY(mouseEvent.getScreenY() - yOffset);
+                    });
+                    stage.show();
+
+                    // Close the login stage
+                    Stage loginStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+                    loginStage.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            // Start the task in a new thread
+            new Thread(loadLoginTask).start();
+        }
+
     }
 }
