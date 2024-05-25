@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -97,6 +98,55 @@ public class LoginController implements Initializable {
             }
         }
     }
+    public void openCatalogue(ActionEvent event) {
+        System.out.println("Open Catalogue method called");
+        System.out.println("Loading book_catalogue.fxml from: " + CyBooks.class.getResource("book_catalogue.fxml")); // Add this line
+
+        // Create a task for loading the catalogue FXML
+        Task<Parent> loadCatalogueTask = new Task<>() {
+            @Override
+            protected Parent call() throws IOException {
+                FXMLLoader fxmlLoader = new FXMLLoader(CyBooks.class.getResource("book_catalogue.fxml"));
+                return fxmlLoader.load();
+            }
+        };
+
+        // When the task succeeds, update the UI on the JavaFX Application Thread
+        loadCatalogueTask.setOnSucceeded(workerStateEvent -> {
+            try {
+                Parent root = loadCatalogueTask.getValue();
+                Scene scene = new Scene(root);
+                Stage stage = new Stage(); // Create a new stage for the catalogue
+                stage.setResizable(false);
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.setTitle("CyBooks - Catalogue");
+                stage.getIcons().add(new Image("file:assets/icon-no-text-white.png"));
+                stage.setScene(scene);
+
+                // Enable dragging functionality for the stage
+                root.setOnMousePressed(mouseEvent -> {
+                    xOffset = mouseEvent.getSceneX();
+                    yOffset = mouseEvent.getSceneY();
+                });
+                root.setOnMouseDragged(mouseEvent -> {
+                    stage.setX(mouseEvent.getScreenX() - xOffset);
+                    stage.setY(mouseEvent.getScreenY() - yOffset);
+                });
+                stage.show();
+
+                // Close the login stage
+                Stage loginStage = (Stage) ((Hyperlink) event.getSource()).getScene().getWindow();
+                loginStage.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        // Start the task in a new thread
+        new Thread(loadCatalogueTask).start();
+    }
+
+
     public void closeWindow(ActionEvent event) {
         // Get the reference to the stage
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();

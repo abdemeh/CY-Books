@@ -30,7 +30,6 @@ public class CyBooks extends Application {
         stage.setScene(scene);
         stage.show();
 
-        // Allowing the window to be dragged
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();

@@ -1,12 +1,65 @@
 package org.example.cybooks;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class LoanDAO {
+    public static boolean addNewLoan(String isbnBook, int idMember) {
+        boolean s = false;
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        //System.out.println("INSERT INTO loan (id_member, isbn_book, loan_date) VALUES ("+idMember+", "+isbnBook+", "+today.format(formatter)+")");
+        if (verifyIfUserHaveBorrowedBook(isbnBook,idMember)) {
+            s = false;
+        }else{
+            String insertLoanSQL = "INSERT INTO loan (isbn_book, id_member, loan_date, loan_duration) VALUES (?, ?, ?, ?)";
+
+            try (Connection connection = Database.getConnection();
+                 PreparedStatement preparedStatement = connection.prepareStatement(insertLoanSQL)) {
+
+                int loanDuration = 15;
+
+                preparedStatement.setString(1, isbnBook);
+                preparedStatement.setInt(2, idMember);
+                preparedStatement.setDate(3, Date.valueOf(today));
+                preparedStatement.setInt(4, loanDuration);
+
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    s = true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return s;
+    }
+    public static boolean verifyIfUserHaveBorrowedBook(String isbnBook, int idMember) {
+        boolean userHasBorrowedBook = false;
+
+        String query = "SELECT COUNT(*) AS count FROM loan WHERE id_member = ? AND isbn_book = ?";
+        try (Connection connection = Database.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, idMember);
+            preparedStatement.setString(2, isbnBook);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt("count");
+                    userHasBorrowedBook = count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userHasBorrowedBook;
+    }
     public static List<Loan> getLoans(int id_user) {
         List<Loan> borrowed_loans = new ArrayList<>();
         String query = "SELECT id_loan, isbn_book, id_member, loan_date, loan_duration FROM loan WHERE id_member=? ORDER BY DATE_ADD(loan_date, INTERVAL loan_duration DAY) ASC";

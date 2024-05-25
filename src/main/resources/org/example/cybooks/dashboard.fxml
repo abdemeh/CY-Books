@@ -239,7 +239,7 @@
                   </Pane>
                </children>
             </Pane>
-            <Pane fx:id="paneUsers" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0">
+            <Pane fx:id="paneUsers" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0" visible="false">
                <children>
                   <Pane layoutX="14.0" layoutY="14.0" prefHeight="111.0" prefWidth="278.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
                      <children>
@@ -341,7 +341,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane fx:id="paneBooks" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0" visible="false">
+            <Pane fx:id="paneBooks" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0">
                <children>
                   <Pane layoutX="14.0" layoutY="6.0" prefHeight="117.0" prefWidth="236.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
                      <children>

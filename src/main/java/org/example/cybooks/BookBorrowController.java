@@ -100,9 +100,11 @@ public class BookBorrowController{
     public void deleteLoan(){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
-        alert.initStyle(StageStyle.UNDECORATED);
         alert.setHeaderText(null);
         alert.setContentText("Etes-vous sûr(e) de vouloir renouveler cet emprunt ?");
+        Image icon = new Image("file:assets/icon-no-text-white.png");
+        Stage stage_alert = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage_alert.getIcons().add(icon);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {

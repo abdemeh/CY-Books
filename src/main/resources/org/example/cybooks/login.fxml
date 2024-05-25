@@ -64,7 +64,7 @@
                   <Image url="@../../../../../assets/logo-long-dark.png" />
                </image>
             </ImageView>
-            <Hyperlink layoutX="9.0" layoutY="435.0" text="Catalogue BNF" textFill="#846fcd">
+            <Hyperlink onAction="#openCatalogue" layoutX="9.0" layoutY="435.0" text="Catalogue BNF" textFill="#846fcd">
                <font>
                   <Font name="Poppins Bold" size="15.0" />
                </font>
