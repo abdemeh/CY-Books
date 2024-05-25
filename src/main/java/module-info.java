@@ -14,6 +14,6 @@ module org.example.cybooks {
     requires java.sql;
     requires java.prefs;
 
-    opens org.example.cybooks to javafx.fxml;
-    exports org.example.cybooks;
+    opens org.cybooks to javafx.fxml;
+    exports org.cybooks;
 }

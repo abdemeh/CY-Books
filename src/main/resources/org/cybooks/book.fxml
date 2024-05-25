@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane prefHeight="144.0" prefWidth="859.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cybooks.BookController">
+    <children>
+        <TextFlow layoutX="104.0" layoutY="14.0" prefHeight="28.0" prefWidth="746.0">
+            <children>
+                <Text fx:id="book_title" onMouseClicked="#copyToClipboard" strokeType="OUTSIDE" strokeWidth="0.0" text="Title" textAlignment="CENTER" wrappingWidth="401.47499084472656">
+                    <font>
+                        <Font name="Poppins Bold" size="20.0" />
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </Text>
+            </children>
+        </TextFlow>
+        <Rectangle fx:id="book_image" arcHeight="20.0" arcWidth="20.0" fill="#e8e8e8" height="119.0" layoutX="14.0" layoutY="13.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="82.0" />
+        <TextFlow layoutX="104.0" layoutY="52.0" prefHeight="26.0" prefWidth="746.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Par " textAlignment="CENTER">
+                    <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                    </font>
+                </Text>
+            <Text fx:id="book_author" fill="#846fcd" onMouseClicked="#copyToClipboard" strokeType="OUTSIDE" strokeWidth="0.0" text="AUTEUR" textAlignment="CENTER">
+               <font>
+                  <Font name="Poppins Regular" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Text>
+            </children>
+        </TextFlow>
+        <TextFlow layoutX="104.0" layoutY="70.0" prefHeight="26.0" prefWidth="746.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Langue: " textAlignment="CENTER" wrappingWidth="102.29500007629395">
+                    <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                    </font>
+                </Text>
+            <Text fx:id="book_language" strokeType="OUTSIDE" strokeWidth="0.0" text="LANGUE" textAlignment="CENTER" wrappingWidth="102.29500007629395">
+               <font>
+                  <Font name="Poppins Regular" size="16.0" />
+               </font>
+            </Text>
+            </children>
+        </TextFlow>
+        <TextFlow layoutX="104.0" layoutY="107.0" prefHeight="26.0" prefWidth="746.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date de publication: " textAlignment="CENTER" wrappingWidth="174.74600219726562">
+                    <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                    </font>
+                </Text>
+            <Text fx:id="book_date" strokeType="OUTSIDE" strokeWidth="0.0" text="DATE APPARITION" textAlignment="CENTER" wrappingWidth="174.74600219726562">
+               <font>
+                  <Font name="Poppins Regular" size="16.0" />
+               </font>
+            </Text>
+            </children>
+        </TextFlow>
+        <TextFlow layoutX="104.0" layoutY="89.0" prefHeight="26.0" prefWidth="746.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Catégorie: " textAlignment="CENTER" wrappingWidth="95.77899932861328">
+                    <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                    </font>
+                </Text>
+            <Text fx:id="book_category" strokeType="OUTSIDE" strokeWidth="0.0" text="CAT" textAlignment="CENTER" wrappingWidth="95.77899932861328">
+               <font>
+                  <Font name="Poppins Regular" size="16.0" />
+               </font>
+            </Text>
+            </children>
+        </TextFlow>
+        <TextFlow layoutX="104.0" layoutY="36.0" prefHeight="26.0" prefWidth="746.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN: " textAlignment="CENTER">
+                    <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                    </font>
+                </Text>
+            <Text fx:id="book_isbn" onMouseClicked="#copyToClipboard" strokeType="OUTSIDE" strokeWidth="0.0" text="ISBN" textAlignment="CENTER">
+               <font>
+                  <Font name="Poppins Regular" size="16.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Text>
+            </children>
+        </TextFlow>
+        <BorderPane layoutX="4.0" layoutY="108.0" opacity="0.2" prefHeight="36.0" prefWidth="850.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
+    </children>
+</AnchorPane>
