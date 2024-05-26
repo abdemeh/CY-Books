@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -49,6 +50,8 @@ public class BookCatalogueController implements Initializable {
 
     @FXML
     private VBox booksVbox;
+    @FXML
+    private ScrollPane booksScrollPane;
 
     /**
      * Closes the current window and opens the login window.
@@ -107,7 +110,7 @@ public class BookCatalogueController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        booksScrollPane.setFitToWidth(true);
     }
 
     /**
