@@ -3,6 +3,7 @@ package org.cybooks;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -38,7 +39,7 @@ public class Main {
                 System.out.println("Merci d'avoir utilisé CyBooks. À bientôt !");
                 System.exit(0);
             } else if (choix == 2) {
-                continue; // Relancer le programme
+                userMenu(scanner); // Relancer le programme
             }
 
             System.out.print("Entrez votre email : ");
@@ -139,8 +140,9 @@ public class Main {
         boolean backToMainMenu = false;
         while (!backToMainMenu) {
             System.out.println("Bienvenue dans le menu administrateur.");
-            System.out.println("1. Gérer les utilisateurs");
-            System.out.println("2. Gérer les emprunts");
+            System.out.println("1. chercher un livre");
+            System.out.println("2. Gérer les utilisateurs");
+            System.out.println("3. Gérer les emprunts");
             System.out.println("0. Retour au menu principal");
             System.out.print("Tapez 1 pour gérer les utilisateurs, 2 pour gérer les emprunts ou 0 pour revenir au menu principal : ");
             int choix = scanner.nextInt();
@@ -148,9 +150,13 @@ public class Main {
 
             switch (choix) {
                 case 1:
-                    manageUsers(scanner);
+                    userMenu(scanner);
                     break;
                 case 2:
+                    //voir le catalogue
+                    manageUsers(scanner); // Réutiliser le menu utilisateur pour voir le catalogue
+                    break;
+                case 3:
                     manageLoans(scanner);
                     break;
                 case 0:
@@ -167,12 +173,11 @@ public class Main {
         boolean backToAdminMenu = false;
         while (!backToAdminMenu) {
             System.out.println("Gestion des utilisateurs :");
-            System.out.println("1. Voir notre catalogue");
-            System.out.println("2. Ajouter un nouveau membre");
-            System.out.println("3. Mettre à jour les infos d'un membre");
-            System.out.println("4. Supprimer un utilisateur");
-            System.out.println("5. Afficher tous les utilisateurs");
-            System.out.println("6. Afficher un utilisateur en particulier");
+            System.out.println("1. Ajouter un nouveau membre");
+            System.out.println("2. Mettre à jour les infos d'un membre");
+            System.out.println("3. Supprimer un utilisateur");
+            System.out.println("4. Afficher tous les utilisateurs");
+            System.out.println("5. Afficher un utilisateur en particulier");
             System.out.println("0. Retour au menu administrateur");
             System.out.print("Tapez votre choix : ");
             int choix = scanner.nextInt();
@@ -181,13 +186,10 @@ public class Main {
             Connection connection = Database.getConnection();
 
             switch (choix) {
-                case 1: //voir le catalogue
-                    userMenu(scanner); // Réutiliser le menu utilisateur pour voir le catalogue
-                    break;
-                case 2: // ajouter un nouveau membre
+                case 1: // ajouter un nouveau membre
                     addNewMember(scanner); //ajouter nouveau membre
                     break;
-                case 3: // mettre à jour un membre
+                case 2: // mettre à jour un membre
                     try {
                         updateMember(connection, scanner); // mettre a jour un membre
                     } catch (SQLException e) {
@@ -197,7 +199,7 @@ public class Main {
                     }
                     break;
 
-                case 4: //supprimer un membre
+                case 3: //supprimer un membre
                     try {
                         deleteMember(connection, scanner); // mettre a jour un membre
                     } catch (SQLException e) {
@@ -205,14 +207,14 @@ public class Main {
                     }
                     break;
 
-                case 5: //afficher tous les membres
+                case 4: //afficher tous les membres
                     List<Member> members = MemberDAO.getAllMembers();
                     for (Member member : members) {
-                        member.toString();
+                        System.out.println(member.toString());
                     }
                     break;
 
-                case 6: // afficher un utilisateur en particulier
+                case 5: // afficher un utilisateur en particulier
                     getMemberById(scanner);
                     break;
                 case 0:
@@ -235,6 +237,7 @@ public class Main {
             System.out.println("3. Supprimer un emprunt");
             System.out.println("4. Ajouter un emprunt");
             System.out.println("5. Afficher les livres les plus empruntés");
+            System.out.println("6. Renouveler un emprunt");
             System.out.println("0. Retour au menu administrateur");
             System.out.print("Tapez votre choix : ");
             int choix = scanner.nextInt();
@@ -246,7 +249,7 @@ public class Main {
                     case 1:
                         List<Loan> loans = LoanDAO.getAllLoans();
                         for (Loan l : loans) {
-                            l.toString();
+                            System.out.println(l.toString());
                         }
 
                         break;
@@ -260,8 +263,33 @@ public class Main {
                         addLoan(scanner);
                         break;
                     case 5:
-                        LoanDAO.getTopFourBooks();
+                        // Assurez-vous que topBooks est initialisé correctement
+                        ArrayList<String[]> topBooks = (ArrayList<String[]>) LoanDAO.getTopFourBooks();
+
+// Vérifiez si la liste n'est pas vide
+                        if (topBooks != null && !topBooks.isEmpty()) {
+                            System.out.println("Les quatre livres les plus empruntés sont :");
+
+                            // Parcourez chaque élément de la liste
+                            for (String[] bookInfo : topBooks) {
+                                // Supposons que chaque élément de bookInfo contient des informations sur un livre,
+                                // comme par exemple [isbn, loanCount]
+                                String isbn = bookInfo.length > 0 ? bookInfo[0] : "N/A";
+                                String loanCount = bookInfo.length > 1 ? bookInfo[1] : "N/A";
+
+                                // Affichez les informations sur le livre
+                                System.out.println("ISBN : " + isbn);
+                                System.out.println("Nombre d'emprunts : " + loanCount);
+                                System.out.println("-------------------------------");
+                            }
+                        } else {
+                            System.out.println("Aucun livre emprunté trouvé.");
+                        }
+
+
                         break;
+                    case 6:
+                        renewLoan(scanner);
                     case 0:
                         backToAdminMenu = true;
                         break;
@@ -274,8 +302,6 @@ public class Main {
             }
         }
     }
-
-
     public static void addNewMember(Scanner scanner) {
         System.out.print("Entrez le prénom : ");
         String firstname = scanner.nextLine();
@@ -308,6 +334,25 @@ public class Main {
         Member newMember = new Member(0, lastname, firstname, email, (java.sql.Date) inscriptionDate, state, (java.sql.Date) birthdayStr, phone, sex, java.sql.Date.valueOf("2024-01-01"));
         MemberDAO.addMember(newMember);
 
+        boolean add=false;
+        String query = "SELECT COUNT(*) FROM users WHERE email = ?";
+
+        try (Connection connection = Database.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                add=true;
+                System.out.println("Le membre a été ajouté avec succès.");
+            }
+            else{
+                System.err.println("Erreur lors de l'ajout du membre.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -412,13 +457,35 @@ public class Main {
             statement.setString(1, email);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                memberId = resultSet.getInt("id_uer");
+                memberId = resultSet.getInt("id_user");
             } else {
                 System.out.println("Aucun membre trouvé avec l'email spécifié.");
             }
 
         }
         MemberDAO.deleteMember(memberId);
+        String query2 = "SELECT COUNT(*) FROM users WHERE email = ?";
+        boolean exist = false;
+        try (Connection connection2 = Database.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query2)) {
+
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                exist = false;
+            } else {
+                exist = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (exist) {
+            System.out.println("Erreur lors de la suppression de l'utilisateur.");
+        } else {
+            System.out.println("Membre supprimé avec succès");
+        }
+
     }
 
     public static void getMemberById(Scanner scanner) {
@@ -446,6 +513,7 @@ public class Main {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
 
     }
 
@@ -480,6 +548,27 @@ public class Main {
         System.out.print("Veuillez entrer l'id de l'emprunt à supprimer: ");
         int id_loan = Integer.parseInt(scanner.nextLine());
         LoanDAO.deleteLoan(id_loan);
+
+        boolean exist=false;
+        String query = "SELECT COUNT(*) FROM loan WHERE id_loan = ?";
+
+        try (Connection connection = Database.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, id_loan);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                exist=true;
+                System.out.println("Emprunt supprimé avec succès.");
+            }
+            else{
+                System.err.println("Erreur lors de la suppression de l'emprunt.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void addLoan(Scanner scanner) throws SQLException {
@@ -535,10 +624,70 @@ public class Main {
             e.printStackTrace();
         }
         // Créer un nouvel objet Loan avec les informations nécessaires
-        LoanDAO.addNewLoan(chosenIsbn,id);
+        LoanDAO.addNewLoan(chosenIsbn, id);
+        boolean exist = false;
+        String query2 = "SELECT * FROM loan WHERE isbn_book = ? AND id_member=?";
 
+        try (Connection connection = Database.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query2)) {
+
+            preparedStatement.setString(1, chosenIsbn);
+            preparedStatement.setInt(2, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                exist = true;
+            } else {
+                exist = false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (exist) {
+            System.out.println("Emprunt enregistré avec succès.");
+        } else {
+            System.out.println("Erreur lors de l'enregistrement de l'emprunt.");
+        }
 
     }
+
+
+    public static void renewLoan(Scanner scanner) {
+        System.out.print("Entrez l'ID de l'emprunt à renouveler : ");
+        int id_loan = scanner.nextInt();
+        scanner.nextLine(); // Consomme la nouvelle ligne laissée par nextInt()
+
+        // Vérifiez si l'ID de l'emprunt existe dans la base de données
+        boolean loanExists = false;
+        String query = "SELECT COUNT(*) FROM loan WHERE id_loan = ?";
+
+        try (Connection connection = Database.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, id_loan);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                loanExists = resultSet.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            System.err.println("Erreur lors de la vérification de l'ID de l'emprunt : " + e.getMessage());
+            return;
+        }
+
+        if (loanExists) {
+            try {
+                LoanDAO.renewLoan(id_loan);
+                System.out.println("Renouvellement de l'emprunt réussi.");
+            } catch (Exception e) {
+                System.err.println("Erreur lors du renouvellement de l'emprunt : " + e.getMessage());
+            }
+        } else {
+            System.out.println("L'ID de l'emprunt fourni n'existe pas.");
+        }
+    }
+
 
 
 }

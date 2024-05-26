@@ -48,7 +48,7 @@ public class MemberDAO {
     public static Member getMemberById(int memberId) {
         Member member = null;
         try (Connection connection = Database.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id_user = ?")) {
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id_user = ? AND user_type='member'")) {
             statement.setInt(1, memberId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {

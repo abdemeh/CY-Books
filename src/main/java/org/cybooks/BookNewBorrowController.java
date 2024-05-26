@@ -61,7 +61,7 @@ public class BookNewBorrowController {
      * Handles the action of adding a new borrow for the current book.
      */
     public void NewBorrow() {
-        Result result = LoanDAO.addNewLoan(book_isbn.getText(), UserContext.getCurrentUser().getId());
+        Result result = LoanDAO.addNewLoan(book_isbn.getText(), MemberContext.getCurrentMember().getId());
 
         Alert alert = new Alert(result.isSuccess() ? Alert.AlertType.INFORMATION : Alert.AlertType.WARNING);
         alert.setTitle(result.isSuccess() ? "Succès" : "Alerte");
@@ -75,7 +75,7 @@ public class BookNewBorrowController {
         if (result.isSuccess()) {
             MemberBorrowController memberBorrowController = ControllerManager.getMemberBorrowController();
             if (memberBorrowController != null) {
-                memberBorrowController.updateBorrowedBooks(LoanDAO.getLoans(UserContext.getCurrentUser().getId()));
+                memberBorrowController.updateBorrowedBooks(LoanDAO.getLoans(MemberContext.getCurrentMember().getId()));
             }
         }
     }

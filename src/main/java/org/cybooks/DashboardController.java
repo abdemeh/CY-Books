@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -21,7 +22,10 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Controller class for the dashboard UI.
@@ -52,6 +56,10 @@ public class DashboardController implements Initializable {
     private Pane paneUsers;
     @FXML
     private Pane paneBooks;
+    @FXML
+    private Pane paneProfil;
+    @FXML
+    private Pane paneSettings;
     @FXML
     private VBox membersVbox;
     @FXML
@@ -89,6 +97,24 @@ public class DashboardController implements Initializable {
     private Text dashboardNombreTotalEmpruntsExpired;
     @FXML
     private Pane paneTopFourBooks;
+    @FXML
+    private TextField profil_lastname;
+    @FXML
+    private TextField profil_firstname;
+    @FXML
+    private TextField profil_email;
+    @FXML
+    private PasswordField profil_password;
+    @FXML
+    private TextField profil_phone;
+    @FXML
+    private DatePicker profil_birthday;
+    @FXML
+    private RadioButton profil_sex_male;
+    @FXML
+    private RadioButton profil_sex_female;
+    @FXML
+    private Text profilMessage;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -102,6 +128,7 @@ public class DashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ControllerManager.setDashboardController(this);
         List<String[]> topBooks = LoanDAO.getTopFourBooks();
+        setProfilData(AdminDAO.getAdminById(AdminContext.getCurrentAdmin().getId()));
         try {
             imageTopBooks1.setFill(new ImagePattern(new Image(BookAPI.searchBook(topBooks.get(0)[0]).getImageUrl())));
             numberTopBooks1.setText(String.valueOf("Total: "+topBooks.get(0)[1]));
@@ -131,6 +158,8 @@ public class DashboardController implements Initializable {
         paneHome.setVisible(true);
         paneUsers.setVisible(false);
         paneBooks.setVisible(false);
+        paneProfil.setVisible(false);
+        paneSettings.setVisible(false);
 
         textSearchBookMessage.setText("");
 
@@ -296,6 +325,73 @@ public class DashboardController implements Initializable {
         stage.close();
     }
 
+    public void setProfilData(Admin currentAdmin) {
+        //memberEdit_id.setText(Integer.toString(currentProfil.getId()));
+        profil_lastname.setText(currentAdmin.getLastName());
+        profil_firstname.setText(currentAdmin.getFirstName());
+        profil_email.setText(currentAdmin.getEmail());
+        profil_phone.setText(currentAdmin.getPhone());
+        profil_password.setText(currentAdmin.getPassword());
+        java.sql.Date sqlDateBirthday = currentAdmin.getBirthday();
+        java.time.LocalDate localDateBirthday = sqlDateBirthday.toLocalDate();
+        profil_birthday.setValue(localDateBirthday);
+
+        if (currentAdmin.getSex().equals("M")) {
+            profil_sex_male.setSelected(true);
+        } else {
+            profil_sex_female.setSelected(true);
+        }
+    }
+    public static boolean isEmail(String email) {
+        // Regular expression for a simple email pattern
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+    public void profilSave(){
+        if(profil_lastname.getText().trim().equals("")
+                || profil_firstname.getText().trim().equals("")
+                || profil_email.getText().trim().equals("")
+                || profil_phone.getText().trim().equals("")
+                || profil_birthday.getValue()==null){
+            profilMessage.setFill(Color.web("#cc7070"));
+            profilMessage.setText("Veuillez remplir tous les champs requis.");
+        } else if (!isEmail(profil_email.getText())) {
+            profilMessage.setFill(Color.web("#cc7070"));
+            profilMessage.setText("Veuillez entrer un email valide.");
+        } else{
+            String sexValue = "M";
+            if (profil_sex_female.isSelected()) {
+                sexValue = "F";
+            }
+            Admin temp_admin = AdminDAO.getAdminById(AdminContext.getCurrentAdmin().getId());
+            System.out.println(temp_admin);
+            Admin admin = new Admin(AdminContext.getCurrentAdmin().getId(),
+                    profil_lastname.getText(),
+                    profil_firstname.getText(),
+                    profil_email.getText(),
+                    temp_admin.getInscriptionDate(),
+                    temp_admin.getState(),
+                    java.sql.Date.valueOf(profil_birthday.getValue()),
+                    profil_phone.getText(), sexValue,
+                    profil_password.getText()
+            );
+            try {
+                AdminDAO.updateAdmin(admin);
+            }catch (Exception e) {
+                profilMessage.setFill(Color.web("#cc7070"));
+                profilMessage.setText("Erreur dans la modification.");
+            }
+            profilMessage.setFill(Color.web("#846fcd"));
+            profilMessage.setText("Modifications enregistrées.");
+            // Notify DashboardController to update members
+            DashboardController dashboardController = ControllerManager.getDashboardController();
+            if (dashboardController != null) {
+                dashboardController.updateMembersFromDatabase();
+            }
+        }
+    }
     /**
      * Switches to the home view.
      *
@@ -307,6 +403,8 @@ public class DashboardController implements Initializable {
         paneHome.setVisible(true);
         paneUsers.setVisible(false);
         paneBooks.setVisible(false);
+        paneProfil.setVisible(false);
+        paneSettings.setVisible(false);
     }
 
     /**
@@ -319,6 +417,8 @@ public class DashboardController implements Initializable {
         paneUsers.setVisible(true);
         paneHome.setVisible(false);
         paneBooks.setVisible(false);
+        paneProfil.setVisible(false);
+        paneSettings.setVisible(false);
     }
 
     /**
@@ -331,6 +431,8 @@ public class DashboardController implements Initializable {
         paneBooks.setVisible(true);
         paneHome.setVisible(false);
         paneUsers.setVisible(false);
+        paneProfil.setVisible(false);
+        paneSettings.setVisible(false);
     }
 
     /**
@@ -340,9 +442,12 @@ public class DashboardController implements Initializable {
      */
     public void actionSettings(ActionEvent event) {
         dashboardTitle.setText("Paramètres");
+        paneSettings.setVisible(true);
         paneHome.setVisible(false);
         paneUsers.setVisible(false);
         paneBooks.setVisible(false);
+        paneProfil.setVisible(false);
+
     }
 
     /**
@@ -350,11 +455,13 @@ public class DashboardController implements Initializable {
      *
      * @param event the action event
      */
-    public void actionProfile(ActionEvent event) {
+    public void actionProfil(ActionEvent event) {
         dashboardTitle.setText("Mon profil");
+        paneProfil.setVisible(true);
         paneHome.setVisible(false);
         paneUsers.setVisible(false);
         paneBooks.setVisible(false);
+        paneSettings.setVisible(false);
     }
 
     /**

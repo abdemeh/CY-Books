@@ -54,15 +54,13 @@ public class LoginController implements Initializable {
         if(textLoginEmail.getText().trim().equals("")){
             textLoginMessage.setFill(Color.web("#cc7070"));
             textLoginMessage.setText("Veuillez entrer un email!");
-        }else if (textLoginPassword.getText().trim().equals("")) {
-            textLoginMessage.setFill(Color.web("#cc7070"));
-            textLoginMessage.setText("Veuillez entrer un mot de passe!");
         }else{
             Admin admin = AdminDAO.getAdmin(textLoginEmail.getText(), textLoginPassword.getText());
             if (admin != null) {
                 // Your login logic goes here
                 textLoginMessage.setFill(Color.web("#434343"));
-                textLoginMessage.setText("Connecting...");
+                textLoginMessage.setText("Connexion...");
+                AdminContext.setCurrentAdmin(admin);
                 // Create a new task for loading the dashboard FXML
                 Task<Parent> loadDashboardTask = new Task<>() {
                     @Override

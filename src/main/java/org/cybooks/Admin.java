@@ -23,7 +23,16 @@ public class Admin extends User {
      * @param sex            the gender of the Admin
      * @param password       the password of the Admin
      */
-    public Admin(int id, String lastname, String firstname, String email, Date inscriptionDate, String state, Date birthday, String phone, String sex, String password) {
+    public Admin(int id,
+                 String lastname,
+                 String firstname,
+                 String email,
+                 Date inscriptionDate,
+                 String state,
+                 Date birthday,
+                 String phone,
+                 String sex,
+                 String password) {
         super(id, lastname, firstname, email, inscriptionDate, state, birthday, phone, sex);
         this.password = password;
     }

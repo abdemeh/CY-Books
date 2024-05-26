@@ -162,7 +162,7 @@ public class MemberBorrowController implements Initializable {
         if (list_loans.size() >= 5) {
             btnAddEmprunt.setDisable(true);
         } else {
-            if (UserContext.getCurrentUser().getState().equals("Bloqué") || UserContext.getCurrentUser().getState().equals("Suspendu") || UserContext.getCurrentUser().getState().equals("Inactif")) {
+            if (MemberContext.getCurrentMember().getState().equals("Bloqué") || MemberContext.getCurrentMember().getState().equals("Suspendu") || MemberContext.getCurrentMember().getState().equals("Inactif")) {
                 btnAddEmprunt.setDisable(true);
             } else {
                 btnAddEmprunt.setDisable(false);
@@ -192,7 +192,7 @@ public class MemberBorrowController implements Initializable {
      * @param currentMember The current member.
      */
     public void setMemberData(Member currentMember) {
-        UserContext.setCurrentUser(currentMember);
+        MemberContext.setCurrentMember(currentMember);
         textCurrentIdUser.setText(String.valueOf(currentMember.getId()));
         textCurrentNameUser.setText(currentMember.getLastName() + " " + currentMember.getFirstName());
         textCurrentUserState.setText(currentMember.getState());

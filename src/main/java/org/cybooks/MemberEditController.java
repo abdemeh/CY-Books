@@ -105,9 +105,15 @@ public class MemberEditController {
             Member temp_member = MemberDAO.getMemberById(Integer.parseInt(memberEdit_id.getText()));
             System.out.println(temp_member);
             System.out.println(memberEdit_id.getText());
-            Member member = new Member(Integer.parseInt(memberEdit_id.getText()), memberEdit_firstname.getText(),
-                    memberEdit_lastname.getText(), memberEdit_email.getText(), java.sql.Date.valueOf(LocalDate.now()),
-                    temp_member.getState(), java.sql.Date.valueOf(memberEdit_birthday.getValue()), memberEdit_phone.getText(), sexValue, temp_member.getBlock_till());
+            Member member = new Member(Integer.parseInt(memberEdit_id.getText()),
+                    memberEdit_lastname.getText(),
+                    memberEdit_firstname.getText(),
+                    memberEdit_email.getText(),
+                    temp_member.getInscriptionDate(),
+                    temp_member.getState(), java.sql.Date.valueOf(memberEdit_birthday.getValue()),
+                    memberEdit_phone.getText(),
+                    sexValue,
+                    temp_member.getBlock_till());
             try {
                 MemberDAO.updateMember(member);
             }catch (Exception e) {
