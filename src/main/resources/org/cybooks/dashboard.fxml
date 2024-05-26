@@ -519,13 +519,10 @@
                               <Font name="Poppins Regular" size="18.0" />
                            </font>
                            <toggleGroup>
-                              <ToggleGroup fx:id="sex" />
+                              <ToggleGroup fx:id="sex_profil" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="profil_sex_female" layoutX="163.0" layoutY="210.0" mnemonicParsing="false" text="Féminin">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="sex" />
-                           </toggleGroup>
+                        <RadioButton fx:id="profil_sex_female" layoutX="163.0" layoutY="210.0" mnemonicParsing="false" text="Féminin" toggleGroup="$sex_profil">
                            <font>
                               <Font name="Poppins Regular" size="18.0" />
                            </font>

@@ -473,7 +473,11 @@ public class DashboardController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
         alert.setHeaderText(null);
-        alert.setContentText("Êtes-vous sûr(e) de déconnecter ?");
+        if(AdminContext.getCurrentAdmin().getSex().equals("M")){
+            alert.setContentText("Êtes-vous sûr de déconnecter ?");
+        }else{
+            alert.setContentText("Êtes-vous sûre de déconnecter ?");
+        }
         Image icon = new Image("file:src/main/assets/icon-no-text-white.png");
         Stage stage_alert = (Stage) alert.getDialogPane().getScene().getWindow();
         stage_alert.getIcons().add(icon);
