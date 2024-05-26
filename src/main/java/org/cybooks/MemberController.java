@@ -43,7 +43,8 @@ public class MemberController {
     private Text member_image;
     @FXML
     private TextFlow member_image_bg;
-
+    @FXML
+    private Button btnDeleteUser;
     private Member currentMember;
     private double xOffset = 0;
     private double yOffset = 0;
@@ -73,6 +74,15 @@ public class MemberController {
         ButtonType buttonTypeNon = new ButtonType("Non");
         alert.getButtonTypes().setAll(buttonTypeOui, buttonTypeNon);
 
+        // Handle close request
+        stage_alert.setOnCloseRequest(windowEvent -> {
+            // Choose default option if user closes the dialog
+            ButtonType result = alert.getResult();
+            if (result == null) {
+                alert.setResult(buttonTypeNon);
+            }
+        });
+
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == buttonTypeOui) {
             MemberDAO.deleteMember(currentMember.getId());
@@ -82,6 +92,7 @@ public class MemberController {
             }
         }
     }
+
 
     /**
      * Opens the member editing window.
@@ -166,6 +177,9 @@ public class MemberController {
             member_state.setFill(Color.web("#cc7070"));
         } else if (member.getState().equals("Inactif")) {
             member_state.setFill(Color.web("#ccc670"));
+        }
+        if(LoanDAO.hasLoan(member.getId())){
+            btnDeleteUser.setDisable(true);
         }
         member_image.setText(getInitials(member.getLastName(), member.getFirstName()));
     }

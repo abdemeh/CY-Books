@@ -123,6 +123,15 @@ public class BookBorrowController {
         ButtonType buttonTypeNon = new ButtonType("Non");
         alert.getButtonTypes().setAll(buttonTypeOui, buttonTypeNon);
 
+        // Handle close request
+        stage_alert.setOnCloseRequest(windowEvent -> {
+            // Choose default option if user closes the dialog
+            ButtonType result = alert.getResult();
+            if (result == null) {
+                alert.setResult(buttonTypeNon);
+            }
+        });
+
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == buttonTypeOui) {
             LoanDAO.deleteLoan(currentLoan.getIdLoan());
@@ -130,8 +139,13 @@ public class BookBorrowController {
             if (memberBorrowController != null) {
                 memberBorrowController.updateBorrowedBooks(LoanDAO.getLoans(currentLoan.getIdMember()));
             }
+            DashboardController dashboardController = ControllerManager.getDashboardController();
+            if (dashboardController != null) {
+                dashboardController.updateMembers(MemberDAO.getAllMembers());
+            }
         }
     }
+
     public void renewLoan() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation");
@@ -145,6 +159,15 @@ public class BookBorrowController {
         ButtonType buttonTypeNon = new ButtonType("Non");
         alert.getButtonTypes().setAll(buttonTypeOui, buttonTypeNon);
 
+        // Handle close request
+        stage_alert.setOnCloseRequest(windowEvent -> {
+            // Choose default option if user closes the dialog
+            ButtonType result = alert.getResult();
+            if (result == null) {
+                alert.setResult(buttonTypeNon);
+            }
+        });
+
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == buttonTypeOui) {
             LoanDAO.renewLoan(currentLoan.getIdLoan());
@@ -154,4 +177,5 @@ public class BookBorrowController {
             }
         }
     }
+
 }

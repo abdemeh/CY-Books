@@ -482,6 +482,15 @@ public class DashboardController implements Initializable {
         ButtonType buttonTypeNon = new ButtonType("Non");
         alert.getButtonTypes().setAll(buttonTypeOui, buttonTypeNon);
 
+        // Handle close request
+        stage_alert.setOnCloseRequest(windowEvent -> {
+            // Choose default option if user closes the dialog
+            ButtonType result = alert.getResult();
+            if (result == null) {
+                alert.setResult(buttonTypeNon);
+            }
+        });
+
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == buttonTypeOui) {
             // Create a new task for loading the dashboard FXML
@@ -525,6 +534,6 @@ public class DashboardController implements Initializable {
             // Start the task in a new thread
             new Thread(loadLoginTask).start();
         }
-
     }
+
 }

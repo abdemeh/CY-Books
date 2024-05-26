@@ -483,7 +483,7 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Pane layoutX="140.0" layoutY="163.0" prefHeight="338.0" prefWidth="550.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
+                  <Pane layoutX="140.0" layoutY="163.0" prefHeight="338.0" prefWidth="550.0" style="-fx-background-color: #ffffff; -fx-background-radius: 25px;">
                      <children>
                         <BorderPane disable="true" layoutX="34.0" layoutY="11.0" prefHeight="43.0" prefWidth="241.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
                         <FontAwesomeIcon fill="#434343" glyphName="USER" layoutX="37.0" layoutY="43.0" size="2em" />

@@ -45,6 +45,10 @@ public class LoanDAO {
                 int rowsAffected = preparedStatement.executeUpdate();
                 if (rowsAffected > 0) {
                     res = new Result(true, "Le prêt a été ajouté avec succès.");
+                    DashboardController dashboardController = ControllerManager.getDashboardController();
+                    if (dashboardController != null) {
+                        dashboardController.updateMembers(MemberDAO.getAllMembers());
+                    }
                 }
             } catch (SQLException e) {
                 res = new Result(false, "Une erreur est survenue : " + e.getMessage());
@@ -139,6 +143,30 @@ public class LoanDAO {
         }
 
         return loans;
+    }
+
+    /**
+     * Checks if a user has any loans.
+     *
+     * @param idUser the ID of the user
+     * @return true if the user has loans, false otherwise
+     */
+    public static boolean hasLoan(int idUser) {
+        boolean hasLoan = false;
+        String query = "SELECT COUNT(*) AS count FROM loan WHERE id_member = ?";
+        try (Connection connection = Database.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, idUser);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt("count");
+                    hasLoan = count > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hasLoan;
     }
 
     /**
