@@ -141,7 +141,7 @@ public class MemberBorrowController implements Initializable {
                     booksGrid.getChildren().add(dashboardPane);
                 }
                 if (list_books.isEmpty()) {
-                    textSearchBookMessage.setText("Aucune résultat.");
+                    textSearchBookMessage.setText("Aucun résultat.");
                 } else {
                     textSearchBookMessage.setText("");
                 }

@@ -230,7 +230,7 @@ public class DashboardController implements Initializable {
                 }
                 textSearchBookResultats.setText(Integer.toString(list_books.size()));
                 if (list_books.isEmpty()) {
-                    textSearchBookMessage.setText("Aucune résultat.");
+                    textSearchBookMessage.setText("Aucun résultat.");
                 } else {
                     textSearchBookMessage.setText("");
                 }
@@ -413,7 +413,7 @@ public class DashboardController implements Initializable {
      * @param event the action event
      */
     public void actionUsers(ActionEvent event) {
-        dashboardTitle.setText("Utilisateurs");
+        dashboardTitle.setText("Membres");
         paneUsers.setVisible(true);
         paneHome.setVisible(false);
         paneBooks.setVisible(false);

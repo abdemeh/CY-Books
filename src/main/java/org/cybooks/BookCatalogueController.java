@@ -161,7 +161,7 @@ public class BookCatalogueController implements Initializable {
                 }
                 textSearchBookResultats.setText(Integer.toString(list_books.size()));
                 if (list_books.isEmpty()) {
-                    textSearchBookMessage.setText("Aucune résultat.");
+                    textSearchBookMessage.setText("Aucun résultat.");
                 } else {
                     textSearchBookMessage.setText("");
                 }

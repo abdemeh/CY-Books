@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="610.0" prefWidth="901.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cybooks.BookCatalogueController">
+<AnchorPane prefHeight="610.0" prefWidth="901.0" style="-fx-background-color: #ffffff; -fx-border-color: #846fcd;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cybooks.BookCatalogueController">
     <children>
         <Button layoutX="878.0" layoutY="7.0" minWidth="25.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="27.0" prefWidth="25.0" styleClass="primary-button">
             <graphic>
@@ -134,7 +134,7 @@
                 </Pane>
                 <TextFlow layoutX="16.0" layoutY="124.0" prefHeight="28.0" prefWidth="224.0">
                     <children>
-                        <Text fx:id="textSearchBookMessage" fill="#846fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="Aucune résultat." textAlignment="RIGHT">
+                        <Text fx:id="textSearchBookMessage" fill="#846fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="Aucun résultat." textAlignment="RIGHT">
                             <font>
                                 <Font name="Poppins ExtraBold" size="20.0" />
                             </font>

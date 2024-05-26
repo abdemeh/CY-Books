@@ -23,7 +23,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="599.0" prefWidth="953.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cybooks.DashboardController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="602.0" prefWidth="953.0" style="-fx-border-color: #846fcd;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.cybooks.DashboardController">
    <left>
       <AnchorPane prefHeight="599.0" prefWidth="42.0" style="-fx-background-color: #846fcd;" BorderPane.alignment="CENTER">
          <children>
@@ -107,7 +107,7 @@
          </children></AnchorPane>
    </left>
    <right>
-      <AnchorPane prefHeight="599.0" prefWidth="835.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="625.0" prefWidth="902.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
          <children>
             <Text fx:id="dashboardTitle" fill="#343434" layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Accueil">
                <font>
@@ -122,7 +122,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Pane fx:id="paneHome" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0" visible="false">
+            <Pane fx:id="paneHome" layoutX="-1.0" layoutY="65.0" prefHeight="534.0" prefWidth="901.0" style="-fx-background-color: transparent;" visible="false">
                <children>
                   <Pane layoutX="14.0" layoutY="14.0" prefHeight="134.0" prefWidth="874.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;">
                      <children>
@@ -131,7 +131,7 @@
                               <Font name="Poppins ExtraBold" size="23.0" />
                            </font>
                         </Text>
-                        <Text fx:id="dashboardTitle111" fill="WHITE" layoutX="14.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consultez les utilisateurs les plus récents, les livres empruntés et les statistiques de votre biblio.">
+                        <Text fx:id="dashboardTitle111" fill="WHITE" layoutX="14.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Consultez les membres les plus récents, les livres empruntés et les statistiques de votre biblio.">
                            <font>
                               <Font name="Poppins Regular" size="14.0" />
                            </font>
@@ -248,12 +248,12 @@
                <children>
                   <Pane layoutX="14.0" layoutY="14.0" prefHeight="111.0" prefWidth="278.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
                      <children>
-                        <Text fx:id="dashboardTitle11" fill="#cc9a70" layoutX="13.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Utilisateurs">
+                        <Text fx:id="dashboardTitle11" fill="#cc9a70" layoutX="13.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Membres">
                            <font>
                               <Font name="Poppins ExtraBold" size="20.0" />
                            </font>
                         </Text>
-                        <Text fx:id="dashboardTitle11111" fill="#434343" layoutX="13.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre total des utilisateurs trouvé">
+                        <Text fx:id="dashboardTitle11111" fill="#434343" layoutX="13.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nombre total des membres trouvé">
                            <font>
                               <Font name="Poppins Regular" size="14.0" />
                            </font>
@@ -453,7 +453,7 @@
                   </Pane>
                   <TextFlow layoutX="16.0" layoutY="124.0" prefHeight="28.0" prefWidth="224.0">
                      <children>
-                        <Text fx:id="textSearchBookMessage" fill="#846fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="Aucune résultat." textAlignment="RIGHT">
+                        <Text fx:id="textSearchBookMessage" fill="#846fcd" strokeType="OUTSIDE" strokeWidth="0.0" text="Aucun résultat." textAlignment="RIGHT">
                            <font>
                               <Font name="Poppins ExtraBold" size="20.0" />
                            </font>
@@ -483,7 +483,72 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Button fx:id="profil_save" layoutX="171.0" layoutY="392.0" minWidth="25.0" mnemonicParsing="false" onAction="#profilSave" prefHeight="43.0" prefWidth="503.0" style="-fx-background-radius: 25px;" styleClass="primary-button" text=" ENREGISTRER" textFill="WHITE">
+                  <Pane layoutX="140.0" layoutY="163.0" prefHeight="338.0" prefWidth="550.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
+                     <children>
+                        <BorderPane disable="true" layoutX="34.0" layoutY="11.0" prefHeight="43.0" prefWidth="241.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
+                        <FontAwesomeIcon fill="#434343" glyphName="USER" layoutX="37.0" layoutY="43.0" size="2em" />
+                        <TextField fx:id="profil_lastname" layoutX="51.0" layoutY="13.0" prefHeight="42.0" prefWidth="223.0" promptText="Nom" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;">
+                           <font>
+                              <Font name="Poppins Regular" size="20.0" />
+                           </font>
+                        </TextField>
+                        <BorderPane disable="true" layoutX="292.0" layoutY="11.0" prefHeight="43.0" prefWidth="241.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
+                        <FontAwesomeIcon fill="#434343" glyphName="USER" layoutX="295.0" layoutY="43.0" size="2em" />
+                        <TextField fx:id="profil_firstname" layoutX="309.0" layoutY="13.0" prefHeight="42.0" prefWidth="223.0" promptText="Prénom" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;">
+                           <font>
+                              <Font name="Poppins Regular" size="20.0" />
+                           </font>
+                        </TextField>
+                        <BorderPane disable="true" layoutX="34.0" layoutY="102.0" prefHeight="43.0" prefWidth="500.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
+                        <FontAwesomeIcon fill="#434343" glyphName="LOCK" layoutX="37.0" layoutY="134.0" size="2em" />
+                        <PasswordField fx:id="profil_password" layoutX="52.0" layoutY="104.0" prefHeight="42.0" prefWidth="482.0" promptText="Mot de passe" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;">
+                           <font>
+                              <Font name="Poppins Regular" size="20.0" />
+                           </font>
+                        </PasswordField>
+                        <BorderPane disable="true" layoutX="34.0" layoutY="151.0" prefHeight="43.0" prefWidth="241.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
+                        <FontAwesomeIcon fill="#434343" glyphName="PHONE" layoutX="37.0" layoutY="183.0" size="2em" />
+                        <TextField fx:id="profil_phone" layoutX="51.0" layoutY="153.0" prefHeight="42.0" prefWidth="223.0" promptText="Téléphone" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;">
+                           <font>
+                              <Font name="Poppins Regular" size="20.0" />
+                           </font>
+                        </TextField>
+                        <DatePicker fx:id="profil_birthday" layoutX="293.0" layoutY="158.0" prefHeight="36.0" prefWidth="242.0" promptText="Date de naissance" styleClass="date-picker" />
+                        <RadioButton fx:id="profil_sex_male" layoutX="31.0" layoutY="210.0" mnemonicParsing="false" text="Masculin">
+                           <font>
+                              <Font name="Poppins Regular" size="18.0" />
+                           </font>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="sex" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="profil_sex_female" layoutX="163.0" layoutY="210.0" mnemonicParsing="false" text="Féminin">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="sex" />
+                           </toggleGroup>
+                           <font>
+                              <Font name="Poppins Regular" size="18.0" />
+                           </font>
+                        </RadioButton>
+                        <BorderPane disable="true" layoutX="34.0" layoutY="56.0" prefHeight="43.0" prefWidth="500.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
+                        <FontAwesomeIcon fill="#434343" glyphName="ENVELOPE" layoutX="37.0" layoutY="88.0" size="2em" />
+                        <TextField fx:id="profil_email" layoutX="52.0" layoutY="58.0" prefHeight="42.0" prefWidth="482.0" promptText="Email" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;">
+                           <font>
+                              <Font name="Poppins Regular" size="20.0" />
+                           </font>
+                        </TextField>
+                        <TextFlow layoutX="32.0" layoutY="300.0" prefHeight="28.0" prefWidth="505.0" textAlignment="CENTER">
+                           <children>
+                              <Text fx:id="profilMessage" fill="#846fcd" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Poppins Bold" size="20.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </TextFlow>
+                     </children>
+                  </Pane>
+                  <Button fx:id="profil_save" layoutX="171.0" layoutY="412.0" minWidth="25.0" mnemonicParsing="false" onAction="#profilSave" prefHeight="43.0" prefWidth="503.0" style="-fx-background-radius: 25px;" styleClass="primary-button" text=" ENREGISTRER" textFill="WHITE">
                      <graphic>
                         <FontAwesomeIcon fill="WHITE" glyphName="SAVE" size="1.4em" />
                      </graphic>
@@ -494,67 +559,6 @@
                         <Font name="Poppins Bold" size="17.0" />
                      </font>
                   </Button>
-                  <BorderPane disable="true" layoutX="172.0" layoutY="153.0" prefHeight="43.0" prefWidth="241.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
-                  <FontAwesomeIcon fill="#434343" glyphName="USER" layoutX="175.0" layoutY="185.0" size="2em" />
-                  <TextField fx:id="profil_lastname" layoutX="189.0" layoutY="155.0" prefHeight="42.0" prefWidth="223.0" promptText="Nom" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;">
-                     <font>
-                        <Font name="Poppins Regular" size="20.0" />
-                     </font>
-                  </TextField>
-                  <BorderPane disable="true" layoutX="430.0" layoutY="153.0" prefHeight="43.0" prefWidth="241.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
-                  <FontAwesomeIcon fill="#434343" glyphName="USER" layoutX="433.0" layoutY="185.0" size="2em" />
-                  <TextField fx:id="profil_firstname" layoutX="447.0" layoutY="155.0" prefHeight="42.0" prefWidth="223.0" promptText="Prénom" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;">
-                     <font>
-                        <Font name="Poppins Regular" size="20.0" />
-                     </font>
-                  </TextField>
-                  <BorderPane disable="true" layoutX="172.0" layoutY="244.0" prefHeight="43.0" prefWidth="500.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
-                  <FontAwesomeIcon fill="#434343" glyphName="LOCK" layoutX="175.0" layoutY="276.0" size="2em" />
-                  <PasswordField fx:id="profil_password" layoutX="190.0" layoutY="246.0" prefHeight="42.0" prefWidth="482.0" promptText="Mot de passe" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;">
-                     <font>
-                        <Font name="Poppins Regular" size="20.0" />
-                     </font>
-                  </PasswordField>
-                  <BorderPane disable="true" layoutX="172.0" layoutY="293.0" prefHeight="43.0" prefWidth="241.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
-                  <FontAwesomeIcon fill="#434343" glyphName="PHONE" layoutX="175.0" layoutY="325.0" size="2em" />
-                  <TextField fx:id="profil_phone" layoutX="189.0" layoutY="295.0" prefHeight="42.0" prefWidth="223.0" promptText="Téléphone" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;">
-                     <font>
-                        <Font name="Poppins Regular" size="20.0" />
-                     </font>
-                  </TextField>
-                  <DatePicker fx:id="profil_birthday" layoutX="431.0" layoutY="300.0" prefHeight="36.0" prefWidth="242.0" promptText="Date de naissance" styleClass="date-picker" />
-                  <RadioButton fx:id="profil_sex_male" layoutX="169.0" layoutY="352.0" mnemonicParsing="false" text="Masculin">
-                     <font>
-                        <Font name="Poppins Regular" size="18.0" />
-                     </font>
-                     <toggleGroup>
-                        <ToggleGroup fx:id="sex" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="profil_sex_female" layoutX="301.0" layoutY="352.0" mnemonicParsing="false" text="Féminin">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="sex" />
-                     </toggleGroup>
-                     <font>
-                        <Font name="Poppins Regular" size="18.0" />
-                     </font>
-                  </RadioButton>
-                  <BorderPane disable="true" layoutX="172.0" layoutY="198.0" prefHeight="43.0" prefWidth="500.0" style="-fx-border-width: 0 0 1 0; -fx-border-color: #846fcd;" />
-                  <FontAwesomeIcon fill="#434343" glyphName="ENVELOPE" layoutX="175.0" layoutY="230.0" size="2em" />
-                  <TextField fx:id="profil_email" layoutX="190.0" layoutY="200.0" prefHeight="42.0" prefWidth="482.0" promptText="Email" style="-fx-border-width: 0 0 0 0; -fx-background-color: transparent; -fx-border-color: #846fcd;">
-                     <font>
-                        <Font name="Poppins Regular" size="20.0" />
-                     </font>
-                  </TextField>
-                  <TextFlow layoutX="170.0" layoutY="442.0" prefHeight="28.0" prefWidth="505.0" textAlignment="CENTER">
-                     <children>
-                        <Text fx:id="profilMessage" fill="#846fcd" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
-                           <font>
-                              <Font name="Poppins Bold" size="20.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </TextFlow>
                </children>
             </Pane>
             <Pane fx:id="paneSettings" layoutX="-1.0" layoutY="65.0" prefHeight="535.0" prefWidth="901.0" visible="false">

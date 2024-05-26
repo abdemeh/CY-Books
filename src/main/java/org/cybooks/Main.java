@@ -141,10 +141,10 @@ public class Main {
         while (!backToMainMenu) {
             System.out.println("Bienvenue dans le menu administrateur.");
             System.out.println("1. chercher un livre");
-            System.out.println("2. Gérer les utilisateurs");
+            System.out.println("2. Gérer les membres");
             System.out.println("3. Gérer les emprunts");
             System.out.println("0. Retour au menu principal");
-            System.out.print("Tapez 1 pour gérer les utilisateurs, 2 pour gérer les emprunts ou 0 pour revenir au menu principal : ");
+            System.out.print("Tapez 1 pour gérer les membres, 2 pour gérer les emprunts ou 0 pour revenir au menu principal : ");
             int choix = scanner.nextInt();
             scanner.nextLine(); // Consomme la nouvelle ligne laissée par nextInt()
 
@@ -172,11 +172,11 @@ public class Main {
     public static void manageUsers(Scanner scanner) throws SQLException {
         boolean backToAdminMenu = false;
         while (!backToAdminMenu) {
-            System.out.println("Gestion des utilisateurs :");
+            System.out.println("Gestion des membres :");
             System.out.println("1. Ajouter un nouveau membre");
             System.out.println("2. Mettre à jour les infos d'un membre");
             System.out.println("3. Supprimer un utilisateur");
-            System.out.println("4. Afficher tous les utilisateurs");
+            System.out.println("4. Afficher tous les membres");
             System.out.println("5. Afficher un utilisateur en particulier");
             System.out.println("0. Retour au menu administrateur");
             System.out.print("Tapez votre choix : ");
