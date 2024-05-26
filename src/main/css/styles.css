@@ -1,0 +1,120 @@
+* styles.css */
+@font-face {
+    font-family: "Poppins Bold";
+    src: url('../fonts/Poppins-Bold.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Regular";
+    src: url('../fonts/Poppins-Regular.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Black";
+    src: url('../fonts/Poppins-Black.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Black Italic";
+    src: url('../fonts/Poppins-BlackItalic.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Bold Italic";
+    src: url('../fonts/Poppins-BoldItalic.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Extra Bold";
+    src: url('../fonts/Poppins-ExtraBold.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Extra Bold Italic";
+    src: url('../fonts/Poppins-ExtraBoldItalic.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Extra Light";
+    src: url('../fonts/Poppins-ExtraLight.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Extra Light Italic";
+    src: url('../fonts/Poppins-ExtraLightItalic.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Italic";
+    src: url('../fonts/Poppins-Italic.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Light";
+    src: url('../fonts/Poppins-Light.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Light Italic";
+    src: url('../fonts/Poppins-LightItalic.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Medium";
+    src: url('../fonts/Poppins-Medium.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Medium Italic";
+    src: url('../fonts/Poppins-MediumItalic.ttf');
+}
+
+@font-face {
+    font-family: "Poppins SemiBold";
+    src: url('../fonts/Poppins-SemiBold.ttf');
+}
+
+@font-face {
+    font-family: "Poppins SemiBold Italic";
+    src: url('../fonts/Poppins-SemiBoldItalic.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Thin";
+    src: url('../fonts/Poppins-Thin.ttf');
+}
+
+@font-face {
+    font-family: "Poppins Thin Italic";
+    src: url('../fonts/Poppins-ThinItalic.ttf');
+}
+.primary-button {
+    -fx-background-color: #846fcd;
+    -fx-text-fill: white;
+    -fx-transition: background-color 0.3s ease;
+}
+.primary-button:hover {
+    -fx-background-color: #6c57b3;
+}
+.success-button {
+    -fx-background-color: #6fcd93;
+    -fx-text-fill: white;
+    -fx-transition: background-color 0.3s ease;
+}
+
+.success-button:hover {
+    -fx-background-color: #53b076;
+}
+.error-button {
+    -fx-background-color: #cd6f6f;
+    -fx-text-fill: white;
+    -fx-transition: background-color 0.3s ease;
+}
+
+.error-button:hover {
+    -fx-background-color: #b55757;
+}
+.date-picker {
+    -fx-font-family: "Poppins"; /* Set your desired font family */
+    -fx-font-size: 20px; /* Set your desired font size */
+}

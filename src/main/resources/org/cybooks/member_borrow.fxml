@@ -82,7 +82,7 @@
       </Pane>
       <ScrollPane fx:id="booksScrollPane" layoutX="14.0" layoutY="215.0" prefHeight="337.0" prefWidth="853.0" style="-fx-background-radius: 25px; -fx-background-color: #F6F6F6;">
          <content>
-            <VBox fx:id="booksGrid" prefHeight="361.0" prefWidth="838.0" />
+            <VBox fx:id="booksGrid" prefHeight="332.0" prefWidth="838.0" />
          </content>
       </ScrollPane>
       <Pane fx:id="paneEmprunts" layoutX="384.0" layoutY="66.0" prefHeight="142.0" prefWidth="481.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;">
@@ -102,7 +102,7 @@
       </Pane>
       <Pane fx:id="paneNewEmprunt" layoutX="384.0" layoutY="66.0" prefHeight="142.0" prefWidth="481.0" style="-fx-background-color: #F6F6F6; -fx-background-radius: 25px;" visible="false">
          <children>
-            <Button fx:id="btnSearchBook" layoutX="428.0" layoutY="86.0" minWidth="25.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="45.0" prefWidth="47.0" style="-fx-background-color: #846fcd; -fx-background-radius: 25px;" textFill="WHITE">
+            <Button fx:id="btnSearchBook" layoutX="428.0" layoutY="86.0" minWidth="25.0" mnemonicParsing="false" onAction="#searchBook" prefHeight="45.0" prefWidth="47.0" style="-fx-background-radius: 25px;" styleClass="primary-button" textFill="WHITE">
                <graphic>
                   <FontAwesomeIcon fill="WHITE" glyphName="SEARCH" size="1.3em" />
                </graphic>
