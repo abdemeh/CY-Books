@@ -9,7 +9,12 @@ public class Database {
     /**
      * The URL for connecting to the database.
      */
-    private static final String URL = "jdbc:mysql://localhost:3306/cy_books";
+    private static final String URL = "jdbc:mysql://localhost:3306";
+
+    /**
+     * The name of the database.
+     */
+    private static final String DATABASE_NAME = "cy_books";
 
     /**
      * The username for accessing the database.
@@ -19,7 +24,7 @@ public class Database {
     /**
      * The password for accessing the database.
      */
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "03Q7qx97Wn7m";
 
     /**
      * Establishes a connection to the database using the specified URL, username, and password.
@@ -28,7 +33,7 @@ public class Database {
      * @throws SQLException if a database access error occurs or the URL, username, or password is invalid
      */
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        return DriverManager.getConnection(URL + "/" + DATABASE_NAME, USER, PASSWORD);
     }
 
     /**

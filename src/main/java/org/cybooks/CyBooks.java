@@ -25,7 +25,7 @@ public class CyBooks extends Application {
      * @throws IOException if an I/O error occurs during loading
      */
     @Override
-    public void start(Stage stage) throws IOException, SQLException {
+    public void start(Stage stage) throws IOException, SQLException, InterruptedException {
         Database.checkDatabaseTables();
         FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("login.fxml"));
         Parent root = fxmlLoader.load();
