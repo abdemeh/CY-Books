@@ -35,5 +35,3 @@ This application is intended solely for use by librarians, enabling them to mana
 - [Mohamed Lamine Koné](https://github.com/mohamedLamine949)
 - [Morkos Azmy](https://github.com/Morkosazmy)
 - [Clément Zhang](https://github.com/ZepZepPristine)
-
-Feel free to adapt and expand upon these guidelines as needed for your project. Good luck with your development!
